@@ -58,11 +58,11 @@ CREATE TABLE if NOT EXISTS Badge(
 CREATE TABLE if NOT EXISTS Assegna_Visualizza(
 	ID_persona INT(6),
 	codBadge INT,
-	livello INT(1),
+	livello TINYINT(1),
 	dataB date,
 	PRIMARY KEY(ID_persona, codBadge, livello),
 	CONSTRAINT fk_pers_ass_IDpersona FOREIGN KEY(ID_persona) REFERENCES Persona(ID_persona),
-	CONSTRAINT fk_badge_ass_codbadge&livello FOREIGN KEY(codBadge, livello) REFERENCES Badge(codBadge, livello)
+	CONSTRAINT fk_badge_ass_codbadge_livello FOREIGN KEY(codBadge, livello) REFERENCES Badge(codBadge, livello)
 );
 
 /* Insert data in tables */
@@ -84,7 +84,7 @@ VALUES
 	("Marta", "Canna", "2000-01-23", "F", 1),
 
 	("Vanni", "Tirapelle", "1974-05-27", "M", 2),
-	("Emil", "Ricci", "1978-10-01", "M", 2);
+	("Emil", "Ricci", "1978-10-01", "M", 2),
     ("Sara", "Previato", "1980-03-12", "F", 2);
 
 INSERT INTO Studente (ID_studente, ID_classe)
