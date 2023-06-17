@@ -20,7 +20,7 @@ CREATE TABLE if NOT EXISTS Persona(
 CREATE TABLE if NOT EXISTS Studente(
     ID_studente INT(6) NOT NULL,
     ID_classe INT,
-    CONSTRAINT fk_perS_stud_IDstudente FOREIGN KEY(ID_studente) REFERENCES Classe(ID_persona),
+    CONSTRAINT fk_perS_stud_IDstudente FOREIGN KEY(ID_studente) REFERENCES Persona(ID_persona),
     CONSTRAINT fk_class_stud_IDclasse FOREIGN KEY(ID_classe) REFERENCES Classe(ID_classe)
 );
 
