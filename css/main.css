@@ -111,11 +111,17 @@ main{
 	margin: 8px;
 }
 #info > p{
+	line-height: 28px;
 	padding: 5px;
 	margin: 0;
 }
 
-#cont-badge{
+
+#cont-generic{
+	display: grid;
+	gap: 26px;
+}
+.cont-badge{
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-around;
@@ -144,7 +150,6 @@ main{
 
 	grid-template-columns: 1fr 1.2fr;
 	width: 260px;
-	margin-bottom: 10px;
 }
 .livelli > img{
 	justify-self: center;

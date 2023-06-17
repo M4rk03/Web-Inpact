@@ -22,7 +22,7 @@
 		<a href="index.html"> <i class="fa-solid fa-house"></i> </a>
 	
 		<div class="cont-data">
-			<form action="" method="post"> <fieldset>
+			<form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post"> <fieldset>
 
 				<div class="cont-title">
                     <img src="img/logo.png" alt="logo">
@@ -33,7 +33,7 @@
 
 				<div class="cont-inserisci">
 					<i class="fa-solid fa-circle-user"></i>
-					<input type="email" placeholder="Username" class="inserisci" name="codice" required>
+					<input type="email" placeholder="Username" class="inserisci" name="email" required>
 				</div>
 
 				<div class="cont-inserisci">
@@ -44,25 +44,23 @@
 				<?php
 					if(isset($_POST['accedi'])){
 						session_start();
-						$_SESSION["nomeUtente"] = $_POST["codice"];
+						$_SESSION["nomeUtente"] = $_POST["email"];
 						$_SESSION["password"] = $_POST["password"];
 
 						try{
 							include "connessione.php";
-							$sql = "SELECT nomeUtente, password, Account.tipo AS tipo from Account join Persona on Persona.ID_persona = Account.nomeUtente WHERE Account.nomeUtente = ".$_POST["codice"]." AND Account.password ='".$_POST["password"]."'";
+							$sql = 'SELECT acc.nomeUtente, acc.password, pers.tipo FROM account as acc JOIN persona AS pers ON acc.ID_persona = pers.ID_persona WHERE nomeUtente = ' .$_POST["email"]. ' AND password = ' .$_POST["password"]. ';';
 							$result = $conn -> query($sql);
 							$row = $result -> fetch_assoc();
 							if((isset($row["nomeUtente"]) AND isset($row["password"])) AND ($row["nomeUtente"] === $_SESSION["nomeUtente"] AND $row["password"] === $_SESSION["password"])){
 								$_SESSION['tipo'] = $row["tipo"];
 
-								if(isset($_POST["studente"]) AND $_SESSION["tipo"] == 1){
-									$_SESSION['studente'] = $_POST["studente"];
+								if($_SESSION["tipo"] == 1){
 									header('location:studente.php');
 									echo "<script type ='text/javascript'>";
 									echo "location.href ='studente.php';";
 									echo "</script>";
-								} else if(isset($_POST["docente"])AND $_SESSION["tipo"] == 2){
-									$_SESSION['docente'] = $_POST["docente"];
+								} else if($_SESSION["tipo"] == 2){
 									header('location:docente.php');
 									echo "<script type ='text/javascript'>";
 									echo "location.href ='docente.php';";
@@ -82,6 +80,8 @@
 					}
 				?>
 				
+				<br>
+
 				<div class="cont-button">
                     <input type="submit" onclick="login();" value="Accedi" name="accedi" id="accedi">
 
