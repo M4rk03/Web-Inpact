@@ -9,7 +9,7 @@
 
 		<link rel="icon" type="image/x-icon" href="img/logo.png">
 		<link rel="stylesheet" href="css/main.css">
-		<link rel="stylesheet" href="css/login.css">
+		<link rel="stylesheet" href="css/account.css">
 		<link rel="stylesheet" href="fontawesome-icon/css/all.css">
 		<script src="js/myScript.js"></script>
 

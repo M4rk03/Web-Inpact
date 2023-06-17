@@ -1,66 +1,125 @@
 <!DOCTYPE html>
 <html lang="it">
     <head>
-        <title>Home page studente</title>
-		<meta charset="utf-8"/>
-        <meta name="author" content="Web inpact"/>
-		<link rel="stylesheet" href="stile.css" type="text/css"/>
+
+		<meta charset="UTF-8">
+		<meta name="author" content="Web Inpact"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="icon" type="image/x-icon" href="img/logo.png">
+		<link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/persona.css">
+		<link rel="stylesheet" href="fontawesome-icon/css/all.css">
+		<script src="js/myScript.js"></script>
+
+		<title>Pagina studente</title>
+
 	</head>
 	
 	<body>
-		<div id="header">
-			<div id="logo"><img src="img/logo.png" alt="logo Web Inpact" style="width:100px;"></div>
-			<div id="intestazione"><h1 style="color:#C4282B;font-family:Mont;font-size:50px;text-align:center;margin-top:-87px;">HOME PAGE STUDENTE</h1></div>
-			<div id="account" style="background-color:#FFEB00;width:82px;height:82px;float:right;font-family:Mustica;text-align:center;border-radius:10px;margin-top:-111px;margin-right:9px;"><a href="login.php"><img src="img/account.png" id="login" alt="login" style="width:54px;margin-top:5px;margin-left:4px;"></a><p style="margin:-6px 0px 0px 3px;">Logout</p></div>
-		</div>
-		
-		<div id="contenuto" style="font-family:Mont;padding:20px;">
-			<p style="font-size:18px;font-weight:bold;text-align:center;margin-top:0;">Eleco dei badge assegnati a <b style="font-size:22px;">
-				<?php
-					include "connessione.php";
-					
-					session_start();
-					$sql="SELECT cognome, nome FROM Persona WHERE ID_persona=".$_SESSION["nomeUtente"];
-					$result=$conn->query($sql);
-					$row=$result->fetch_assoc();
-					print_r(" ".$row["cognome"]." ".$row["nome"]."\n<br>");
-					$result->free();
-					$conn->close();
-				?></b>
-			</p>
-			<div id="visBadge" style="background-color:#FEF898;border-radius:10px;padding:12px;">
-				<?php
-					include "connessione.php";
-					
-					//visualizzare tutti i badge assegnati
-					$sql="SELECT Badge.codBadge, Badge.nome, Badge.livello FROM Persona JOIN Assegna_Visualizza ON Persona.ID_persona = Assegna_Visualizza.ID_persona JOIN Badge ON (Assegna_Visualizza.codBadge = Badge.codBadge) AND (Assegna_Visualizza.livello = Badge.livello) JOIN Account ON Persona.ID_persona = Account.nomeUtente WHERE Account.nomeUtente =".$_SESSION["nomeUtente"];
-					try{
-					  $result=$conn->query($sql);
-					  while($row=$result->fetch_assoc()){
-						$badge=$row["codBadge"]."_".$row["livello"];
-						$nome=strtolower($row["codBadge"]);
-						$img=$row["nome"]."".$row["livello"];
-						echo "<img src='img/badge/".$img.".png' name='".$badge."' style=\"width:8%;margin-left:20px;\">";
-					  }
-					}catch(Exception $e){
-					  echo ("<p id=\"noBadge\">Non è stato trovato nessun badge</p>");
-					}
-					$result->free();
-					$conn->close();
-				?>
+
+        <header>
+			<figure> <img src="img/logo.png" alt="logo Web Inpact"> </figure>
+			<div class="header-titolo"> <h1> PAGINA STUDENTE </h1> </div>
+			<div class="header-account">
+				<a href="login.php"> <i class="fa-solid fa-circle-user"></i>
+					<p>Logout</p> </a>
 			</div>
-		</div>
+		</header>
 		
-		<div id="footer">
-			<img src="img/logo.png" id="logonome" alt="logo Web Inapact" style="width:80px;float:left;"> <img src="img/scritta.png" id="logonome" alt="scritta Web Imapact" style="width:172px;float:left;margin-top:-2px;margin-left:-8px">
-			<img src="img/dalcero.png" id="dalcero" alt="logo DalCero" style="width:86px;float:right;margin-top:1px">
-			<class class="dalcero" style="width:90%;color:#C4282B;font-family:Mont;font-size:24px;position:absolute;margin-left:-50%;margin-top:3px;">ISISS "M.O. Luciano Dal Cero"</class>
-			<class class="social" style="width:96%;position:absolute;margin-top:36px;margin-left:-55%;"><div style="display:block;margin:0 auto;">
-				<a href="https://web.whatsapp.com/"><img src="img/whatsapp.png" id="whatsapp" alt="logo Whatsapp" style="width:40px;margin-left:4%;"></a>
-				<a href="https://mail.google.com/"><img src="img/email.png" id="email" alt="logo Email" style="width:40px;margin-left:10%;"></a>
-				<a href="https://it-it.facebook.com/"><img src="img/facebook.png" id="facebook" alt="logo Facebook" style="width:40px;margin-left:10%;"></a>
-				<a href="https://www.instagram.com/accounts/login/"><img src="img/instagram.png" id="instagram" alt="logo Instagram" style="width:40px;margin-left:10%;"></a>
-			</div></class>
-		</div>
+        <main>
+            <h2> Eleco dei badge assegnati a <strong style="font-family:Mont;font-size:26px;">
+				<?php
+					include "connessione.php";
+					session_start();
+					$sql = "SELECT cognome, nome FROM persona AS pers JOIN account AS acc ON pers.ID_persona = acc.ID_persona WHERE acc.nomeUtente = '" .$_SESSION["nomeUtente"]. "';";
+					$result = $conn -> query($sql);
+					$row = $result -> fetch_assoc();
+					print_r(" ".$row["cognome"]." ".$row["nome"]."\n");
+					$result -> free();
+					$conn -> close();
+				?> </strong>
+			</h2>
+			
+			<div id="registro">
+
+                <div class="tabella">
+                    <p class="texture tab-titoli"> Materie </p>
+                    <p class="texture tab-titoli"> Badge assegnati </p>
+                </div>
+				
+				<?php
+					include "connessione.php";
+					
+					$sql1 = "SELECT DISTINCT mat.nome as materia, mat.ID_materia as ID, pers.nome, pers.cognome FROM materia AS mat JOIN insegna AS inseg ON mat.ID_materia = inseg.ID_materia JOIN persona AS pers ON inseg.ID_persona = pers.ID_persona;";
+					$result1 = $conn -> query($sql1);
+					
+					// Parte ripetuta x la quantita' delle materie
+					while($row1 = $result1->fetch_assoc()){
+						$materia = $row1["materia"];
+						$nome_prof = $row1["nome"]." ".$row1["cognome"];
+
+						echo "<div class=\"tabella\"> \n";
+
+						// Controllo colore materia
+						$color_name = '';
+
+						if($materia == 'Tpsi'){
+							$color_name = 'tpsi';
+						} elseif($materia == 'Sistemi e Reti'){
+							$color_name = 'sistemi';
+						} elseif($materia == 'Informatica'){
+							$color_name = 'informatica';
+						} else{
+							$color_name = 'sistemi';
+						}
+
+						echo "<div class=\"texture mater-inseg " .$color_name. "\"> \n";
+						echo "<p>" .$materia. "</p> \n";
+						echo "<small>" .$nome_prof. "</small> \n </div> \n";
+						echo "<div class=\"texture cont-materie sez-badge\"> \n";
+
+						try{
+							$sql2 = "SELECT badge.nome, badge.livello, ass.dataB FROM badge JOIN assegna_visualizza AS ass ON (badge.codBadge = ass.codBadge) AND (badge.livello = ass.livello) JOIN account AS acc ON ass.ID_persona = acc.ID_persona WHERE acc.nomeUtente = '" .$_SESSION["nomeUtente"]. "' AND badge.materia = " .$row1["ID"]. ";";
+							$result2 = $conn -> query($sql2);
+							
+							// Parte ripetuta x la quantita' delle materie insegnate
+							while($row2 = $result2->fetch_assoc()){
+								$badge = $row2["nome"]."".$row2["livello"];
+								echo "<figure class=\"cont-badge\" name='" .$badge. "' onclick=\"zoom_badge(this)\"> \n";
+								echo "<img src='img/badge/" .$badge. ".png' alt=" .$badge. "> \n </figure> \n";
+							}
+						}catch(Exception $e){
+							echo ("<p id=\"noBadge\"> Non è stato trovato nessun badge </p>");
+						}
+
+						echo "</div> \n </div> \n";
+					}
+					$result1 -> free();
+					$result2 -> free();
+					$conn -> close();
+				?>
+
+			</div>
+        </main>
+		
+		<footer>
+			<figure> <img src="img/scritta.png" alt="scritta Web Imapact" style="width:180px;"> </figure>
+
+			<div id="cont-social">
+				<p>ISISS "M.O. Luciano Dal Cero"</p>
+				<class class="social">
+					<a href="https://web.whatsapp.com/"> <img src="img/whatsapp.png" alt="logo Whatsapp"> </a>
+					<a href="https://mail.google.com/"> <img src="img/email.png" alt="logo Email"> </a>
+					<a href="https://it-it.facebook.com/"> <img src="img/facebook.png" alt="logo Facebook"> </a>
+					<a href="https://www.instagram.com/accounts/login/"> <img src="img/instagram.png" alt="logo Instagram"> </a>
+				</class>
+				<small>Copyright &copy 2023</small>
+			</div>
+
+			<figure style="justify-content:right;"> <img src="img/dalcero.png" alt="logo DalCero" style="width:100px;"> </figure>
+		</footer>
+
 	</body>
 </html>
