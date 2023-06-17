@@ -49,7 +49,7 @@
 
 						try{
 							include "connessione.php";
-							$sql = 'SELECT acc.nomeUtente, acc.password, pers.tipo FROM account as acc JOIN persona AS pers ON acc.ID_persona = pers.ID_persona WHERE nomeUtente = ' .$_POST["email"]. ' AND password = ' .$_POST["password"]. ';';
+							$sql = "SELECT acc.nomeUtente, acc.password, pers.tipo FROM account as acc JOIN persona AS pers ON acc.ID_persona = pers.ID_persona WHERE nomeUtente = '" .$_POST["email"]. "' AND password = '" .$_POST["password"]. "';";
 							$result = $conn -> query($sql);
 							$row = $result -> fetch_assoc();
 							if((isset($row["nomeUtente"]) AND isset($row["password"])) AND ($row["nomeUtente"] === $_SESSION["nomeUtente"] AND $row["password"] === $_SESSION["password"])){
@@ -69,7 +69,7 @@
 									throw new Exception("Tipo dell'account errato");
 								}
 							} else{
-								throw new Exception("Errore nell'inserimento dei dati");
+								throw new Exception("Errore nell'inserimento dei dati <br> Controlla che l'email o la password siano corrette");
 							}
 						}catch (Exception $e){
 							echo $e -> getMessage();

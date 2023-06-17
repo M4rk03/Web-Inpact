@@ -31,11 +31,11 @@
             <h2> Classi e materie del docente <strong style="font-family:Mont;font-size:26px;">
 				<?php
 					include "connessione.php";
-					
 					session_start();
-					$sql = "SELECT cognome, nome FROM Persona WHERE ID_persona=".$_SESSION["nomeUtente"];
+
+					$sql = "SELECT cognome, nome FROM persona AS pers JOIN account AS acc ON pers.ID_persona = acc.ID_persona WHERE acc.nomeUtente = '" .$_SESSION["nomeUtente"]. "';";
 					$result = $conn -> query($sql);
-					$row=$result -> fetch_assoc();
+					$row = $result -> fetch_assoc();
 					print_r(" ".$row["cognome"]." ".$row["nome"]."\n");
 					$result -> free();
 					$conn -> close();
@@ -52,7 +52,7 @@
 				<?php
 					include "connessione.php";
 					
-					$sql1 = "SELECT DISTINCT Classe.anno AS anno, Classe.sezione AS sezione, Classe.ID_classe AS ID FROM Persona JOIN  Insegna ON Persona.ID_persona = Insegna.ID_persona JOIN Classe ON Insegna.ID_classe = Classe.ID_Classe WHERE Persona.ID_persona =".$_SESSION["nomeUtente"];
+					$sql1 = "SELECT DISTINCT class.anno, class.sezione, class.ID_classe FROM classe AS class JOIN insegna AS inseg ON class.ID_classe = inseg.ID_classe JOIN account AS acc ON inseg.ID_persona = acc.ID_persona WHERE acc.nomeUtente = '" .$_SESSION["nomeUtente"]. "';";
 					$result1 = $conn -> query($sql1);
 					
 					// Parte ripetuta x la quantita' delle classi
@@ -63,11 +63,11 @@
 
 						$classe = strtoupper($row1["anno"])." ".strtoupper($row1["sezione"]);
 						echo "<p>" .$classe. "</p> \n <i class=\"fa-solid fa-book-bookmark\"></i> \n </div> \n";
-						echo "<input name=\"anno\" value='" .$row1["anno"]. "' hidden> <input name=\"sezione\" value='" .$row1["sezione"]. "' hidden> <input name=\"ID\" value='" .$row1["ID"]. "' hidden>";
+						echo "<input name=\"anno\" value='" .$row1["anno"]. "' hidden> <input name=\"sezione\" value='" .$row1["sezione"]. "' hidden>";
 						echo "<div class=\"texture cont-materie\"> \n";
 
 						try{
-							$sql2 = "SELECT DISTINCT Materia.nome AS nome FROM Persona JOIN Insegna ON persona.ID_persona = insegna.ID_persona JOIN Materia ON insegna.ID_materia=materia.ID_materia JOIN classe ON classe.ID_classe=insegna.ID_classe WHERE Persona.ID_persona=".$_SESSION["nomeUtente"]." AND Classe.ID_classe=".$row1["ID"];
+							$sql2 = "SELECT mat.nome FROM materia AS mat JOIN insegna AS inseg ON mat.ID_materia = inseg.ID_materia JOIN account AS acc ON inseg.ID_persona = acc.ID_persona WHERE acc.nomeUtente = '" .$_SESSION["nomeUtente"]. "' AND inseg.ID_classe = '" .$row1["ID_classe"]. "';";
 							$result2 = $conn -> query($sql2);
 							
 							// Parte ripetuta x la quantita' delle materie insegnate

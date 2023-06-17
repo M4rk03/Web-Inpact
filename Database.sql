@@ -105,9 +105,9 @@ VALUES
     ('ciao5@gmail.com', 'ciao5', 5),
     ('ciao6@gmail.com', 'ciao6', 6),
 
-    ('ciao7@gmail.it', 'ciao1', 7),
-    ('ciao8@gmail.it', 'ciao1', 8),
-    ('ciao9@gmail.it', 'ciao1', 9);
+    ('ciao7@gmail.it', 'ciao7', 7),
+    ('ciao8@gmail.it', 'ciao8', 8),
+    ('ciao9@gmail.it', 'ciao9', 9);
 
 INSERT INTO materia (nome)
 VALUES 
