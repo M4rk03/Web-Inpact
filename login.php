@@ -33,7 +33,7 @@
 
 				<div class="cont-inserisci">
 					<i class="fa-solid fa-circle-user"></i>
-					<input type="number" placeholder="Username" class="inserisci" name="codice" maxlength="5" required>
+					<input type="email" placeholder="Username" class="inserisci" name="codice" required>
 				</div>
 
 				<div class="cont-inserisci">
@@ -41,20 +41,8 @@
 					<input type="password" placeholder="Password" class="inserisci" id="pwd" name="password" maxlength="100" required>
 				</div>
 
-				<div id="caselle">
-					<div>
-						<input type="checkbox" id="prof" name="docente" onclick="check(this)">
-						<label for="prof"> Docente </label>
-					</div>
-					
-					<div>
-						<input type="checkbox" id="stu" name="studente" onclick="check(this)">
-						<label for="stu"> Studente </label>
-					</div>
-				</div>
-
 				<?php
-					if(isset($_POST["accedi"])){
+					if(isset($_POST['accedi'])){
 						session_start();
 						$_SESSION["nomeUtente"] = $_POST["codice"];
 						$_SESSION["password"] = $_POST["password"];
@@ -66,21 +54,22 @@
 							$row = $result -> fetch_assoc();
 							if((isset($row["nomeUtente"]) AND isset($row["password"])) AND ($row["nomeUtente"] === $_SESSION["nomeUtente"] AND $row["password"] === $_SESSION["password"])){
 								$_SESSION['tipo'] = $row["tipo"];
+
 								if(isset($_POST["studente"]) AND $_SESSION["tipo"] == 1){
-								$_SESSION['studente'] = $_POST["studente"];
-								header('location:studente.php');
-								echo "<script type ='text/javascript'>";
-								echo "location.href ='studente.php';";
-								echo "</script>";
-							} else if(isset($_POST["docente"])AND $_SESSION["tipo"] == 2){
-								$_SESSION['docente'] = $_POST["docente"];
-								header('location:docente.php');
-								echo "<script type ='text/javascript'>";
-								echo "location.href ='docente.php';";
-								echo "</script>";
-							} else{
-								throw new Exception("Tipo dell'account errato");
-							}
+									$_SESSION['studente'] = $_POST["studente"];
+									header('location:studente.php');
+									echo "<script type ='text/javascript'>";
+									echo "location.href ='studente.php';";
+									echo "</script>";
+								} else if(isset($_POST["docente"])AND $_SESSION["tipo"] == 2){
+									$_SESSION['docente'] = $_POST["docente"];
+									header('location:docente.php');
+									echo "<script type ='text/javascript'>";
+									echo "location.href ='docente.php';";
+									echo "</script>";
+								} else{
+									throw new Exception("Tipo dell'account errato");
+								}
 							} else{
 								throw new Exception("Errore nell'inserimento dei dati");
 							}

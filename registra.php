@@ -37,11 +37,11 @@
 						<label> Matricola: </label>
 						<?php
 							include "connessione.php";
-							$sql = "SELECT MAX(ID_persona) AS id FROM Persona WHERE tipo = 2";
+							$sql = "SELECT MAX(ID_persona) AS id FROM Persona";
 							$result = $conn -> query($sql);
 							$row = $result -> fetch_assoc();
 							$id = $row["id"] + 1;
-							echo "<input type=\"number\" class=\"inserisci in_data\" name=\"ID_persona\" value='".$id."' readonly>";
+							echo "<input type=\"number\" class=\"inserisci in_data\" name=\"ID_persona\" value='" .$id. "' readonly>";
 						?>
 					</div>
 					
@@ -77,17 +77,6 @@
 						<option value="docente"> Docente </option>
 						<option value="studente"> Studente </option>
 					</select>
-
-					<!-- Non serve se l'ID della classe e' autoincrement -->
-					<?php
-						$sql = "SELECT MAX(ID_classe) AS id FROM Classe";
-						$result = $conn -> query($sql);
-						$row = $result -> fetch_assoc();
-						$id = $row["id"] + 1;
-						echo "<input type=\"number\" name=\"ID_classe\" value='".$id."' hidden>";
-						$result -> free();
-						$conn -> close();
-					?>
 
 					<div class="cont-inserisci in_classe">
 						<label> Classe: </label> 
@@ -126,8 +115,7 @@
 			<?php
 				if(isset($_POST['invio'])) {
 					include 'connessione.php' ;
-					
-					$ID_persona = $_POST["ID_persona"];
+
 					$nome = $_POST["nome"];
 					$cognome = $_POST["cognome"]; 
 					$dataNascita = $_POST["dataN"];
@@ -138,7 +126,6 @@
 					$cpw = $_POST["conf_pwd"];
 					
 					// ID_classe non serve se autoincrement
-					$ID_classe = $_POST["ID_classe"];
 					$anno = $_POST["anno"];
 					$sezione = $_POST["sezione"];
 					
@@ -146,21 +133,21 @@
 						// DA RIVEDERE!!
 						//include "connessione.php";
 						try{
-							$sql = "SELECT * FROM Classe WHERE ID_classe = ".$ID_classe." AND anno = ".$anno." AND sezione = '".$sezione."'";
+							$sql = "SELECT * FROM Classe WHERE anno = ".$anno." AND sezione = '".$sezione."'";
 							$result = $conn -> query($sql);
 						    $row = $result -> fetch_assoc();
 
 							if(isset($row["ID_classe"])) {
-								if($tipo == 1){
-									// INSERT PER DOCENTE
-								} elseif($tipo == 2){
-									$sql1 = "INSERT INTO persona(ID_persona, nome, cognome, dataNascita, sesso, tipo, ID_classe) VALUES (".$ID_persona.", '".$nome."', '".$cognome."', '".$dataNascita."', '".$sesso."', '2', '".$ID_classe."')";
+								if($tipo == 'studente'){
+									// INSERT PER STUDENTE
+								} elseif($tipo == 'docente'){
+									$sql1 = "INSERT INTO persona(nome, cognome, dataNascita, sesso, tipo) VALUES (".$nome."', '".$cognome."', '".$dataNascita."', '".$sesso."', 2,)";
 								} else{
 									echo "Non hai inserito il tipo della persona";
 								}
 
 								if ($conn->query($sql1) === TRUE){
-									echo "Persona con codice ".$ID_persona." registrata correttamente<br>";
+									echo "Persona con codice " .$row["id"]. " registrata correttamente<br>";
 								} else {
 									echo "Errore nella registrazione";
 								}
