@@ -9,7 +9,7 @@ CREATE TABLE if NOT EXISTS Classe(
 );
 
 CREATE TABLE if NOT EXISTS Persona(
-	ID_persona INT(6) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	ID_persona INT(6) AUTO_INCREMENT PRIMARY KEY,
 	nome VARCHAR(30),
 	cognome VARCHAR(30),
 	dataNascita DATE,
@@ -18,14 +18,14 @@ CREATE TABLE if NOT EXISTS Persona(
 );
 
 CREATE TABLE if NOT EXISTS Studente(
-    ID_studente INT(6) NOT NULL,
+    ID_studente INT(6) PRIMARY KEY,
     ID_classe INT,
     CONSTRAINT fk_perS_stud_IDstudente FOREIGN KEY(ID_studente) REFERENCES Persona(ID_persona),
     CONSTRAINT fk_class_stud_IDclasse FOREIGN KEY(ID_classe) REFERENCES Classe(ID_classe)
 );
 
 CREATE TABLE if NOT EXISTS Account(
-	nomeUtente VARCHAR(255) NOT NULL PRIMARY KEY,
+	nomeUtente VARCHAR(255) PRIMARY KEY,
 	password VARCHAR(30),
     ID_persona INT(6),
 	CONSTRAINT fk_pers_acc_IDpersona FOREIGN KEY (ID_persona) REFERENCES Persona(ID_persona)
