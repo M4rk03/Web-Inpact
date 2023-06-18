@@ -1,0 +1,163 @@
+/* PAGINA */
+main{
+	grid-template-columns: auto;
+}
+main > h2{
+	text-align: center;
+	margin: 0;
+	margin-bottom: 8px;
+}
+
+/* DOCENTE */
+#registro{
+	background-color: #FEF898;
+	border-radius: 10px;
+
+	display: grid;
+	gap: 12px;
+	padding: 12px;
+}
+
+.tabella{
+	display: grid;
+	grid-template-columns: 1fr 4fr;
+	gap: 10px;
+}
+.texture{
+	background-color: #fff;
+	border: 3px solid #C4282B;
+	border-radius:10px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 6px;
+}
+
+.tab-titoli{
+	font-family: Mont;
+	text-align: center;
+
+	padding: 6px;
+	margin: 0px;
+}
+
+.classe{
+	font-size: 40px;
+	justify-content: space-around;
+}
+.classe > p{
+	margin: 0px;
+}
+
+.cont-materie{
+	flex-wrap: wrap;
+	justify-content: left;
+	gap: 20px;
+	padding: 16px;
+}
+
+.materia{
+	background-color: white;
+    border: 0;
+	border-radius: 10px;
+	box-shadow: 0 4px 10px 1px grey;
+
+	font-family: Mustica;
+	font-size: 22px;
+
+	display: grid;
+	gap: 6px;
+	width: 210px;
+	padding: 10px;
+	
+	transition: 1s;
+    cursor: pointer;
+}
+.materia > p{
+	margin: 0px;
+}
+.materia:hover{
+	box-shadow: 0 4px 10px 1px orangered;
+}
+
+.mat-color{
+	border-radius: 10px;
+
+	display: block;
+	height: 14px;
+}
+
+/* Colore materie */
+span.tpsi{
+	background-image: linear-gradient(to right, #2cbbfb, #c3ecfe);
+}
+div.tpsi{
+	box-shadow: inset 0 0 30px 2px #2cbbfb;
+}
+
+span.sistemi{
+	background-image: linear-gradient(to right, #4169e1, #b8c7f4);
+}
+div.sistemi{
+	box-shadow: inset 0 0 30px 2px #4169e1;
+}
+
+span.informatica{
+	background-image: linear-gradient(to right, #ff7f50, #ffdacc);
+}
+div.informatica{
+	box-shadow: inset 0 0 30px 2px #ff7f50;
+}
+
+/* STUDENTE */
+.mater-inseg{
+	text-align: center;
+	flex-direction: column;
+	gap: 12px;
+}
+.mater-inseg > p{
+	font-size: 40px;
+	margin: 0px;
+}
+
+.sez-badge{
+	gap: 30px;
+	padding: 8px;
+}
+
+.cont-badge{
+	width: 80px;
+	padding: 10px;
+	
+    cursor: pointer;
+}
+.cont-badge > img{
+	width: 100%;
+}
+
+.cont-badge-G{
+    position: fixed;
+	top: 40px;
+	bottom: 40px;
+	left: 40px;
+	right: 40px;
+
+    background-color: white;
+	border: 2px solid #000;
+	border-radius: 20px;
+
+	width: auto;
+	padding: 40px;
+}
+.cont-badge-G > img{
+	width: 37%;
+}
+
+
+/* Media Query */
+@media screen and (max-width: 1023px) {
+	.cont-materie{
+		justify-content: center;
+	}
+}

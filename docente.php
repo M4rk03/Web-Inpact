@@ -9,7 +9,7 @@
 
 		<link rel="icon" type="image/x-icon" href="img/logo.png">
 		<link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="css/docente.css">
+        <link rel="stylesheet" href="css/persona.css">
 		<link rel="stylesheet" href="fontawesome-icon/css/all.css">
 
 		<title>Registro docente</title>
@@ -32,7 +32,6 @@
 				<?php
 					include "connessione.php";
 					session_start();
-
 					$sql = "SELECT cognome, nome FROM persona AS pers JOIN account AS acc ON pers.ID_persona = acc.ID_persona WHERE acc.nomeUtente = '" .$_SESSION["nomeUtente"]. "';";
 					$result = $conn -> query($sql);
 					$row = $result -> fetch_assoc();
