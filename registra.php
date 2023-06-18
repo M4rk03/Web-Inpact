@@ -42,6 +42,8 @@
 							$row = $result -> fetch_assoc();
 							$id = $row["id"] + 1;
 							echo "<input type=\"number\" class=\"inserisci in_data\" name=\"ID_persona\" value='" .$id. "' readonly>";
+							$result -> free();
+							$conn -> close();
 						?>
 					</div>
 					
@@ -94,6 +96,14 @@
 				</div>
 
 				<hr>
+
+				<div class="cont-inserisci">
+					<i class="fa-solid fa-circle-user"></i>
+					<?php
+						$email = "ciao" .$id. "@scuola.it";
+						echo "<input type=\"email\" placeholder=\"Username\" class=\"inserisci\" name=\"email\" value='" .$email. "' readonly>";
+					?>
+				</div>
 
 				<div class="cont-inserisci">
 					<i class="fa-solid fa-lock" id="icon_lock" onclick="icon_change()"></i>
