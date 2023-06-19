@@ -29,14 +29,17 @@
 				  <?php
 					include "connessione.php";
 					
-					$sql1="SELECT DISTINCT * FROM Persona WHERE ID_classe=".$_POST["ID"]." AND tipo=1";
+					$sql1="SELECT DISTINCT * FROM Persona p INNER JOIN classe c ON c.anno=".$_POST["anno"]." AND c.sezione='".$_POST["sezione"]."' INNER JOIN studente s ON p.ID_persona=s.ID_studente AND s.ID_classe=c.ID_classe WHERE tipo=1";
 					$result1=$conn->query($sql1);
 					$num=0;
 					while($row1=$result1->fetch_assoc()){
 					  $num++;
 					  echo "<tr>\n";
 					  echo "<th style=\"width:0;border-bottom:2px solid darkgrey;\">".$num."</th>    <th style=\"width:26%;text-align:left;border-bottom:2px solid darkgrey;\">".$row1["cognome"]." ".$row1["nome"]." <p style=\"font-family:Mustica;font-size:14px;margin:0;\">".$row1["dataNascita"]."</p></th>\n";
-					  $sql2="SELECT Badge.codBadge, Badge.nome, Badge.livello FROM Persona JOIN Assegna_Visualizza ON Persona.ID_persona = Assegna_Visualizza.ID_persona JOIN Badge ON (Assegna_Visualizza.codBadge = Badge.codBadge) AND (Assegna_Visualizza.livello = Badge.livello) JOIN Account ON Persona.ID_persona = Account.nomeUtente WHERE Account.nomeUtente =".$row1["ID_persona"];
+					  echo "CODICE MATERIA: ".$_POST["materia"];
+					  #$sql2="SELECT b.codBadge, b.nome, b.livello FROM Persona p INNER JOIN Assegna_Visualizza v ON p.ID_persona = v.ID_persona INNER JOIN Badge b ON v.codBadge = b.codBadge AND v.livello = b.livello INNER JOIN Account a ON p.ID_persona = a.nomeUtente WHERE a.nomeUtente =".$row1["ID_persona"];
+					  $sql2="SELECT b.codBadge, b.nome, b.livello FROM Badge b INNER JOIN Persona p ON p.ID_persona=".$row1["ID_persona"]." INNER JOIN Assegna_Visualizza v ON v.ID_persona=p.ID_persona AND v.codBadge=b.codBadge AND b.livello=v.livello WHERE b.materia=".$_POST["materia"];
+					  #$sql2="SELECT b.nome, b.livello, v.dataB FROM badge b JOIN assegna_visualizza v ON b.codBadge = v.codBadge AND b.livello = v.livello INNER JOIN account a ON v.ID_persona = a.ID_persona WHERE a.nomeUtente = '" .$_SESSION["nomeUtente"]. "' AND b.materia = " .$row1["ID"];
 					  $result2=$conn->query($sql2);
 					  echo "<th style=\"text-align:left;border-bottom:2px solid darkgrey;padding-left:1%;\">";
 					  while($row2=$result2->fetch_assoc()){

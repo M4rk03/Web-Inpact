@@ -32,7 +32,7 @@
 				<?php
 					include "connessione.php";
 					session_start();
-					$sql = "SELECT cognome, nome FROM persona AS pers JOIN account AS acc ON pers.ID_persona = acc.ID_persona WHERE acc.nomeUtente = '" .$_SESSION["nomeUtente"]. "';";
+					$sql = "SELECT p.cognome, p.nome FROM persona p JOIN account a ON p.ID_persona = a.ID_persona WHERE a.nomeUtente = '" .$_SESSION["nomeUtente"]. "';";
 					$result = $conn -> query($sql);
 					$row = $result -> fetch_assoc();
 					print_r(" ".$row["cognome"]." ".$row["nome"]."\n");
@@ -51,7 +51,7 @@
 				<?php
 					include "connessione.php";
 					
-					$sql1 = "SELECT DISTINCT class.anno, class.sezione, class.ID_classe FROM classe AS class JOIN insegna AS inseg ON class.ID_classe = inseg.ID_classe JOIN account AS acc ON inseg.ID_persona = acc.ID_persona WHERE acc.nomeUtente = '" .$_SESSION["nomeUtente"]. "';";
+					$sql1 = "SELECT DISTINCT c.anno, c.sezione, c.ID_classe FROM classe c INNER JOIN insegna i ON c.ID_classe = i.ID_classe INNER JOIN account a ON i.ID_persona = a.ID_persona WHERE a.nomeUtente = '" .$_SESSION["nomeUtente"]. "';";
 					$result1 = $conn -> query($sql1);
 					
 					// Parte ripetuta x la quantita' delle classi
@@ -66,13 +66,16 @@
 						echo "<div class=\"texture cont-materie\"> \n";
 
 						try{
-							$sql2 = "SELECT mat.nome FROM materia AS mat JOIN insegna AS inseg ON mat.ID_materia = inseg.ID_materia JOIN account AS acc ON inseg.ID_persona = acc.ID_persona WHERE acc.nomeUtente = '" .$_SESSION["nomeUtente"]. "' AND inseg.ID_classe = '" .$row1["ID_classe"]. "';";
+							$sql2 = "SELECT m.ID_materia, m.nome FROM materia m INNER JOIN insegna i ON m.ID_materia = i.ID_materia JOIN account a ON i.ID_persona = a.ID_persona WHERE a.nomeUtente = '" .$_SESSION["nomeUtente"]. "' AND i.ID_classe = '" .$row1["ID_classe"]. "';";
 							$result2 = $conn -> query($sql2);
 							
 							// Parte ripetuta x la quantita' delle materie insegnate
 							while($row2 = $result2->fetch_assoc()){
 								$nome = strtoupper($row2["nome"]);
 								echo "<button type=\"submit\" name=\"materia\" class=\"materia\"> \n";
+								#da capire come fare a passare quella corretta
+								#echo "<input name=\"materia\" value='3' hidden>";
+								#echo "<input name=\"materia\" value='".$row2["ID_materia"]. "' hidden>";
 
 								// Controllo colore materia
 								$color_name = '';
