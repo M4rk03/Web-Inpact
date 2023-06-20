@@ -19,7 +19,7 @@
 	<body>
 
         <header>
-			<figure> <img src="img/logo.png" alt="logo Web Inpact"> </figure>
+			<figure> <a href="index.html"> <img class="logo" src="img/logo.png" alt="logo Web Inpact"> </a> </figure>
 			<div class="header-titolo"> <h1> REGISTRO DOCENTE </h1> </div>
 			<div class="header-account">
 				<a href="login.php"> <i class="fa-solid fa-circle-user"></i>
@@ -51,31 +51,33 @@
 				<?php
 					include "connessione.php";
 					
-					$sql1 = "SELECT DISTINCT c.anno, c.sezione, c.ID_classe FROM classe c INNER JOIN insegna i ON c.ID_classe = i.ID_classe INNER JOIN account a ON i.ID_persona = a.ID_persona WHERE a.nomeUtente = '" .$_SESSION["nomeUtente"]. "';";
+					$sql1 = "SELECT DISTINCT c.anno, c.sezione, c.ID_classe FROM classe c JOIN insegna i ON c.ID_classe = i.ID_classe INNER JOIN account a ON i.ID_persona = a.ID_persona WHERE a.nomeUtente = '" .$_SESSION["nomeUtente"]. "';";
 					$result1 = $conn -> query($sql1);
 					
 					// Parte ripetuta x la quantita' delle classi
 					while($row1 = $result1->fetch_assoc()){
-						echo "<form action=\"elenco.php\" method=\"post\"> \n";
 						echo "<div class=\"tabella\"> \n";
 						echo "<div class=\"texture classe\"> \n";
 
 						$classe = strtoupper($row1["anno"])." ".strtoupper($row1["sezione"]);
 						echo "<p>" .$classe. "</p> \n <i class=\"fa-solid fa-book-bookmark\"></i> \n </div> \n";
-						echo "<input name=\"anno\" value='" .$row1["anno"]. "' hidden> <input name=\"sezione\" value='" .$row1["sezione"]. "' hidden>";
 						echo "<div class=\"texture cont-materie\"> \n";
 
 						try{
-							$sql2 = "SELECT m.ID_materia, m.nome FROM materia m INNER JOIN insegna i ON m.ID_materia = i.ID_materia JOIN account a ON i.ID_persona = a.ID_persona WHERE a.nomeUtente = '" .$_SESSION["nomeUtente"]. "' AND i.ID_classe = '" .$row1["ID_classe"]. "';";
+							$sql2 = "SELECT m.nome FROM materia m JOIN insegna i ON m.ID_materia = i.ID_materia JOIN account a ON i.ID_persona = a.ID_persona WHERE a.nomeUtente = '" .$_SESSION["nomeUtente"]. "' AND i.ID_classe = '" .$row1["ID_classe"]. "';";
 							$result2 = $conn -> query($sql2);
 							
 							// Parte ripetuta x la quantita' delle materie insegnate
 							while($row2 = $result2->fetch_assoc()){
+
+								// Passaggio dei dati per la pagina elenco
+								echo "<form action=\"elenco.php\" method=\"post\"> \n";
+								echo "<input name=\"anno\" value='" .$row1["anno"]. "' hidden> <input name=\"sezione\" value='" .$row1["sezione"]. "' hidden>";
+								echo "<input name=\"materia\" value='" .$row2["nome"]. "' hidden> \n";
+
+
 								$nome = strtoupper($row2["nome"]);
-								echo "<button type=\"submit\" name=\"materia\" class=\"materia\"> \n";
-								#da capire come fare a passare quella corretta
-								#echo "<input name=\"materia\" value='3' hidden>";
-								#echo "<input name=\"materia\" value='".$row2["ID_materia"]. "' hidden>";
+								echo "<button type=\"submit\" name=\"but-mat\" class=\"materia\"> \n";
 
 								// Controllo colore materia
 								$color_name = '';
@@ -91,13 +93,13 @@
 								}
 
 								echo "<span class=\"mat-color " .$color_name. "\"></span> \n";
-								echo "<p>" .$nome. "</p> \n </button> \n";
+								echo "<p>" .$nome. "</p> \n </button> \n </form> \n";
 							}
 						}catch (Exception $e){
 							echo "Non insegni in nessuna materia";
 						}
 
-						echo "</div> \n </div> \n </form>";
+						echo "</div> \n </div> \n";
 					}
 					$result1 -> free();
 					$result2 -> free();

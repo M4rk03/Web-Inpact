@@ -20,7 +20,7 @@
 	<body>
 
         <header>
-			<figure> <img src="img/logo.png" alt="logo Web Inpact"> </figure>
+			<figure> <a href="index.html"> <img class="logo" src="img/logo.png" alt="logo Web Inpact"> </a> </figure>
 			<div class="header-titolo"> <h1> PAGINA STUDENTE </h1> </div>
 			<div class="header-account">
 				<a href="login.php"> <i class="fa-solid fa-circle-user"></i>
@@ -33,7 +33,7 @@
 				<?php
 					include "connessione.php";
 					session_start();
-					$sql = "SELECT cognome, nome FROM persona AS pers JOIN account AS acc ON pers.ID_persona = acc.ID_persona WHERE acc.nomeUtente = '" .$_SESSION["nomeUtente"]. "';";
+					$sql = "SELECT p.cognome, p.nome FROM persona p JOIN account a ON p.ID_persona = a.ID_persona WHERE a.nomeUtente = '" .$_SESSION["nomeUtente"]. "';";
 					$result = $conn -> query($sql);
 					$row = $result -> fetch_assoc();
 					print_r(" ".$row["cognome"]." ".$row["nome"]."\n");
@@ -52,7 +52,7 @@
 				<?php
 					include "connessione.php";
 					
-					$sql1 = "SELECT DISTINCT mat.nome as materia, mat.ID_materia as ID, pers.nome, pers.cognome FROM materia AS mat JOIN insegna AS inseg ON mat.ID_materia = inseg.ID_materia JOIN persona AS pers ON inseg.ID_persona = pers.ID_persona;";
+					$sql1 = "SELECT DISTINCT m.nome as materia, m.ID_materia as ID, p.nome, p.cognome FROM materia m JOIN insegna i ON m.ID_materia = i.ID_materia JOIN persona p ON i.ID_persona = p.ID_persona;";
 					$result1 = $conn -> query($sql1);
 					
 					// Parte ripetuta x la quantita' delle materie
@@ -81,7 +81,7 @@
 						echo "<div class=\"texture cont-materie sez-badge\"> \n";
 
 						try{
-							$sql2 = "SELECT badge.nome, badge.livello, ass.dataB FROM badge JOIN assegna_visualizza AS ass ON (badge.codBadge = ass.codBadge) AND (badge.livello = ass.livello) JOIN account AS acc ON ass.ID_persona = acc.ID_persona WHERE acc.nomeUtente = '" .$_SESSION["nomeUtente"]. "' AND badge.materia = " .$row1["ID"]. ";";
+							$sql2 = "SELECT b.nome, b.livello, av.dataB FROM badge b JOIN assegna_visualizza av ON (b.codBadge = av.codBadge) AND (b.livello = av.livello) JOIN account a ON av.ID_persona = a.ID_persona WHERE a.nomeUtente = '" .$_SESSION["nomeUtente"]. "' AND b.materia = " .$row1["ID"]. ";";
 							$result2 = $conn -> query($sql2);
 							
 							// Parte ripetuta x la quantita' delle materie insegnate
@@ -91,7 +91,7 @@
 								echo "<img src='img/badge/" .$badge. ".png' alt=" .$badge. "> \n </figure> \n";
 							}
 						}catch(Exception $e){
-							echo ("<p id=\"noBadge\"> Non è stato trovato nessun badge </p>");
+							echo "<p id=\"noBadge\"> Non è stato trovato nessun badge </p>";
 						}
 
 						echo "</div> \n </div> \n";

@@ -49,7 +49,7 @@
 
 						try{
 							include "connessione.php";
-							$sql = "SELECT acc.nomeUtente, acc.password, pers.tipo FROM account as acc JOIN persona AS pers ON acc.ID_persona = pers.ID_persona WHERE nomeUtente = '" .$_POST["email"]. "' AND password = '" .$_POST["password"]. "';";
+							$sql = "SELECT a.nomeUtente, a.password, p.tipo FROM account a JOIN persona p ON a.ID_persona = p.ID_persona WHERE a.nomeUtente = '" .$_POST["email"]. "' AND a.password = '" .$_POST["password"]. "';";
 							$result = $conn -> query($sql);
 							$row = $result -> fetch_assoc();
 							if((isset($row["nomeUtente"]) AND isset($row["password"])) AND ($row["nomeUtente"] === $_SESSION["nomeUtente"] AND $row["password"] === $_SESSION["password"])){
@@ -83,7 +83,7 @@
 				<br>
 
 				<div class="cont-button">
-                    <input type="submit" onclick="login();" value="Accedi" name="accedi" id="accedi">
+                    <input type="submit" value="Accedi" name="accedi" id="accedi">
 
 					<button id="bottone-pwd" onclick="password();"> Password <br> Dimenticata? </button>
 					<a href="registra.php" id="registrati"> Registrati </a>

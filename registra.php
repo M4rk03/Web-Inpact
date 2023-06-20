@@ -83,7 +83,7 @@
 					<div class="cont-inserisci in_classe">
 						<label> Classe: </label> 
 						
-						<select id class="inserisci in_data select" name="anno">
+						<select class="inserisci in_data select" name="anno">
 							<option value="1"> 1 </option>
 							<option value="2"> 2 </option>
 							<option value="3"> 3 </option>
@@ -117,7 +117,7 @@
 				
 				<div class="cont-button-signup">
 					<input type="reset" value="Cancella" class="bottone cancella">
-					<input type="submit" onclick="login();" value="Conferma" class="bottone" name="invio">
+					<input type="submit" value="Conferma" class="bottone" name="invio">
 				</div>
 
 			</fieldset> </form>

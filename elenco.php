@@ -1,70 +1,333 @@
 <!DOCTYPE html>
 <html lang="it">
     <head>
-        <title>Registro Classe</title>
-		<meta charset="utf-8"/>
-        <meta name="author" content="Web inpact"/>
-		<link rel="stylesheet" href="stile.css" type="text/css"/>
+
+		<meta charset="UTF-8">
+		<meta name="author" content="Web Inpact"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="icon" type="image/x-icon" href="img/logo.png">
+		<link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/persona.css">
+		<link rel="stylesheet" href="css/account.css">
+		<link rel="stylesheet" href="fontawesome-icon/css/all.css">
+		<script src="js/myScript.js"></script>
+
+		<title>Registro di Classe</title>
+
 	</head>
 	
 	<body>
-		<div id="header">
-			<div id="logo"><img src="img/logo.png" alt="logo Web Inpact" style="width:100px;"></div>
-			<div id="intestazione"><h1 style="color:#C4282B;font-family:Mont;font-size:50px;text-align:center;margin-top:-87px;">REGISTRO ALUNNI</h1></div>
-			<div id="account" style="background-color:#FFEB00;width:82px;height:82px;float:right;font-family:Mustica;text-align:center;border-radius:10px;margin-top:-111px;margin-right:9px;"><a href="login.php"><img src="img/account.png" id="login" alt="login" style="width:54px;margin-top:5px;margin-left:4px;"></a><p style="margin:-6px 0px 0px 3px;">Logout</p></div>
-		</div>
+
+        <header>
+			<figure> <a href="index.html"> <img class="logo" src="img/logo.png" alt="logo Web Inpact"> </a> </figure>
+			<div class="header-titolo"> <h1> REGISTRO ALUNNI </h1> </div>
+			<div class="header-account">
+				<a href="login.php"> <i class="fa-solid fa-circle-user"></i>
+					<p>Logout</p> </a>
+			</div>
+		</header>
 		
-		<div id="contenuto" style="font-family:Mont;padding:20px;">
-			<p style="font-size:18px;font-weight:bold;text-align:center;margin-top:0;">Registro di classe di <b style="font-size:22px;">
+        <main>
+			<div class="elenco" style="justify-content:space-evenly;">
+				<a href="docente.php" class="back"> <i class="fa-solid fa-caret-left"></i> </a>
+				
+				<h2> Registro della classe <strong class="subtitle">
+					<?php
+						echo strtoupper($_POST["anno"])."".strtoupper($_POST["sezione"]);
+					?> </strong>
+				</h2>
+
+				<h2> Materia: <strong class="subtitle">
+					<?php
+						echo strtoupper($_POST["materia"]);
+					?> </strong>
+				</h2>
+			</div>
+			
+			<div id="registro">
+
+                <div class="tabella">
+                    <p class="texture tab-titoli"> Alunni </p>
+                    <p class="texture tab-titoli"> Badge assegnati </p>
+                </div>
+
 				<?php
-					echo " ".$_POST["anno"]." ".$_POST["sezione"]."\n";
-				?></b>
-			</p>
-			<div id="elenco" style="background-color:#FEF898;border-radius:10px;padding:12px;">
-				<table style="width:100%">
-				  <tr id="titoli" style="font-size:16px;">
-					<th id="C&N" colspan="2"><p style="background-color:white;border:3px solid #C4282B;border-radius:10px;margin-top:0;padding:6px;">Cognome e Nome alunno</p></th>
-					<th id="bAss"><p style="background-color:white;border:3px solid #C4282B;border-radius:10px;margin-top:0;padding:6px;">Badge assegnati</p></th>
-				  </tr>
-				  <?php
 					include "connessione.php";
 					
-					$sql1="SELECT DISTINCT * FROM Persona p INNER JOIN classe c ON c.anno=".$_POST["anno"]." AND c.sezione='".$_POST["sezione"]."' INNER JOIN studente s ON p.ID_persona=s.ID_studente AND s.ID_classe=c.ID_classe WHERE tipo=1";
-					$result1=$conn->query($sql1);
-					$num=0;
-					while($row1=$result1->fetch_assoc()){
-					  $num++;
-					  echo "<tr>\n";
-					  echo "<th style=\"width:0;border-bottom:2px solid darkgrey;\">".$num."</th>    <th style=\"width:26%;text-align:left;border-bottom:2px solid darkgrey;\">".$row1["cognome"]." ".$row1["nome"]." <p style=\"font-family:Mustica;font-size:14px;margin:0;\">".$row1["dataNascita"]."</p></th>\n";
-					  echo "CODICE MATERIA: ".$_POST["materia"];
-					  #$sql2="SELECT b.codBadge, b.nome, b.livello FROM Persona p INNER JOIN Assegna_Visualizza v ON p.ID_persona = v.ID_persona INNER JOIN Badge b ON v.codBadge = b.codBadge AND v.livello = b.livello INNER JOIN Account a ON p.ID_persona = a.nomeUtente WHERE a.nomeUtente =".$row1["ID_persona"];
-					  $sql2="SELECT b.codBadge, b.nome, b.livello FROM Badge b INNER JOIN Persona p ON p.ID_persona=".$row1["ID_persona"]." INNER JOIN Assegna_Visualizza v ON v.ID_persona=p.ID_persona AND v.codBadge=b.codBadge AND b.livello=v.livello WHERE b.materia=".$_POST["materia"];
-					  #$sql2="SELECT b.nome, b.livello, v.dataB FROM badge b JOIN assegna_visualizza v ON b.codBadge = v.codBadge AND b.livello = v.livello INNER JOIN account a ON v.ID_persona = a.ID_persona WHERE a.nomeUtente = '" .$_SESSION["nomeUtente"]. "' AND b.materia = " .$row1["ID"];
-					  $result2=$conn->query($sql2);
-					  echo "<th style=\"text-align:left;border-bottom:2px solid darkgrey;padding-left:1%;\">";
-					  while($row2=$result2->fetch_assoc()){
-						$badge=$row2["codBadge"]."_".$row2["livello"];
-						$img=$row2["nome"]."".$row2["livello"];
-						echo "<img src='img/badge/".$img.".png' name='".$badge."' style=\"width:40px;float:left;margin-left:10px\">";
-					  }
-					  echo "\n<form style=\"background-color:transparent;width:44px;float:left;margin:0;margin-left:20px;\" action=\"".$_SERVER['PHP_SELF']."\" method=\"POST\"><input type=\"image\" src='img/addB.png' name='aggiungi' alt=\"add\" style=\"width:44px;\"></form></th>\n";
-					  echo "</tr>\n";
+					$sql = "SELECT p.nome, p.cognome, p.dataNascita, p.ID_persona as ID FROM persona p JOIN studente s ON p.ID_persona = s.ID_studente JOIN classe c ON s.ID_classe = c.ID_classe WHERE c.anno = '" .$_POST["anno"]. "' AND c.sezione = '" .$_POST["sezione"]. "';";
+					$result = $conn -> query($sql);
+					
+					// Parte ripetuta x la quantita' degli studenti
+					$num = 0;
+					try{
+						while($row = $result->fetch_assoc()){
+							$num++;
+							echo "<div class=\"tabella cont-elenco\"> \n";
+							echo "<div class=\"elenco list-alunno\"> \n";
+							echo "<small>" .$num. "</small> \n";
+						
+							$alunno = strtoupper($row["nome"])." ".strtoupper($row["cognome"]);
+							echo "<p>" .$alunno. "</p> \n";
+							echo "<p>" .$row["dataNascita"]. "</p> \n </div> \n";
+							echo "<div class=\"elenco\"> \n";
+						
+							try{
+								$sql1 = "SELECT b.nome, b.livello, av.dataB FROM badge b JOIN assegna_visualizza av ON (b.codBadge = av.codBadge) AND (b.livello = av.livello) JOIN materia m ON b.materia = m.ID_materia WHERE av.ID_persona = '" .$row["ID"]. "' AND m.nome = '" .$_POST["materia"]. "';";
+								$result1 = $conn -> query($sql1);
+								
+								// Parte ripetuta x la quantita' dei badge assegnati
+								while($row1 = $result1->fetch_assoc()){
+									$badge = $row1["nome"]."".$row1["livello"];
+									echo "<figure class=\"cont-badge cont-badge-el\" onclick=\"modify_badge(this)\"> \n";
+									echo "<img src='img/badge/" .$badge. ".png' alt=" .$badge. "> \n </figure> \n";
+								}
+							}catch (Exception $e){
+								echo "<p> Non è stato trovato nessun badge </p>";
+							}
+						
+							echo "<figure class=\"cont-badge cont-badge-el\" onclick=\"add_badge()\" style=\"margin-left: 10px;\"> \n";
+							echo "<img src='img/addB.png' alt=\"add badge\"> \n </figure> \n";
+							echo "</div> \n </div> \n";
+
+							$result1 -> free();
+						}
 					}
-				  ?>
-				</table>
+					catch (Exception $e){
+						echo "<p> Non è stato trovato nessun alunno </p>";
+					}
+
+					$result -> free();
+					$conn -> close();
+				?>
+
+				<!-- PopUp -->
+				<!-- Assegna badge -->
+				<div id="add-badge" class="cont-popup">
+					<!-- // Da rivedere l'action!! -->
+					<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="form-badge">
+							
+						<h2>Assegna badge</h2>
+				
+						<div class="cont-inserisci">
+							<label> Argomento: </label> 
+							
+							<select id="add-nomeB" class="inserisci in_data select" onchange="visual_img()" name="argomento" required>
+								<option value=""> Seleziona </option>
+								<?php
+									include "connessione.php";
+					
+									$sql = "SELECT DISTINCT b.nome FROM badge b JOIN materia m ON b.materia = m.ID_materia WHERE m.nome = '" .$_POST["materia"]. "';";
+									$result = $conn -> query($sql);
+									
+									// Parte ripetuta x la quantita' dei badge
+									try{
+										while($row = $result->fetch_assoc()){
+											echo "<option value=" .$row["nome"]. ">" .$row["nome"]. "</option>";
+										}
+									}
+									catch (Exception $e){
+										echo "Errore";
+									}
+				
+									$result -> free();
+									$conn -> close();
+								?>
+							</select>
+						</div>
+			
+						<div class="cont-inserisci">
+							<label> Livello: </label> 
+							
+							<select id="add-livelloB" class="inserisci in_data select" onchange="visual_img()" name="livello" required>
+								<option value=""> Seleziona </option>
+								<?php
+									include "connessione.php";
+					
+									$sql = "SELECT DISTINCT livello FROM badge;";
+									$result = $conn -> query($sql);
+									
+									// Parte ripetuta x i livelli dei badge
+									try{
+										while($row = $result->fetch_assoc()){
+											echo "<option value=" .$row["livello"]. ">" .$row["livello"]. "</option>";
+										}
+									}
+									catch (Exception $e){
+										echo "Errore";
+									}
+				
+									$result -> free();
+									$conn -> close();
+								?>
+							</select>
+						</div>
+			
+						<div class="cont-inserisci">
+							<label> Data: </label>
+							<input type="date" class="inserisci in_data" name="dataB" required>
+						</div>
+
+						<div class="cont-inserisci">
+							<label> Descrizione: </label>
+							<textarea class="inserisci in_data" name="testo" rows="4" style="resize:none;height:auto;"></textarea>
+						</div>
+				
+						<div class="cont-button-signup">
+							<input type="reset" onclick="close_add()" value="Chiudi" class="bottone cancella">
+							<input type="submit" value="Assegna" class="bottone" name="assegna">
+						</div>
+
+					</form>
+
+					<?php
+						if(isset($_POST['assegna'])) {
+							include 'connessione.php' ;
+
+							$nome = $_POST["argomento"];
+							$livello = $_POST["livello"]; 
+							$dataB = $_POST["dataB"];
+							
+							try{
+								$sql = "SELECT codBadge FROM badge WHERE nome = '" .$nome. "' AND livello = '" .$livello. "';";
+								$result = $conn -> query($sql);
+								$row = $result -> fetch_assoc();
+
+								// Capire a chi stai assegnando il badge!!
+								$sql1 = "INSERT INTO assegna_visualizza(ID_persona, codBadge, livello, dataB) VALUES (1, ".$row["codBadge"].", ".$livello.", '".$dataB."')";
+
+								if ($conn->query($sql1) === TRUE){
+									echo "Il badge e' stato assegnato correttamente \n";
+								} else {
+									echo "Errore nell'assegnazione del badge <br> Riprova \n";
+								}
+							} catch (Exception $e){
+								echo "Qualcosa e' andato storto";
+							}
+
+							$result -> free();
+							$conn -> close();
+						}
+					?> 
+				</div>
+
+				<!-- Modifica badge -->
+				<div id="modify-badge" class="cont-popup">
+					<div class="cont-modifyB">
+						<form action="" method="post" class="form-badge">
+								
+							<h2>Modifica badge</h2>
+						
+							<div class="cont-inserisci">
+								<label> Argomento: </label> 
+								
+								<select id="mod-nomeB" class="inserisci in_data select" onchange="visual_img()" name="nome" required>
+									<option value=""> Seleziona </option>
+									<?php
+										include "connessione.php";
+						
+										$sql = "SELECT DISTINCT b.nome FROM badge b JOIN materia m ON b.materia = m.ID_materia WHERE m.nome = '" .$_POST["materia"]. "';";
+										$result = $conn -> query($sql);
+										
+										// Parte ripetuta x la quantita' dei badge
+										try{
+											while($row = $result->fetch_assoc()){
+												echo "<option value=" .$row["nome"]. ">" .$row["nome"]. "</option>";
+											}
+										}
+										catch (Exception $e){
+											echo "Errore";
+										}
+					
+										$result -> free();
+										$conn -> close();
+									?>
+								</select>
+							</div>
+						
+							<div class="cont-inserisci">
+								<label> Livello: </label> 
+								
+								<select id="mod-livelloB" class="inserisci in_data select" onchange="visual_img()" name="livello" required>
+									<option value=""> Seleziona </option>
+									<?php
+										include "connessione.php";
+						
+										$sql = "SELECT DISTINCT livello FROM badge;";
+										$result = $conn -> query($sql);
+										
+										// Parte ripetuta x i livelli dei badge
+										try{
+											while($row = $result->fetch_assoc()){
+												echo "<option value=" .$row["livello"]. ">" .$row["livello"]. "</option>";
+											}
+										}
+										catch (Exception $e){
+											echo "Errore";
+										}
+					
+										$result -> free();
+										$conn -> close();
+									?>
+								</select>
+							</div>
+						
+							<div class="cont-inserisci">
+								<label> Data: </label>
+								<?php
+									include "connessione.php";
+									
+									// Come prendere i dati?!
+									$sql = "SELECT av.codBadge, av.dataB FROM assegna_visualizza av JOIN badge b ON (av.codBadge = b.codBadge) AND (av.livello = b.livello) WHERE av.ID_persona = 1 AND b.nome = 'C' AND av.livello = 2;";
+									$result = $conn -> query($sql);
+									
+									// Parte ripetuta x i livelli dei badge
+									try{
+										echo "<input type=\"date\" class=\"inserisci in_data\" value=\"2011-03-21\" name=\"dataB\" required>";
+									}
+									catch (Exception $e){
+										echo "Errore";
+									}
+				
+									$result -> free();
+									$conn -> close();
+								?>
+							</div>
+						
+							<div class="cont-inserisci">
+								<label> Descrizione: </label>
+								<textarea class="inserisci in_data" name="testo" rows="4" style="resize:none;height:auto;">Sei stato molto bravo...</textarea>
+							</div>
+						
+							<div class="cont-button-signup">
+								<input type="button" onclick="close_modify()" value="Chiudi" class="bottone cancella">
+								<input type="submit" value="Modifica" class="bottone" name="modifica">
+							</div>
+						
+						</form>
+					</div>
+				</div>
+
 			</div>
-		</div>
+        </main>
 		
-		<div id="footer">
-			<img src="img/logo.png" id="logonome" alt="logo Web Inapact" style="width:80px;float:left;"> <img src="img/scritta.png" id="logonome" alt="scritta Web Imapact" style="width:172px;float:left;margin-top:-2px;margin-left:-8px">
-			<img src="img/dalcero.png" id="dalcero" alt="logo DalCero" style="width:86px;float:right;margin-top:1px">
-			<class class="dalcero" style="width:90%;color:#C4282B;font-family:Mont;font-size:24px;position:absolute;margin-left:-50%;margin-top:3px;">ISISS "M.O. Luciano Dal Cero"</class>
-			<class class="social" style="width:96%;position:absolute;margin-top:36px;margin-left:-55%;"><div style="display:block;margin:0 auto;">
-				<a href="https://web.whatsapp.com/"><img src="img/whatsapp.png" id="whatsapp" alt="logo Whatsapp" style="width:40px;margin-left:4%;"></a>
-				<a href="https://mail.google.com/"><img src="img/email.png" id="email" alt="logo Email" style="width:40px;margin-left:10%;"></a>
-				<a href="https://it-it.facebook.com/"><img src="img/facebook.png" id="facebook" alt="logo Facebook" style="width:40px;margin-left:10%;"></a>
-				<a href="https://www.instagram.com/accounts/login/"><img src="img/instagram.png" id="instagram" alt="logo Instagram" style="width:40px;margin-left:10%;"></a>
-			</div></class>
-		</div>
+		<footer>
+			<figure> <img src="img/scritta.png" alt="scritta Web Imapact" style="width:180px;"> </figure>
+
+			<div id="cont-social">
+				<p>ISISS "M.O. Luciano Dal Cero"</p>
+				<class class="social">
+					<a href="https://web.whatsapp.com/"> <img src="img/whatsapp.png" alt="logo Whatsapp"> </a>
+					<a href="https://mail.google.com/"> <img src="img/email.png" alt="logo Email"> </a>
+					<a href="https://it-it.facebook.com/"> <img src="img/facebook.png" alt="logo Facebook"> </a>
+					<a href="https://www.instagram.com/accounts/login/"> <img src="img/instagram.png" alt="logo Instagram"> </a>
+				</class>
+				<small>Copyright &copy 2023</small>
+			</div>
+
+			<figure style="justify-content:right;"> <img src="img/dalcero.png" alt="logo DalCero" style="width:100px;"> </figure>
+		</footer>
+
 	</body>
 </html>
