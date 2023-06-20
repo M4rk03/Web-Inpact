@@ -104,8 +104,8 @@ function close_modify(){
 // Controllo sul seleziona per visualizzare il badge
 var num = 0;
 function visual_img(){
-    let nome_badge = document.querySelector('#nomeB');
-    let livello_badge = document.querySelector('#livelloB');
+    let nome_badge = document.querySelector('#add-nomeB');
+    let livello_badge = document.querySelector('#add-livelloB');
     let addB = document.querySelector('#add-badge');
 
     let img = document.createElement('img');
