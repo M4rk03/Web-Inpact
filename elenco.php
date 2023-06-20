@@ -35,13 +35,24 @@
 				
 				<h2> Registro della classe <strong class="subtitle">
 					<?php
-						echo strtoupper($_POST["anno"])."".strtoupper($_POST["sezione"]);
+						session_start();
+						if (isset($_POST["anno"])) {
+							$_SESSION['anno'] = $_POST["anno"];
+						}
+						if (isset($_POST["sezione"])) {
+							$_SESSION['sezione'] = $_POST["sezione"];
+						}
+						if (isset($_POST["materia"])) {
+							$_SESSION['materia'] = $_POST["materia"];
+						}
+						
+						echo strtoupper($_SESSION['anno'])."".strtoupper($_SESSION['sezione']);
 					?> </strong>
 				</h2>
 
 				<h2> Materia: <strong class="subtitle">
 					<?php
-						echo strtoupper($_POST["materia"]);
+						echo strtoupper($_SESSION['materia']);
 					?> </strong>
 				</h2>
 			</div>
@@ -56,7 +67,7 @@
 				<?php
 					include "connessione.php";
 					
-					$sql = "SELECT p.nome, p.cognome, p.dataNascita, p.ID_persona as ID FROM persona p JOIN studente s ON p.ID_persona = s.ID_studente JOIN classe c ON s.ID_classe = c.ID_classe WHERE c.anno = '" .$_POST["anno"]. "' AND c.sezione = '" .$_POST["sezione"]. "';";
+					$sql = "SELECT p.nome, p.cognome, p.dataNascita, p.ID_persona as ID FROM persona p JOIN studente s ON p.ID_persona = s.ID_studente JOIN classe c ON s.ID_classe = c.ID_classe WHERE c.anno = " .$_SESSION['anno']. " AND c.sezione = '" .$_SESSION['sezione']. "';";
 					$result = $conn -> query($sql);
 					
 					// Parte ripetuta x la quantita' degli studenti
@@ -74,22 +85,30 @@
 							echo "<div class=\"elenco\"> \n";
 						
 							try{
-								$sql1 = "SELECT b.nome, b.livello, av.dataB FROM badge b JOIN assegna_visualizza av ON (b.codBadge = av.codBadge) AND (b.livello = av.livello) JOIN materia m ON b.materia = m.ID_materia WHERE av.ID_persona = '" .$row["ID"]. "' AND m.nome = '" .$_POST["materia"]. "';";
+								$sql1 = "SELECT b.nome, b.livello, av.dataB FROM badge b JOIN assegna_visualizza av ON (b.codBadge = av.codBadge) AND (b.livello = av.livello) JOIN materia m ON b.materia = m.ID_materia WHERE av.ID_persona = '" .$row["ID"]. "' AND m.nome = '" .$_SESSION['materia']. "';";
 								$result1 = $conn -> query($sql1);
 								
 								// Parte ripetuta x la quantita' dei badge assegnati
 								while($row1 = $result1->fetch_assoc()){
 									$badge = $row1["nome"]."".$row1["livello"];
+									
 									echo "<figure class=\"cont-badge cont-badge-el\" onclick=\"modify_badge(this)\"> \n";
 									echo "<img src='img/badge/" .$badge. ".png' alt=" .$badge. "> \n </figure> \n";
 								}
+								
 							}catch (Exception $e){
 								echo "<p> Non è stato trovato nessun badge </p>";
-							}
-						
-							echo "<figure class=\"cont-badge cont-badge-el\" onclick=\"add_badge()\" style=\"margin-left: 10px;\"> \n";
-							echo "<img src='img/addB.png' alt=\"add badge\"> \n </figure> \n";
+							}//viene passato l'ID_persona corretto ma il popup si chiede a caso
+							echo "<form action='".$_SERVER['PHP_SELF']."' method='post' style='background-image:none'>";
+							echo "<input type='text' name='ID_persona' value=".$row["ID"]." hidden>";
+							
+							/*echo "<figure class=\"cont-badge cont-badge-el\" onclick=\"add_badge()\" style=\"margin-left: 10px;\"> \n";
+							echo "<img src='img/addB.png' alt=\"add badge\"> \n </figure> \n";*/
+							
+							echo "<input type='image' style=\"margin-left: 10px;\" class=\"cont-badge cont-badge-el\" onclick=\"add_badge()\" class=\"cont-badge cont-badge-el\" src='img/addB.png' alt=\"add badge\"> \n";
 							echo "</div> \n </div> \n";
+							
+							echo "</form>";
 
 							$result1 -> free();
 						}
@@ -117,8 +136,9 @@
 								<option value=""> Seleziona </option>
 								<?php
 									include "connessione.php";
-					
-									$sql = "SELECT DISTINCT b.nome FROM badge b JOIN materia m ON b.materia = m.ID_materia WHERE m.nome = '" .$_POST["materia"]. "';";
+									$_SESSION['ID_persona'] =$_POST["ID_persona"];
+									
+									$sql = "SELECT DISTINCT b.nome FROM badge b JOIN materia m ON b.materia = m.ID_materia WHERE m.nome = '" .$_SESSION['materia']. "';";
 									$result = $conn -> query($sql);
 									
 									// Parte ripetuta x la quantita' dei badge
@@ -188,6 +208,7 @@
 							$nome = $_POST["argomento"];
 							$livello = $_POST["livello"]; 
 							$dataB = $_POST["dataB"];
+							$descrizione = $_POST["testo"];
 							
 							try{
 								$sql = "SELECT codBadge FROM badge WHERE nome = '" .$nome. "' AND livello = '" .$livello. "';";
@@ -195,7 +216,7 @@
 								$row = $result -> fetch_assoc();
 
 								// Capire a chi stai assegnando il badge!!
-								$sql1 = "INSERT INTO assegna_visualizza(ID_persona, codBadge, livello, dataB) VALUES (1, ".$row["codBadge"].", ".$livello.", '".$dataB."')";
+								$sql1 = "INSERT INTO assegna_visualizza(ID_persona, codBadge, livello, dataB) VALUES (".$_SESSION['ID_persona'].", ".$row["codBadge"].", ".$livello.", '".$dataB."')";
 
 								if ($conn->query($sql1) === TRUE){
 									echo "Il badge e' stato assegnato correttamente \n";
@@ -215,7 +236,7 @@
 				<!-- Modifica badge -->
 				<div id="modify-badge" class="cont-popup">
 					<div class="cont-modifyB">
-						<form action="" method="post" class="form-badge">
+						<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="form-badge">
 								
 							<h2>Modifica badge</h2>
 						
@@ -227,8 +248,9 @@
 									<?php
 										include "connessione.php";
 						
-										$sql = "SELECT DISTINCT b.nome FROM badge b JOIN materia m ON b.materia = m.ID_materia WHERE m.nome = '" .$_POST["materia"]. "';";
+										$sql = "SELECT DISTINCT b.nome FROM badge b JOIN materia m ON b.materia = m.ID_materia WHERE m.nome = '" .$_SESSION['materia']. "';";
 										$result = $conn -> query($sql);
+										
 										
 										// Parte ripetuta x la quantita' dei badge
 										try{
@@ -306,6 +328,31 @@
 							</div>
 						
 						</form>
+						<?php
+						if(isset($_POST['modifica'])) {
+							include 'connessione.php' ;
+
+							//passare i valori iniziali per inidividuare la riga da modificare 
+							//passare i nuovi valori inseriti
+							
+							//settare $_SESSION['ID_persona'] allo stesso modo di assena_visualizza
+							
+							try{
+								$sql1 = "UPDATE assegna_visualizza SET codBadge=".$_POST["codBadge"].", livello=".$_POST["livello"].", data'".$_POST["dataB"]." WHERE ID_persona=".$_SESSION['ID_persona']." AND codBadge=".$_SESSION['codBadgeIniziale']." AND livello=".$_SESSION['livelloIniziale'];
+
+								if ($conn->query($sql1) === TRUE){
+									echo "Il badge e' stato assegnato correttamente \n";
+								} else {
+									echo "Errore nell'assegnazione del badge <br> Riprova \n";
+								}
+							} catch (Exception $e){
+								echo "Errore inprevisto durante l'aggiornamento, riprovare";
+							}
+
+							$result -> free();
+							$conn -> close();
+						}
+					?> 
 					</div>
 				</div>
 
