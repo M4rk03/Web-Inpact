@@ -9,8 +9,8 @@
 
 		<link rel="icon" type="image/x-icon" href="img/logo.png">
 		<link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="css/persona.css">
 		<link rel="stylesheet" href="css/account.css">
+        <link rel="stylesheet" href="css/persona.css">
 		<link rel="stylesheet" href="fontawesome-icon/css/all.css">
 		<script src="js/myScript.js"></script>
 
@@ -67,7 +67,7 @@
 				<?php
 					include "connessione.php";
 					
-					$sql = "SELECT p.nome, p.cognome, p.dataNascita, p.ID_persona as ID FROM persona p JOIN studente s ON p.ID_persona = s.ID_studente JOIN classe c ON s.ID_classe = c.ID_classe WHERE c.anno = " .$_SESSION['anno']. " AND c.sezione = '" .$_SESSION['sezione']. "';";
+					$sql = "SELECT p.nome, p.cognome, p.dataNascita, p.ID_persona as ID FROM persona p JOIN studente s ON p.ID_persona = s.ID_studente JOIN classe c ON s.ID_classe = c.ID_classe WHERE c.anno = " .$_SESSION["anno"]. " AND c.sezione = '" .$_SESSION["sezione"]. "';";
 					$result = $conn -> query($sql);
 					
 					// Parte ripetuta x la quantita' degli studenti
@@ -75,40 +75,34 @@
 					try{
 						while($row = $result->fetch_assoc()){
 							$num++;
-							echo "<div class=\"tabella cont-elenco\"> \n";
-							echo "<div class=\"elenco list-alunno\"> \n";
+							echo "<div class='tabella cont-elenco'> \n";
+							echo "<div class='elenco list-alunno'> \n";
 							echo "<small>" .$num. "</small> \n";
 						
 							$alunno = strtoupper($row["nome"])." ".strtoupper($row["cognome"]);
 							echo "<p>" .$alunno. "</p> \n";
 							echo "<p>" .$row["dataNascita"]. "</p> \n </div> \n";
-							echo "<div class=\"elenco\"> \n";
+							echo "<div class='elenco'> \n";
 						
 							try{
-								$sql1 = "SELECT b.nome, b.livello, av.dataB FROM badge b JOIN assegna_visualizza av ON (b.codBadge = av.codBadge) AND (b.livello = av.livello) JOIN materia m ON b.materia = m.ID_materia WHERE av.ID_persona = '" .$row["ID"]. "' AND m.nome = '" .$_SESSION['materia']. "';";
+								$sql1 = "SELECT b.nome, b.livello, av.dataB FROM badge b JOIN assegna_visualizza av ON (b.codBadge = av.codBadge) AND (b.livello = av.livello) JOIN materia m ON b.materia = m.ID_materia WHERE av.ID_persona = " .$row["ID"]. " AND m.nome = '" .$_SESSION["materia"]. "';";
 								$result1 = $conn -> query($sql1);
 								
 								// Parte ripetuta x la quantita' dei badge assegnati
 								while($row1 = $result1->fetch_assoc()){
 									$badge = $row1["nome"]."".$row1["livello"];
-									
-									echo "<figure class=\"cont-badge cont-badge-el\" onclick=\"modify_badge(this)\"> \n";
+
+									echo "<figure class='cont-badge cont-badge-el' onclick='modify_badge(this, ".$row["ID"].")'> \n";
 									echo "<img src='img/badge/" .$badge. ".png' alt=" .$badge. "> \n </figure> \n";
 								}
-								
+
 							}catch (Exception $e){
 								echo "<p> Non è stato trovato nessun badge </p>";
-							}//viene passato l'ID_persona corretto ma il popup si chiede a caso
-							echo "<form action='".$_SERVER['PHP_SELF']."' method='post' style='background-image:none'>";
-							echo "<input type='text' name='ID_persona' value=".$row["ID"]." hidden>";
-							
-							/*echo "<figure class=\"cont-badge cont-badge-el\" onclick=\"add_badge()\" style=\"margin-left: 10px;\"> \n";
-							echo "<img src='img/addB.png' alt=\"add badge\"> \n </figure> \n";*/
-							
-							echo "<input type='image' style=\"margin-left: 10px;\" class=\"cont-badge cont-badge-el\" onclick=\"add_badge()\" class=\"cont-badge cont-badge-el\" src='img/addB.png' alt=\"add badge\"> \n";
+							}
+
+							echo "<figure class='cont-badge cont-badge-el' onclick='add_badge(".$row["ID"].")' style='margin-left: 10px;'> \n";
+							echo "<img src='img/addB.png' alt='add badge'> \n </figure> \n";
 							echo "</div> \n </div> \n";
-							
-							echo "</form>";
 
 							$result1 -> free();
 						}
@@ -121,11 +115,11 @@
 					$conn -> close();
 				?>
 
-				<!-- PopUp -->
+				<!-- POPUP -->
 				<!-- Assegna badge -->
 				<div id="add-badge" class="cont-popup">
 					<!-- // Da rivedere l'action!! -->
-					<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="form-badge">
+					<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="form form-badge">
 							
 						<h2>Assegna badge</h2>
 				
@@ -136,9 +130,8 @@
 								<option value=""> Seleziona </option>
 								<?php
 									include "connessione.php";
-									$_SESSION['ID_persona'] =$_POST["ID_persona"];
 									
-									$sql = "SELECT DISTINCT b.nome FROM badge b JOIN materia m ON b.materia = m.ID_materia WHERE m.nome = '" .$_SESSION['materia']. "';";
+									$sql = "SELECT DISTINCT b.nome FROM badge b JOIN materia m ON b.materia = m.ID_materia WHERE m.nome = '" .$_SESSION["materia"]. "';";
 									$result = $conn -> query($sql);
 									
 									// Parte ripetuta x la quantita' dei badge
@@ -201,42 +194,13 @@
 
 					</form>
 
-					<?php
-						if(isset($_POST['assegna'])) {
-							include 'connessione.php' ;
-
-							$nome = $_POST["argomento"];
-							$livello = $_POST["livello"]; 
-							$dataB = $_POST["dataB"];
-							$descrizione = $_POST["testo"];
-							
-							try{
-								$sql = "SELECT codBadge FROM badge WHERE nome = '" .$nome. "' AND livello = '" .$livello. "';";
-								$result = $conn -> query($sql);
-								$row = $result -> fetch_assoc();
-
-								// Capire a chi stai assegnando il badge!!
-								$sql1 = "INSERT INTO assegna_visualizza(ID_persona, codBadge, livello, dataB) VALUES (".$_SESSION['ID_persona'].", ".$row["codBadge"].", ".$livello.", '".$dataB."')";
-
-								if ($conn->query($sql1) === TRUE){
-									echo "Il badge e' stato assegnato correttamente \n";
-								} else {
-									echo "Errore nell'assegnazione del badge <br> Riprova \n";
-								}
-							} catch (Exception $e){
-								echo "Qualcosa e' andato storto";
-							}
-
-							$result -> free();
-							$conn -> close();
-						}
-					?> 
+					<!-- PHP nel div alerts --> 
 				</div>
 
 				<!-- Modifica badge -->
 				<div id="modify-badge" class="cont-popup">
 					<div class="cont-modifyB">
-						<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="form-badge">
+						<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="form form-badge">
 								
 							<h2>Modifica badge</h2>
 						
@@ -248,9 +212,8 @@
 									<?php
 										include "connessione.php";
 						
-										$sql = "SELECT DISTINCT b.nome FROM badge b JOIN materia m ON b.materia = m.ID_materia WHERE m.nome = '" .$_SESSION['materia']. "';";
+										$sql = "SELECT DISTINCT b.nome FROM badge b JOIN materia m ON b.materia = m.ID_materia WHERE m.nome = '" .$_SESSION["materia"]. "';";
 										$result = $conn -> query($sql);
-										
 										
 										// Parte ripetuta x la quantita' dei badge
 										try{
@@ -328,31 +291,73 @@
 							</div>
 						
 						</form>
+
 						<?php
-						if(isset($_POST['modifica'])) {
-							include 'connessione.php' ;
+							if(isset($_POST['modifica'])) {
+								include 'connessione.php' ;
 
-							//passare i valori iniziali per inidividuare la riga da modificare 
-							//passare i nuovi valori inseriti
-							
-							//settare $_SESSION['ID_persona'] allo stesso modo di assena_visualizza
-							
-							try{
-								$sql1 = "UPDATE assegna_visualizza SET codBadge=".$_POST["codBadge"].", livello=".$_POST["livello"].", data'".$_POST["dataB"]." WHERE ID_persona=".$_SESSION['ID_persona']." AND codBadge=".$_SESSION['codBadgeIniziale']." AND livello=".$_SESSION['livelloIniziale'];
+								//passare i valori iniziali per inidividuare la riga da modificare 
+								//passare i nuovi valori inseriti
+								
+								//settare $_SESSION['ID_persona'] allo stesso modo di assegna_visualizza
+								
+								try{
+									$sql1 = "UPDATE assegna_visualizza SET codBadge=".$_POST["codBadge"].", livello=".$_POST["livello"].", data'".$_POST["dataB"]." WHERE ID_persona=".$_SESSION['ID_persona']." AND codBadge=".$_SESSION['codBadgeIniziale']." AND livello=".$_SESSION['livelloIniziale'];
 
-								if ($conn->query($sql1) === TRUE){
-									echo "Il badge e' stato assegnato correttamente \n";
-								} else {
-									echo "Errore nell'assegnazione del badge <br> Riprova \n";
+									if ($conn->query($sql1) === TRUE){
+										echo "Il badge e' stato assegnato correttamente \n";
+									} else {
+										echo "Errore nell'assegnazione del badge <br> Riprova \n";
+									}
+								} catch (Exception $e){
+									echo "Errore inprevisto durante l'aggiornamento, riprovare";
 								}
-							} catch (Exception $e){
-								echo "Errore inprevisto durante l'aggiornamento, riprovare";
-							}
 
-							$result -> free();
-							$conn -> close();
-						}
-					?> 
+								$result -> free();
+								$conn -> close();
+							}
+						?> 
+					</div>
+				</div>
+
+				<!-- Popup di notifica -->
+				<div id="alerts" class="cont-popup">
+					<div class="cont-alerts">
+						<p>Prova</p>
+
+						<?php
+							// PHP di Assegna badge
+							if(isset($_POST['assegna'])) {
+								include 'connessione.php' ;
+
+								$nome = $_POST["argomento"];
+								$livello = $_POST["livello"]; 
+								$dataB = $_POST["dataB"];
+								//$descrizione = $_POST["testo"];
+								$id_pers = $_POST["ID_persona"];
+								
+								try{
+									$sql = "SELECT codBadge FROM badge WHERE nome = '" .$nome. "' AND livello = " .$livello. ";";
+									$result = $conn -> query($sql);
+									$row = $result -> fetch_assoc();
+
+									$sql1 = "INSERT INTO assegna_visualizza(ID_persona, codBadge, livello, dataB) VALUES (".$id_pers.", ".$row["codBadge"].", ".$livello.", '".$dataB."')";
+
+									if ($conn->query($sql1) === TRUE){
+										echo "<script id='codice'> view_alert('Il badge è stato assegnato correttamente') </script> \n";
+									} else {
+										echo "<script id='codice'> view_alert('Errore nell'assegnazione del badge <br> Riprova') </script> \n";
+									}
+								} catch (Exception $e){
+									echo "Qualcosa è andato storto \n";
+								}
+
+								$result -> free();
+								$conn -> close();
+							}
+						?>
+
+						<input type="button" onclick="close_alert()" value="Chiudi" class="btn-close">
 					</div>
 				</div>
 
@@ -375,6 +380,6 @@
 
 			<figure style="justify-content:right;"> <img src="img/dalcero.png" alt="logo DalCero" style="width:100px;"> </figure>
 		</footer>
-
+		
 	</body>
 </html>

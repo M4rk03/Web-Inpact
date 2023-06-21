@@ -158,6 +158,9 @@ div.informatica{
 	padding: 4px 12px;
 }
 .cont-badge-el{
+	background: none;
+	border: none;
+	
 	width: 42px;
 	padding: 0px;
 }
@@ -176,7 +179,7 @@ div.informatica{
 	gap: 8px;
 }
 
-/* Aggiungi badge */
+/* Popup */
 .cont-popup{
 	position: fixed;
 	top: 0px;
@@ -192,6 +195,34 @@ div.informatica{
 	width: auto;
 }
 
+.cont-alerts{
+	background-color: #fff;
+	border-radius: 14px;
+	box-shadow: 8px 8px 10px 4px #444;
+
+	font-size: 20px;
+
+	display: grid;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+	width: 400px;
+	padding: 20px;
+}
+.btn-close{
+	background-color: #C4282B;
+	border: 0px;
+	border-radius: 5px;
+
+	color: #fff;
+	font-family: Mustica;
+	font-size: 18px;
+	text-align: center;
+
+	padding: 5px;
+}
+
+/* Aggiungi badge */
 #add-badge > img{
 	width: 400px;
 }
@@ -217,7 +248,7 @@ div.informatica{
 	margin: 2px 0;
 }
 
-/* Aggiungi badge */
+/* Modifica badge */
 .cont-modifyB{
 	background-color: #fff;
 	border-radius: 14px;

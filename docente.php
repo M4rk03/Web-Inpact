@@ -56,28 +56,28 @@
 					
 					// Parte ripetuta x la quantita' delle classi
 					while($row1 = $result1->fetch_assoc()){
-						echo "<div class=\"tabella\"> \n";
-						echo "<div class=\"texture classe\"> \n";
+						echo "<div class='tabella'> \n";
+						echo "<div class='texture classe'> \n";
 
 						$classe = strtoupper($row1["anno"])." ".strtoupper($row1["sezione"]);
-						echo "<p>" .$classe. "</p> \n <i class=\"fa-solid fa-book-bookmark\"></i> \n </div> \n";
-						echo "<div class=\"texture cont-materie\"> \n";
+						echo "<p>" .$classe. "</p> \n <i class='fa-solid fa-book-bookmark'></i> \n </div> \n";
+						echo "<div class='texture cont-materie'> \n";
 
 						try{
-							$sql2 = "SELECT m.nome FROM materia m JOIN insegna i ON m.ID_materia = i.ID_materia JOIN account a ON i.ID_persona = a.ID_persona WHERE a.nomeUtente = '" .$_SESSION["nomeUtente"]. "' AND i.ID_classe = '" .$row1["ID_classe"]. "';";
+							$sql2 = "SELECT m.nome FROM materia m JOIN insegna i ON m.ID_materia = i.ID_materia JOIN account a ON i.ID_persona = a.ID_persona WHERE a.nomeUtente = '" .$_SESSION["nomeUtente"]. "' AND i.ID_classe = " .$row1["ID_classe"]. ";";
 							$result2 = $conn -> query($sql2);
 							
 							// Parte ripetuta x la quantita' delle materie insegnate
 							while($row2 = $result2->fetch_assoc()){
 
 								// Passaggio dei dati per la pagina elenco
-								echo "<form action=\"elenco.php\" method=\"post\"> \n";
-								echo "<input name=\"anno\" value='" .$row1["anno"]. "' hidden> <input name=\"sezione\" value='" .$row1["sezione"]. "' hidden>";
-								echo "<input name=\"materia\" value='" .$row2["nome"]. "' hidden> \n";
+								echo "<form action='elenco.php' method='post'> \n";
+								echo "<input name='anno' value='" .$row1["anno"]. "' hidden> <input name='sezione' value='" .$row1["sezione"]. "' hidden>";
+								echo "<input name='materia' value='" .$row2["nome"]. "' hidden> \n";
 
 
 								$nome = strtoupper($row2["nome"]);
-								echo "<button type=\"submit\" name=\"but-mat\" class=\"materia\"> \n";
+								echo "<button name='but-mat' class='materia'> \n";
 
 								// Controllo colore materia
 								$color_name = '';
@@ -92,7 +92,7 @@
 									$color_name = 'sistemi';
 								}
 
-								echo "<span class=\"mat-color " .$color_name. "\"></span> \n";
+								echo "<span class='mat-color " .$color_name. "'></span> \n";
 								echo "<p>" .$nome. "</p> \n </button> \n </form> \n";
 							}
 						}catch (Exception $e){

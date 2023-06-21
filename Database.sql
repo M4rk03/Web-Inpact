@@ -142,25 +142,25 @@ VALUES
 	(3, "Crittografia", 4, 2),
 	(3, "Crittografia", 4, 3),
 	
-	(4, "Css", 2, 1),
-	(4, "Css", 2, 2),
-	(4, "Css", 2, 3),
+	(4, "Css", 3, 1),
+	(4, "Css", 3, 2),
+	(4, "Css", 3, 3),
 	
 	(5, "Hardware", 4, 1),
 	(5, "Hardware", 4, 2),
 	(5, "Hardware", 4, 3),
 	
-	(6, "Html", 2, 1),
-	(6, "Html", 2, 2),
-	(6, "Html", 2, 3),
+	(6, "Html", 3, 1),
+	(6, "Html", 3, 2),
+	(6, "Html", 3, 3),
 	
 	(7, "Java", 2, 1),
 	(7, "Java", 2, 2),
 	(7, "Java", 2, 3),
 	
-	(8, "Javascript", 2, 1),
-	(8, "Javascript", 2, 2),
-	(8, "Javascript", 2, 3),
+	(8, "Javascript", 3, 1),
+	(8, "Javascript", 3, 2),
+	(8, "Javascript", 3, 3),
 	
 	(9, "Office", 2, 1),
 	(9, "Office", 2, 2),

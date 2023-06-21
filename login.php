@@ -22,7 +22,7 @@
 		<a href="index.html"> <i class="fa-solid fa-house"></i> </a>
 	
 		<div class="cont-data">
-			<form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post"> <fieldset>
+			<form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post" class="form"> <fieldset>
 
 				<div class="cont-title">
                     <img src="img/logo.png" alt="logo">

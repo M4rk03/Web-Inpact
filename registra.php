@@ -23,7 +23,7 @@
 		<a href="index.html"> <i class="fa-solid fa-house"></i> </a>
 	
 		<div class="cont-data cont-signup">
-			<form id="registraForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post"> <fieldset>
+			<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="form"> <fieldset>
 
 				<div class="cont-title">
                     <img src="img/logo.png" alt="logo">
@@ -41,7 +41,7 @@
 							$result = $conn -> query($sql);
 							$row = $result -> fetch_assoc();
 							$id = $row["id"] + 1;
-							echo "<input type=\"number\" class=\"inserisci in_data\" name=\"ID_persona\" value='" .$id. "' readonly>";
+							echo "<input type='number' class='inserisci in_data' name='ID_persona' value='" .$id. "' readonly>";
 							$result -> free();
 							$conn -> close();
 						?>
@@ -101,7 +101,7 @@
 					<i class="fa-solid fa-circle-user"></i>
 					<?php
 						$email = "ciao" .$id. "@scuola.it";
-						echo "<input type=\"email\" placeholder=\"Username\" class=\"inserisci\" name=\"email\" value='" .$email. "' readonly>";
+						echo "<input type='email' placeholder='Username' class='inserisci' name='email' value='" .$email. "' readonly>";
 					?>
 				</div>
 
@@ -135,7 +135,6 @@
 					$pw = $_POST["pwd"];
 					$cpw = $_POST["conf_pwd"];
 					
-					// ID_classe non serve se autoincrement
 					$anno = $_POST["anno"];
 					$sezione = $_POST["sezione"];
 					

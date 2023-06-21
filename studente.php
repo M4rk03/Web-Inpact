@@ -60,7 +60,7 @@
 						$materia = $row1["materia"];
 						$nome_prof = $row1["nome"]." ".$row1["cognome"];
 
-						echo "<div class=\"tabella\"> \n";
+						echo "<div class='tabella'> \n";
 
 						// Controllo colore materia
 						$color_name = '';
@@ -75,10 +75,10 @@
 							$color_name = 'sistemi';
 						}
 
-						echo "<div class=\"texture mater-inseg " .$color_name. "\"> \n";
+						echo "<div class='texture mater-inseg " .$color_name. "'> \n";
 						echo "<p>" .$materia. "</p> \n";
 						echo "<small>" .$nome_prof. "</small> \n </div> \n";
-						echo "<div class=\"texture cont-materie sez-badge\"> \n";
+						echo "<div class='texture cont-materie sez-badge'> \n";
 
 						try{
 							$sql2 = "SELECT b.nome, b.livello, av.dataB FROM badge b JOIN assegna_visualizza av ON (b.codBadge = av.codBadge) AND (b.livello = av.livello) JOIN account a ON av.ID_persona = a.ID_persona WHERE a.nomeUtente = '" .$_SESSION["nomeUtente"]. "' AND b.materia = " .$row1["ID"]. ";";
@@ -87,11 +87,11 @@
 							// Parte ripetuta x la quantita' delle materie insegnate
 							while($row2 = $result2->fetch_assoc()){
 								$badge = $row2["nome"]."".$row2["livello"];
-								echo "<figure class=\"cont-badge\" name='" .$badge. "' onclick=\"zoom_badge(this)\"> \n";
+								echo "<figure class='cont-badge' name='" .$badge. "' onclick='zoom_badge(this)'> \n";
 								echo "<img src='img/badge/" .$badge. ".png' alt=" .$badge. "> \n </figure> \n";
 							}
 						}catch(Exception $e){
-							echo "<p id=\"noBadge\"> Non è stato trovato nessun badge </p>";
+							echo "<p> Non è stato trovato nessun badge </p>";
 						}
 
 						echo "</div> \n </div> \n";
