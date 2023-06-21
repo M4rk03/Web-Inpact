@@ -61,6 +61,11 @@ function zoom_badge(){
     
 }
 
+
+function refreshPage(){
+    location.reload();
+}
+
 // ASSEGNA un badge allo studente
 function add_badge(valore){
     let cont = document.querySelector('#add-badge');

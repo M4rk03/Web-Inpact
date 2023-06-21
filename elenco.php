@@ -207,13 +207,14 @@
 							<div class="cont-inserisci">
 								<label> Argomento: </label> 
 								
-								<select id="mod-nomeB" class="inserisci in_data select" onchange="visual_img()" name="nome" required>
+								<select name="mod-nomeB" id="mod-nomeB" class="inserisci in_data select" onchange="visual_img()" name="nome" required>
 									<option value=""> Seleziona </option>
 									<?php
 										include "connessione.php";
 						
 										$sql = "SELECT DISTINCT b.nome FROM badge b JOIN materia m ON b.materia = m.ID_materia WHERE m.nome = '" .$_SESSION["materia"]. "';";
 										$result = $conn -> query($sql);
+										
 										
 										// Parte ripetuta x la quantita' dei badge
 										try{
@@ -224,7 +225,10 @@
 										catch (Exception $e){
 											echo "Errore";
 										}
-					
+										
+										if(!isset($_SESSION["nomeBadgeIniziale"])) {
+											$_SESSION["nomeBadgeIniziale"]=$_POST["mod-nomeB"];
+										}
 										$result -> free();
 										$conn -> close();
 									?>
@@ -234,7 +238,7 @@
 							<div class="cont-inserisci">
 								<label> Livello: </label> 
 								
-								<select id="mod-livelloB" class="inserisci in_data select" onchange="visual_img()" name="livello" required>
+								<select name="mod-livelloB" id="mod-livelloB" class="inserisci in_data select" onchange="visual_img()" name="livello" required>
 									<option value=""> Seleziona </option>
 									<?php
 										include "connessione.php";
@@ -250,6 +254,10 @@
 										}
 										catch (Exception $e){
 											echo "Errore";
+										}
+										
+										if(!isset($_SESSION["livelloIniziale"])) {
+											$_SESSION["livelloIniziale"]=$_POST["mod-livelloB"];
 										}
 					
 										$result -> free();
@@ -295,17 +303,25 @@
 						<?php
 							if(isset($_POST['modifica'])) {
 								include 'connessione.php' ;
-
-								//passare i valori iniziali per inidividuare la riga da modificare 
-								//passare i nuovi valori inseriti
 								
-								//settare $_SESSION['ID_persona'] allo stesso modo di assegna_visualizza
+								$id_pers = $_POST["ID_persona"];
 								
 								try{
-									$sql1 = "UPDATE assegna_visualizza SET codBadge=".$_POST["codBadge"].", livello=".$_POST["livello"].", data'".$_POST["dataB"]." WHERE ID_persona=".$_SESSION['ID_persona']." AND codBadge=".$_SESSION['codBadgeIniziale']." AND livello=".$_SESSION['livelloIniziale'];
+									$sql1 = "SELECT codBadge AS codIniziale FROM badge WHERE nome='" .$_SESSION["nomeBadgeIniziale"]. "' AND livello=" .$_SESSION["livelloIniziale"]. ";";
+									$result1 = $conn -> query($sql1);
+									$row1 = $result1 -> fetch_assoc();
+									
+									
+									$sql2 = "SELECT codBadge FROM badge WHERE nome = '" .$_POST["mod-nomeB"]. "' AND livello = " .$_POST["mod-livelloB"]. ";";
+									$result2 = $conn -> query($sql2);
+									$row2 = $result2 -> fetch_assoc();
+									
+									$sql1 = "UPDATE assegna_visualizza SET codBadge=".
+									
+									$sql1 = "UPDATE assegna_visualizza SET codBadge=".$row2["codBadge"].", livello=".$_POST["mod-livelloB"].", data='".$_POST["dataB"]." WHERE ID_persona=".$id_pers." AND codBadge=".$row1["codIniziale"]." AND livello=".$_SESSION["livelloIniziale"]. ";";
 
 									if ($conn->query($sql1) === TRUE){
-										echo "Il badge e' stato assegnato correttamente \n";
+										echo "<script>refreshPage();</script>";
 									} else {
 										echo "Errore nell'assegnazione del badge <br> Riprova \n";
 									}
@@ -313,7 +329,8 @@
 									echo "Errore inprevisto durante l'aggiornamento, riprovare";
 								}
 
-								$result -> free();
+								$result1 -> free();
+								$result2 -> free();
 								$conn -> close();
 							}
 						?> 
@@ -344,7 +361,7 @@
 									$sql1 = "INSERT INTO assegna_visualizza(ID_persona, codBadge, livello, dataB) VALUES (".$id_pers.", ".$row["codBadge"].", ".$livello.", '".$dataB."')";
 
 									if ($conn->query($sql1) === TRUE){
-										echo "<script id='codice'> view_alert('Il badge è stato assegnato correttamente') </script> \n";
+										echo "<script>refreshPage();</script>";
 									} else {
 										echo "<script id='codice'> view_alert('Errore nell'assegnazione del badge <br> Riprova') </script> \n";
 									}
