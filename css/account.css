@@ -108,13 +108,13 @@ fieldset > p{
 .cont-button{
 	display: grid;
 	grid-template-areas: 
-		"accedi accedi"
-		"pwd_dim registrati";
+		"primo primo"
+		"secondo terzo";
 	grid-auto-columns: 1fr;
 	gap: 10px;
 }
 #accedi{
-	grid-area: accedi;
+	grid-area: primo;
 	background-color: #C4282B;
 	border: 0px;
 	border-radius: 10px;
@@ -128,7 +128,7 @@ fieldset > p{
 	cursor: pointer;
 }
 #bottone-pwd{
-	grid-area: pwd_dim;
+	grid-area: secondo;
 
 	background-color:white;
 	border: 0px;
@@ -138,7 +138,7 @@ fieldset > p{
 	text-decoration:underline;
 }
 #registrati{
-	grid-area: registrati;
+	grid-area: terzo;
 	background-color:#FEED00;
 	border-radius: 10px;
 

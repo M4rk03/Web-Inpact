@@ -61,11 +61,6 @@ function zoom_badge(){
     
 }
 
-
-function refreshPage(){
-    location.reload();
-}
-
 // ASSEGNA un badge allo studente
 function add_badge(valore){
     let cont = document.querySelector('#add-badge');
@@ -86,24 +81,26 @@ function close_add(){
 }
 
 // MODIFICA un badge allo studente
-function modify_badge(e, valore){
+function modify_badge(e, valore1, valore2){
     document.querySelector('#modify-badge').style.display = 'flex';
     let cont = document.querySelector('.cont-modifyB');
     let cont_form = cont.children[0];
 
     // passaggio della variabile ID_persona
     let input = document.createElement('input');
-    input.value = valore;
+    input.value = valore1;
     input.name = 'ID_persona';
     input.setAttribute('hidden', input);
-
-    console.log(cont.lastElementChild.tagName);
-    console.log(cont_form.lastElementChild.tagName);
     
     if (cont_form.lastElementChild.tagName == 'INPUT'){
         cont_form.removeChild(cont_form.lastChild);
+        cont_form.removeChild(cont_form.lastChild);
+        cont_form.removeChild(cont_form.lastChild);
     }
     cont_form.appendChild(input);
+
+    // passaggio della variabile dataB
+    document.querySelector('#mod-dataB').value = valore2;
 
     // visualizza img badge
     let badge = e.children[0].alt;
@@ -127,6 +124,20 @@ function modify_badge(e, valore){
             i.selected = true;
         }
     }
+
+    // passaggio della variabile nomeB
+    let input1 = document.createElement('input');
+    input1.value = badge.match(/[A-Z][a-z]*/)[0];
+    input1.name = 'nomeB_assegnato';
+    input1.setAttribute('hidden', input1);
+    cont_form.appendChild(input1);
+
+    // passaggio della variabile livelloB
+    let input2 = document.createElement('input');
+    input2.value = badge.match(/\d+/)[0];
+    input2.name = 'livelloB_assegnato';
+    input2.setAttribute('hidden', input2);
+    cont_form.appendChild(input2);
 }
 function close_modify(){
     document.querySelector('#modify-badge').style.display = 'none';
@@ -161,12 +172,15 @@ function visual_img(){
 }
 
 // POPUP di notifiche
-function view_alert(testo){
-    let cont = document.querySelector('#alerts');
-    cont.style.display = 'flex';
-    cont.children[0].children[0].innerHTML = testo;
-    document.querySelector('#codice').remove();
+function view_alert(){
+    document.querySelector('#alerts').style.display = 'flex';
 }
 function close_alert(){
     document.querySelector('#alerts').style.display = 'none';
+    refreshPage();
+}
+
+// AGGIORNA la pagina
+function refreshPage(){
+    location.reload();
 }

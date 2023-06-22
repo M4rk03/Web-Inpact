@@ -132,6 +132,7 @@
 					$sesso = $_POST["sesso"];
 					$tipo = $_POST["tipo_pers"];
 					
+					$email = $_POST["email"];
 					$pw = $_POST["pwd"];
 					$cpw = $_POST["conf_pwd"];
 					
@@ -139,42 +140,57 @@
 					$sezione = $_POST["sezione"];
 					
 					if($pw === $cpw){
-						// DA RIVEDERE!!
-						//include "connessione.php";
-						try{
-							$sql = "SELECT * FROM Classe WHERE anno = ".$anno." AND sezione = '".$sezione."'";
-							$result = $conn -> query($sql);
-						    $row = $result -> fetch_assoc();
 
-							if(isset($row["ID_classe"])) {
-								if($tipo == 'studente'){
-									// INSERT PER STUDENTE
-								} elseif($tipo == 'docente'){
-									$sql1 = "INSERT INTO persona(nome, cognome, dataNascita, sesso, tipo) VALUES (".$nome."', '".$cognome."', '".$dataNascita."', '".$sesso."', 2,)";
-								} else{
-									echo "Non hai inserito il tipo della persona";
+						if (isset($tipo)) {
+
+							try {
+								$sql = "INSERT INTO persona(nome, cognome, dataNascita, sesso, tipo) VALUES ('".$nome."', '".$cognome."', '".$dataNascita."', '".$sesso."', ".$tipo.")";
+
+								if ($tipo == 'studente'){
+									// INSERT per studente
+									$sql1 = "SELECT ID_classe FROM classe WHERE anno = " .$anno. " AND sezione = '" .$sezione.  "';";
+									$result = $conn -> query($sql1);
+									$row = $result -> fetch_assoc();
+		
+									if (isset($row["ID_classe"])) {
+										// Se esiste la classe
+		
+									} else{
+										// Se non esiste la classe
+										$sql2 = "INSERT INTO classe(anno, sezione) VALUES (".$anno.", '".$sezione."')";
+										$sql1 = "SELECT ID_classe FROM classe WHERE anno = " .$anno. " AND sezione = '" .$sezione.  "';";
+										$result = $conn -> query($sql1);
+										$row = $result -> fetch_assoc();
+									}
+		
+									$sql3 = "INSERT INTO studente(ID_studente, ID_classe) VALUES (".$id.", '".$row["ID_classe"]."')";
+		
+								} else if ($tipo == 'docente'){
+									// INSERT per studente
+									// controllo materia !!
+									// insert per insegna !!
 								}
 
-								if ($conn->query($sql1) === TRUE){
-									echo "Persona con codice " .$row["id"]. " registrata correttamente<br>";
+								$sql4 = "INSERT INTO account(nomeUtente, password, ID_persona) VALUES ('".$email."', '".$pw."', ".$id.")";
+
+								if ($conn->query($sql4) === TRUE){
+									echo "Persona con username " .$email. " registrata correttamente <br>";
 								} else {
-									echo "Errore nella registrazione";
+									echo "Errore nella registrazione <br> Riprova";
 								}
 
 								$result -> free();
-							}else{
-								throw new Exception('');
+
+							} catch (Exception $e) {
+								echo "Qualcosa è andato storto <br>";
+								echo $e;
 							}
-							}catch (Exception $e){
-								// Da rivedere!!
-								$sql = "INSERT INTO classe(ID_classe, anno, sezione) VALUES (".$ID_classe.",". $anno.",'".$sezione."')";
-								$sql1 = "INSERT INTO persona(ID_persona, nome, cognome, dataNascita, sesso, tipo, ID_classe) VALUES (".$ID_persona.", '".$nome."', '".$cognome."', '".$dataNascita."', '".$sesso."', '2', '".$ID_classe."')";
-								if ($conn->query($sql) === TRUE AND $conn->query($sql1) === TRUE) {
-									echo "Persona con codice ".$ID_persona." registrata correttamente<br>";
-								} else {
-									echo "Errore nella registrazione";
-								}
-							}
+
+						} else{
+							echo "Non hai inserito il tipo della persona";
+						}
+							
+
 					}else{
 						echo "Le password inserite non corrispondono";
 					}

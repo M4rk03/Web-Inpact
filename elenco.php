@@ -92,7 +92,7 @@
 								while($row1 = $result1->fetch_assoc()){
 									$badge = $row1["nome"]."".$row1["livello"];
 
-									echo "<figure class='cont-badge cont-badge-el' onclick='modify_badge(this, ".$row["ID"].")'> \n";
+									echo "<figure class='cont-badge cont-badge-el' onclick=\"modify_badge(this, ".$row["ID"].", '".$row1["dataB"]."')\"> \n";
 									echo "<img src='img/badge/" .$badge. ".png' alt=" .$badge. "> \n </figure> \n";
 								}
 
@@ -207,14 +207,13 @@
 							<div class="cont-inserisci">
 								<label> Argomento: </label> 
 								
-								<select name="mod-nomeB" id="mod-nomeB" class="inserisci in_data select" onchange="visual_img()" name="nome" required>
+								<select id="mod-nomeB" class="inserisci in_data select" onchange="visual_img()" name="nomeB" required>
 									<option value=""> Seleziona </option>
 									<?php
 										include "connessione.php";
 						
 										$sql = "SELECT DISTINCT b.nome FROM badge b JOIN materia m ON b.materia = m.ID_materia WHERE m.nome = '" .$_SESSION["materia"]. "';";
 										$result = $conn -> query($sql);
-										
 										
 										// Parte ripetuta x la quantita' dei badge
 										try{
@@ -225,10 +224,7 @@
 										catch (Exception $e){
 											echo "Errore";
 										}
-										
-										if(!isset($_SESSION["nomeBadgeIniziale"])) {
-											$_SESSION["nomeBadgeIniziale"]=$_POST["mod-nomeB"];
-										}
+					
 										$result -> free();
 										$conn -> close();
 									?>
@@ -238,7 +234,7 @@
 							<div class="cont-inserisci">
 								<label> Livello: </label> 
 								
-								<select name="mod-livelloB" id="mod-livelloB" class="inserisci in_data select" onchange="visual_img()" name="livello" required>
+								<select id="mod-livelloB" class="inserisci in_data select" onchange="visual_img()" name="livelloB" required>
 									<option value=""> Seleziona </option>
 									<?php
 										include "connessione.php";
@@ -255,10 +251,6 @@
 										catch (Exception $e){
 											echo "Errore";
 										}
-										
-										if(!isset($_SESSION["livelloIniziale"])) {
-											$_SESSION["livelloIniziale"]=$_POST["mod-livelloB"];
-										}
 					
 										$result -> free();
 										$conn -> close();
@@ -268,111 +260,144 @@
 						
 							<div class="cont-inserisci">
 								<label> Data: </label>
-								<?php
-									include "connessione.php";
-									
-									// Come prendere i dati?!
-									$sql = "SELECT av.codBadge, av.dataB FROM assegna_visualizza av JOIN badge b ON (av.codBadge = b.codBadge) AND (av.livello = b.livello) WHERE av.ID_persona = 1 AND b.nome = 'C' AND av.livello = 2;";
-									$result = $conn -> query($sql);
-									
-									// Parte ripetuta x i livelli dei badge
-									try{
-										echo "<input type=\"date\" class=\"inserisci in_data\" value=\"2011-03-21\" name=\"dataB\" required>";
-									}
-									catch (Exception $e){
-										echo "Errore";
-									}
-				
-									$result -> free();
-									$conn -> close();
-								?>
+								<input type="date" id="mod-dataB" class="inserisci in_data" name="dataB" required>
 							</div>
 						
 							<div class="cont-inserisci">
 								<label> Descrizione: </label>
 								<textarea class="inserisci in_data" name="testo" rows="4" style="resize:none;height:auto;">Sei stato molto bravo...</textarea>
 							</div>
-						
-							<div class="cont-button-signup">
-								<input type="button" onclick="close_modify()" value="Chiudi" class="bottone cancella">
-								<input type="submit" value="Modifica" class="bottone" name="modifica">
+
+							<div class="cont-button">
+								<input type="submit" value="Modifica" class="bottone btn-modifica" name="modifica">
+								<input type="button" onclick="close_modify()" value="Chiudi" class="bottone cancella" style="grid-area:secondo;">
+
+								<input type="submit" value="Elimina" class="bottone btn-elimina" name="elimina">
 							</div>
 						
 						</form>
 
-						<?php
-							if(isset($_POST['modifica'])) {
-								include 'connessione.php' ;
-								
-								$id_pers = $_POST["ID_persona"];
-								
-								try{
-									$sql1 = "SELECT codBadge AS codIniziale FROM badge WHERE nome='" .$_SESSION["nomeBadgeIniziale"]. "' AND livello=" .$_SESSION["livelloIniziale"]. ";";
-									$result1 = $conn -> query($sql1);
-									$row1 = $result1 -> fetch_assoc();
-									
-									
-									$sql2 = "SELECT codBadge FROM badge WHERE nome = '" .$_POST["mod-nomeB"]. "' AND livello = " .$_POST["mod-livelloB"]. ";";
-									$result2 = $conn -> query($sql2);
-									$row2 = $result2 -> fetch_assoc();
-									
-									$sql1 = "UPDATE assegna_visualizza SET codBadge=".
-									
-									$sql1 = "UPDATE assegna_visualizza SET codBadge=".$row2["codBadge"].", livello=".$_POST["mod-livelloB"].", data='".$_POST["dataB"]." WHERE ID_persona=".$id_pers." AND codBadge=".$row1["codIniziale"]." AND livello=".$_SESSION["livelloIniziale"]. ";";
-
-									if ($conn->query($sql1) === TRUE){
-										echo "<script>refreshPage();</script>";
-									} else {
-										echo "Errore nell'assegnazione del badge <br> Riprova \n";
-									}
-								} catch (Exception $e){
-									echo "Errore inprevisto durante l'aggiornamento, riprovare";
-								}
-
-								$result1 -> free();
-								$result2 -> free();
-								$conn -> close();
-							}
-						?> 
+						<!-- PHP nel div alerts --> 
 					</div>
 				</div>
 
 				<!-- Popup di notifica -->
 				<div id="alerts" class="cont-popup">
 					<div class="cont-alerts">
-						<p>Prova</p>
+						<p>
+							<?php
+								// PHP di Assegna badge
+								if(isset($_POST['assegna'])) {
+									include 'connessione.php' ;
 
-						<?php
-							// PHP di Assegna badge
-							if(isset($_POST['assegna'])) {
-								include 'connessione.php' ;
+									$nome = $_POST["argomento"];
+									$livello = $_POST["livello"]; 
+									$dataB = $_POST["dataB"];
+									//$descrizione = $_POST["testo"];
+									$id_pers = $_POST["ID_persona"];
+									
+									try{
+										$sql = "SELECT codBadge FROM badge WHERE nome = '" .$nome. "' AND livello = " .$livello. ";";
+										$result = $conn -> query($sql);
+										$row = $result -> fetch_assoc();
 
-								$nome = $_POST["argomento"];
-								$livello = $_POST["livello"]; 
-								$dataB = $_POST["dataB"];
-								//$descrizione = $_POST["testo"];
-								$id_pers = $_POST["ID_persona"];
-								
-								try{
-									$sql = "SELECT codBadge FROM badge WHERE nome = '" .$nome. "' AND livello = " .$livello. ";";
-									$result = $conn -> query($sql);
-									$row = $result -> fetch_assoc();
+										$sql1 = "INSERT INTO assegna_visualizza(ID_persona, codBadge, livello, dataB) VALUES (".$id_pers.", ".$row["codBadge"].", ".$livello.", '".$dataB."')";
 
-									$sql1 = "INSERT INTO assegna_visualizza(ID_persona, codBadge, livello, dataB) VALUES (".$id_pers.", ".$row["codBadge"].", ".$livello.", '".$dataB."')";
+										if ($conn->query($sql1) === TRUE){
+											echo "Il badge è stato assegnato correttamente";
+											echo "<script> view_alert() </script> \n";
+										} else {
+											echo "Errore nell'assegnazione del badge <br> Riprova";
+											echo "<script> view_alert() </script> \n";
+										}
 
-									if ($conn->query($sql1) === TRUE){
-										echo "<script>refreshPage();</script>";
-									} else {
-										echo "<script id='codice'> view_alert('Errore nell'assegnazione del badge <br> Riprova') </script> \n";
+										$result -> free();
+										
+									} catch (Exception $e){
+										echo "Qualcosa è andato storto \n";
+										// echo "<script> view_alert('a') </script> \n";
 									}
-								} catch (Exception $e){
-									echo "Qualcosa è andato storto \n";
+
+									$conn -> close();
 								}
 
-								$result -> free();
-								$conn -> close();
-							}
-						?>
+
+								// PHP di Modifica badge
+								if(isset($_POST['modifica'])) {
+									include 'connessione.php' ;
+
+									$dataB = $_POST["dataB"];
+									$id_pers = $_POST["ID_persona"];
+
+									$nomeB_ass = $_POST["nomeB_assegnato"];
+									$livelloB_ass = $_POST["livelloB_assegnato"];
+									
+									try{
+										// Badge assegnto
+										$sql = "SELECT codBadge AS codIniziale FROM badge WHERE nome = '" .$nomeB_ass. "' AND livello = " .$livelloB_ass. ";";
+										$result = $conn -> query($sql);
+										$row = $result -> fetch_assoc();
+										
+										// Badge modificato
+										$sql1 = "SELECT codBadge FROM badge WHERE nome = '" .$_POST["nomeB"]. "' AND livello = " .$_POST["livelloB"]. ";";
+										$result1 = $conn -> query($sql1);
+										$row1 = $result1 -> fetch_assoc();
+										
+										$sql2 = "UPDATE assegna_visualizza SET codBadge = ".$row1["codBadge"].", livello = ".$_POST["livelloB"].", dataB ='".$dataB."' WHERE ID_persona = ".$id_pers." AND codBadge = ".$row["codIniziale"]." AND livello = ".$livelloB_ass.";";
+
+										if ($conn->query($sql2) === TRUE){
+											echo "Il badge è stato modificato correttamente \n";
+											echo "<script> view_alert('a') </script> \n";
+										} else {
+											echo "Errore nella modifica del badge <br> Riprova \n";
+											echo "<script> view_alert('a') </script> \n";
+										}
+
+										$result -> free();
+										$result1 -> free();
+
+									} catch (Exception $e){
+										echo "Errore inprevisto durante l'aggiornamento, riprovare";
+										echo "<script> view_alert('a') </script> \n";
+									}
+
+									$conn -> close();
+								} else if (isset($_POST['elimina'])) {
+									include 'connessione.php' ;
+
+									$dataB = $_POST["dataB"];
+									$id_pers = $_POST["ID_persona"];
+
+									$nomeB_ass = $_POST["nomeB_assegnato"];
+									$livelloB_ass = $_POST["livelloB_assegnato"];
+
+									try{
+										// Badge assegnto
+										$sql = "SELECT codBadge FROM badge WHERE nome = '" .$nomeB_ass. "' AND livello = " .$livelloB_ass. ";";
+										$result = $conn -> query($sql);
+										$row = $result -> fetch_assoc();
+										
+										$sql1 = "DELETE FROM assegna_visualizza WHERE ID_persona = ".$id_pers." AND codBadge = ".$row["codBadge"]." AND livello = ".$livelloB_ass.";";
+
+										if ($conn->query($sql1) === TRUE){
+											echo "Il badge è stato eliminato correttamente \n";
+											echo "<script> view_alert('a') </script> \n";
+										} else {
+											echo "Errore nell'eliminazione del badge <br> Riprova \n";
+											echo "<script> view_alert('a') </script> \n";
+										}
+
+										$result -> free();
+
+									} catch (Exception $e){
+										echo "Errore inprevisto durante l'aggiornamento, riprovare";
+										echo "<script> view_alert('a') </script> \n";
+									}
+
+									$conn -> close();
+								}
+							?>
+						</p>
 
 						<input type="button" onclick="close_alert()" value="Chiudi" class="btn-close">
 					</div>

@@ -274,6 +274,22 @@ div.informatica{
 	grid-template-columns: 1fr 3fr;
 }
 
+.btn-modifica{
+	grid-area: primo;
+	letter-spacing: 4px;
+	margin-top: 10px;
+}
+.btn-elimina{
+	grid-area: terzo;
+	background-color: #FEF898;
+	box-shadow: inset 0 0 25px 10px orange;
+
+	color: #000;
+}
+.btn-elimina:hover{
+	background-color: orange;
+}
+
 
 /* Media Query */
 @media screen and (max-width: 1023px) {
