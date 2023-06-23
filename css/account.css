@@ -189,7 +189,7 @@ hr{
 }
 
 .in_classe{
-	display: none;
+	display: flex;
 	justify-content: center;
 	gap: 12px;
 }

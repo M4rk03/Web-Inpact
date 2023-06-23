@@ -44,15 +44,29 @@ function icon_change2(){
 // Controllo sul seleziona tipo persona
 function select_control(){
     let type_person = document.querySelector('#type_person');
-    let classe = document.querySelector('.in_classe');
+    let classe_stu = document.querySelector('#classe_anno');
     let sezione = document.querySelector('#classe_sez');
+    let classe_doc = document.querySelector('#classe_doc');
     
-    if(type_person.value == 'studente'){
-        classe.style.display = 'flex';
+    if(type_person.value == 1){
+        classe_stu.style.display = 'flex';
         sezione.required = true;
-    } else{
-        classe.style.display = 'none';
+
+        classe_doc.style.display = 'none';
+
+    } else if(type_person.value == 2){
+        let classe = document.querySelector('#lettura_classe');
+        classe_doc.style.display = 'grid';
+
+        classe_stu.style.display = 'none';
         sezione.required = false;
+
+        console.log(classe.value);
+
+    } else{
+        classe_stu.style.display = 'none';
+        sezione.required = false;
+        classe_doc.style.display = 'none';
     }
 }
 

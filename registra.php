@@ -76,11 +76,12 @@
 
 					<select id="type_person" onchange="select_control()" class="inserisci in_data select" name="tipo_pers" required>
 						<option value=""> Seleziona </option>
-						<option value="docente"> Docente </option>
-						<option value="studente"> Studente </option>
+						<option value="2"> Docente </option>
+						<option value="1"> Studente </option>
 					</select>
 
-					<div class="cont-inserisci in_classe">
+					<!-- Solo per studente -->
+					<div id="classe_anno" class="cont-inserisci in_classe" style="display:none;">
 						<label> Classe: </label> 
 						
 						<select class="inserisci in_data select" name="anno">
@@ -92,6 +93,34 @@
 						</select>
 
 						<input type="text" placeholder="Sezione" class="inserisci in_data" id="classe_sez" name="sezione" required>
+					</div>
+
+					<!-- Solo per docente -->
+					<div id="classe_doc" style="display:none;gap:20px;">
+						<div class="cont-inserisci in_classe">
+							<label> Classe: </label> 
+							
+							<!-- Da cambiare in un drag and drop !! -->
+							<select id="lettura_classe" class="inserisci in_data select" name="classe" multiple>
+								<option value="1"> 5CI </option>
+								<option value="2"> 4AM </option>
+								<option value="3"> 3DI </option>
+								<option value="4"> 2FST </option>
+								<option value="5"> 1AST </option>
+							</select>
+						</div>
+						
+						<div class="cont-inserisci in_classe">
+							<label> 5CI </label>
+
+							<select class="inserisci in_data select" name="materia" style="height:70px;" multiple>
+								<option value="1"> Tpsi </option>
+								<option value="2"> Informatica </option>
+								<option value="3"> Sistemi e Reti </option>
+							</select>
+
+							<div class="cont-inserisci" style="color:#000;"> <i class="fa-solid fa-circle-plus"></i> </div>
+						</div>
 					</div>
 				</div>
 
@@ -146,37 +175,66 @@
 							try {
 								$sql = "INSERT INTO persona(nome, cognome, dataNascita, sesso, tipo) VALUES ('".$nome."', '".$cognome."', '".$dataNascita."', '".$sesso."', ".$tipo.")";
 
-								if ($tipo == 'studente'){
-									// INSERT per studente
-									$sql1 = "SELECT ID_classe FROM classe WHERE anno = " .$anno. " AND sezione = '" .$sezione.  "';";
-									$result = $conn -> query($sql1);
-									$row = $result -> fetch_assoc();
-		
-									if (isset($row["ID_classe"])) {
-										// Se esiste la classe
-		
-									} else{
-										// Se non esiste la classe
-										$sql2 = "INSERT INTO classe(anno, sezione) VALUES (".$anno.", '".$sezione."')";
+								if ($conn->query($sql) === TRUE) {
+									if ($tipo == 1){
+										// INSERT per studente
 										$sql1 = "SELECT ID_classe FROM classe WHERE anno = " .$anno. " AND sezione = '" .$sezione.  "';";
 										$result = $conn -> query($sql1);
 										$row = $result -> fetch_assoc();
+			
+										if (isset($row["ID_classe"])) {
+											// Se esiste la classe
+											$ID_classe = $row["ID_classe"];
+
+										} else{
+											// Se NON esiste la classe
+											$sql2 = "INSERT INTO classe(anno, sezione) VALUES (".$anno.", '".$sezione."')";
+
+											if ($conn->query($sql2) === TRUE){
+												$sql1 = "SELECT ID_classe FROM classe WHERE anno = " .$anno. " AND sezione = '" .$sezione.  "';";
+												$result2 = $conn -> query($sql1);
+												$row2 = $result2 -> fetch_assoc();
+
+												$ID_classe = $row2["ID_classe"];
+											} else {
+												echo "Errore nella creazione della classe <br> Riprova";
+											}
+										}
+			
+										$sql3 = "INSERT INTO studente(ID_studente, ID_classe) VALUES (".$id.", ".$ID_classe.")";
+
+										if ($conn->query($sql3) === TRUE){
+											echo "Persona con ID " .$id. " assegnata alla classe " .$anno. "" .$sezione. "<br>";
+										} else {
+											echo "Errore nell'assegnazione della classe <br> Riprova";
+										}
+			
+									} else if ($tipo == 2){
+										// INSERT per docente
+										// $materia[] avrà il nome della materia -> sarà un array -> fare un ciclo per ogni materia!!
+										$i = 0;
+
+										while ("per la lunghezza di materia") {
+											$sql1 = "SELECT ID_materia FROM materia WHERE nome = '" .$materia[$i]. "';";
+											$result = $conn -> query($sql1);
+											$row = $result -> fetch_assoc();
+
+											// $classe avrà l'ID della classe !!
+											$sql2 = "INSERT INTO insegna(ID_persona, ID_materia, ID_classe) VALUES (".$id.", ".$row["ID_materia"].", ".$classe.")";
+											$i++;
+										}
 									}
-		
-									$sql3 = "INSERT INTO studente(ID_studente, ID_classe) VALUES (".$id.", '".$row["ID_classe"]."')";
-		
-								} else if ($tipo == 'docente'){
-									// INSERT per studente
-									// controllo materia !!
-									// insert per insegna !!
-								}
+									
+									$sql4 = "INSERT INTO account(nomeUtente, password, ID_persona) VALUES ('".$email."', '".$pw."', ".$id.")";
 
-								$sql4 = "INSERT INTO account(nomeUtente, password, ID_persona) VALUES ('".$email."', '".$pw."', ".$id.")";
+									if ($conn->query($sql4) === TRUE){
+										echo "Persona con username " .$email. " registrata correttamente <br>";
+									} else {
+										echo "Errore nella registrazione dell'account <br> Riprova";
+									}
 
-								if ($conn->query($sql4) === TRUE){
-									echo "Persona con username " .$email. " registrata correttamente <br>";
 								} else {
-									echo "Errore nella registrazione <br> Riprova";
+									echo "Errore nella registrazione della persona <br> Riprova";
 								}
 
 								$result -> free();

@@ -20,15 +20,15 @@ CREATE TABLE if NOT EXISTS Persona(
 CREATE TABLE if NOT EXISTS Studente(
     ID_studente INT(6) PRIMARY KEY,
     ID_classe INT,
-    CONSTRAINT fk_perS_stud_IDstudente FOREIGN KEY(ID_studente) REFERENCES Persona(ID_persona),
-    CONSTRAINT fk_class_stud_IDclasse FOREIGN KEY(ID_classe) REFERENCES Classe(ID_classe)
+    CONSTRAINT fk_pers_stud_IDstudente FOREIGN KEY(ID_studente) REFERENCES Persona(ID_persona) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT fk_class_stud_IDclasse FOREIGN KEY(ID_classe) REFERENCES Classe(ID_classe) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE if NOT EXISTS Account(
 	nomeUtente VARCHAR(255) PRIMARY KEY,
 	password VARCHAR(30),
     ID_persona INT(6),
-	CONSTRAINT fk_pers_acc_IDpersona FOREIGN KEY (ID_persona) REFERENCES Persona(ID_persona)
+	CONSTRAINT fk_pers_acc_IDpersona FOREIGN KEY (ID_persona) REFERENCES Persona(ID_persona) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE if NOT EXISTS Materia(
@@ -41,9 +41,9 @@ CREATE TABLE if NOT EXISTS Insegna(
 	ID_materia INT,
 	ID_classe INT,
 	PRIMARY KEY(ID_persona, ID_materia, ID_classe),
-	CONSTRAINT fk_pers_inseg_IDpersona FOREIGN KEY(ID_persona) REFERENCES Persona(ID_persona),
-	CONSTRAINT fk_mat_inseg_IDmateria FOREIGN KEY(ID_materia) REFERENCES Materia(ID_materia),
-	CONSTRAINT fk_class_inseg_IDclasse FOREIGN KEY(ID_classe) REFERENCES Classe(ID_classe)
+	CONSTRAINT fk_pers_inseg_IDpersona FOREIGN KEY(ID_persona) REFERENCES Persona(ID_persona) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT fk_mat_inseg_IDmateria FOREIGN KEY(ID_materia) REFERENCES Materia(ID_materia) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT fk_class_inseg_IDclasse FOREIGN KEY(ID_classe) REFERENCES Classe(ID_classe) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE if NOT EXISTS Badge(
@@ -52,7 +52,7 @@ CREATE TABLE if NOT EXISTS Badge(
 	materia INT,
 	livello TINYINT(1),
 	PRIMARY KEY(codBadge, livello),
-	CONSTRAINT fk_mat_badge_materia FOREIGN KEY (materia) REFERENCES Materia(ID_materia)	
+	CONSTRAINT fk_mat_badge_materia FOREIGN KEY (materia) REFERENCES Materia(ID_materia) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE if NOT EXISTS Assegna_Visualizza(
@@ -61,8 +61,8 @@ CREATE TABLE if NOT EXISTS Assegna_Visualizza(
 	livello TINYINT(1),
 	dataB date,
 	PRIMARY KEY(ID_persona, codBadge, livello),
-	CONSTRAINT fk_pers_ass_IDpersona FOREIGN KEY(ID_persona) REFERENCES Persona(ID_persona),
-	CONSTRAINT fk_badge_ass_codbadge_livello FOREIGN KEY(codBadge, livello) REFERENCES Badge(codBadge, livello)
+	CONSTRAINT fk_pers_ass_IDpersona FOREIGN KEY(ID_persona) REFERENCES Persona(ID_persona) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT fk_badge_ass_codbadge_livello FOREIGN KEY(codBadge, livello) REFERENCES Badge(codBadge, livello) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 /* Insert data in tables */
@@ -109,7 +109,7 @@ VALUES
     ('ciao8@gmail.it', 'ciao8', 8),
     ('ciao9@gmail.it', 'ciao9', 9);
 
-INSERT INTO materia (nome)
+INSERT INTO Materia (nome)
 VALUES 
     ("Italiano"),
 	("Informatica"),
