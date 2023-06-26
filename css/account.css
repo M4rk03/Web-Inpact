@@ -201,6 +201,37 @@ hr{
 	height: auto;
 }
 
+.grid-col-2{
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px;
+}
+
+.cont-select-class{
+	border: 2px dashed #FEED00;
+
+	color: #000;
+
+	display: grid;
+	gap: 8px;
+	height: fit-content;
+	padding: 8px;
+}
+.cont-select-class > div{
+	font-size: 22px;
+	align-items: center;
+	cursor: move;
+}
+.cont-select-class > div > i{
+	font-size: 20px;
+	justify-self: right;
+}
+
+#cont-mat_inseg{
+	display: grid;
+	gap: 10px;
+}
+
 .cont-button-signup{
 	display: grid;
 	grid-template-columns: 1fr 1fr;

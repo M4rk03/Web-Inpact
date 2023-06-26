@@ -96,31 +96,76 @@
 					</div>
 
 					<!-- Solo per docente -->
-					<div id="classe_doc" style="display:none;gap:20px;">
-						<div class="cont-inserisci in_classe">
-							<label> Classe: </label> 
+					<div id="classe_doc" style="display:none;gap:28px;">
+
+						<div class="cont-inserisci">
+							<label> Le mie classi: </label> 
 							
-							<!-- Da cambiare in un drag and drop !! -->
-							<select id="lettura_classe" class="inserisci in_data select" name="classe" multiple>
-								<option value="1"> 5CI </option>
-								<option value="2"> 4AM </option>
-								<option value="3"> 3DI </option>
-								<option value="4"> 2FST </option>
-								<option value="5"> 1AST </option>
-							</select>
+							<div class="grid-col-2">
+								<div id="cl_tot" class="cont-select-class" ondrop="drop(event)" ondragover="allowDrop(event)">
+									<?php
+										include "connessione.php";
+						
+										$sql = "SELECT * FROM classe;";
+										$result = $conn -> query($sql);
+										
+										// Parte ripetuta x la quantità delle classe
+										try{
+											while($row = $result->fetch_assoc()){
+												echo "<div id='ID_".$row["ID_classe"]."' class='grid-col-2 inserisci in_data' ondragstart='dragStart(event)' draggable='true'> " .strtoupper($row["anno"])."".strtoupper($row["sezione"]). " <i class='fa-solid fa-plus'></i> </div>";
+											}
+
+											$result1 = $conn -> query($sql);
+											echo  "<select id='lettura_classe' class='inserisci in_data select' name='classe[]' multiple hidden>";
+											while($row1 = $result1->fetch_assoc()){
+												echo "<option value='" .$row1["ID_classe"]. "'> " .$row1["anno"]. "" .$row1["sezione"]. " </option>";
+											}
+											echo "</select>";
+										}
+										catch (Exception $e){
+											echo "Errore";
+										}
+					
+										$result -> free();
+										$result1 -> free();
+										$conn -> close();
+									?>
+								</div>
+
+								<div id="cl_inseg" class="cont-select-class" class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+							</div>
 						</div>
 						
-						<div class="cont-inserisci in_classe">
-							<label> 5CI </label>
-
-							<select class="inserisci in_data select" name="materia" style="height:70px;" multiple>
-								<option value="1"> Tpsi </option>
-								<option value="2"> Informatica </option>
-								<option value="3"> Sistemi e Reti </option>
-							</select>
-
-							<div class="cont-inserisci" style="color:#000;"> <i class="fa-solid fa-circle-plus"></i> </div>
+						<div id="cont-mat_inseg">
+							<div class="cont-inserisci in_classe">
+								<label> Materia/e </label>
+								
+								<select id="mat_inseg" class="inserisci in_data select" name="materia[]" style="height:70px;" multiple>
+									<?php
+										include "connessione.php";
+						
+										$sql = "SELECT * FROM materia;";
+										$result = $conn -> query($sql);
+										
+										// Parte ripetuta x la quantità delle materie
+										try{
+											while($row = $result->fetch_assoc()){
+												echo "<option value=" .$row["ID_materia"]. ">" .$row["nome"]. "</option>";
+											}
+										}
+										catch (Exception $e){
+											echo "Errore";
+										}
+					
+										$result -> free();
+										$conn -> close();
+									?>
+								</select>
+								
+								<div class="cont-inserisci" style="color:#000;"> <i class="fa-solid fa-circle-plus"></i> </div>
+							</div>
 						</div>
+
 					</div>
 				</div>
 
@@ -165,8 +210,13 @@
 					$pw = $_POST["pwd"];
 					$cpw = $_POST["conf_pwd"];
 					
+					// solo studente
 					$anno = $_POST["anno"];
 					$sezione = $_POST["sezione"];
+
+					//solo docente
+					$classe = $_POST["classe"];
+					$materia = $_POST["materia"];
 					
 					if($pw === $cpw){
 
@@ -192,10 +242,10 @@
 
 											if ($conn->query($sql2) === TRUE){
 												$sql1 = "SELECT ID_classe FROM classe WHERE anno = " .$anno. " AND sezione = '" .$sezione.  "';";
-												$result2 = $conn -> query($sql1);
-												$row2 = $result2 -> fetch_assoc();
+												$result1 = $conn -> query($sql1);
+												$row1 = $result1 -> fetch_assoc();
 
-												$ID_classe = $row2["ID_classe"];
+												$ID_classe = $row1["ID_classe"];
 											} else {
 												echo "Errore nella creazione della classe <br> Riprova";
 											}
@@ -208,20 +258,22 @@
 										} else {
 											echo "Errore nell'assegnazione della classe <br> Riprova";
 										}
+
+										$result -> free();
+										$result1 -> free();
 			
 									} else if ($tipo == 2){
 										// INSERT per docente
-										// $materia[] avrà il nome della materia -> sarà un array -> fare un ciclo per ogni materia!!
-										$i = 0;
-
-										while ("per la lunghezza di materia") {
-											$sql1 = "SELECT ID_materia FROM materia WHERE nome = '" .$materia[$i]. "';";
-											$result = $conn -> query($sql1);
-											$row = $result -> fetch_assoc();
-
-											// $classe avrà l'ID della classe !!
-											$sql2 = "INSERT INTO insegna(ID_persona, ID_materia, ID_classe) VALUES (".$id.", ".$row["ID_materia"].", ".$classe.")";
-											$i++;
+										foreach ($materia as $i) {
+											foreach ($classe as $j) {
+												$sql1 = "INSERT INTO insegna(ID_persona, ID_materia, ID_classe) VALUES (".$id.", ".$i.", ".$j.")";
+												
+												if ($conn->query($sql1) === TRUE){
+													echo "Persona con ID " .$id. " insegna alla classe con id " .$j. "<br>";
+												} else {
+													echo "Errore nell'assegnazione della materia e della classe <br> Riprova";
+												}
+											}
 										}
 									}
 									
@@ -236,8 +288,6 @@
 								} else {
 									echo "Errore nella registrazione della persona <br> Riprova";
 								}
-
-								$result -> free();
 
 							} catch (Exception $e) {
 								echo "Qualcosa è andato storto <br>";

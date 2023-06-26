@@ -183,12 +183,14 @@ footer > figure{
 	margin: 0px;
 }
 .social{
+	font-size: 34px;
+
 	display: flex;
 	justify-content: space-evenly;
 	margin-top: 5px;
 }
-.social > a > img{
-	width: 40px;
+.social > a{
+	color: #1D70B7;
 }
 
 

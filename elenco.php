@@ -411,12 +411,12 @@
 
 			<div id="cont-social">
 				<p>ISISS "M.O. Luciano Dal Cero"</p>
-				<class class="social">
-					<a href="https://web.whatsapp.com/"> <img src="img/whatsapp.png" alt="logo Whatsapp"> </a>
-					<a href="https://mail.google.com/"> <img src="img/email.png" alt="logo Email"> </a>
-					<a href="https://it-it.facebook.com/"> <img src="img/facebook.png" alt="logo Facebook"> </a>
-					<a href="https://www.instagram.com/accounts/login/"> <img src="img/instagram.png" alt="logo Instagram"> </a>
-				</class>
+				<div class="social">
+					<a href="https://web.whatsapp.com/"> <i class="fa-brands fa-whatsapp"></i> </a>
+					<a href="https://mail.google.com/"> <i class="fa-solid fa-envelope"></i> </a>
+					<a href="https://it-it.facebook.com/"> <i class="fa-brands fa-facebook"></i> </a>
+					<a href="https://www.instagram.com/accounts/login/"> <i class="fa-brands fa-instagram"></i> </a>
+				</div>
 				<small>Copyright &copy 2023</small>
 			</div>
 

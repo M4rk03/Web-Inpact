@@ -47,26 +47,74 @@ function select_control(){
     let classe_stu = document.querySelector('#classe_anno');
     let sezione = document.querySelector('#classe_sez');
     let classe_doc = document.querySelector('#classe_doc');
+    let materia = document.querySelector('#mat_inseg');
     
     if(type_person.value == 1){
         classe_stu.style.display = 'flex';
         sezione.required = true;
 
         classe_doc.style.display = 'none';
+        materia.required = false;
 
     } else if(type_person.value == 2){
-        let classe = document.querySelector('#lettura_classe');
         classe_doc.style.display = 'grid';
+        materia.required = true;
 
         classe_stu.style.display = 'none';
         sezione.required = false;
-
-        console.log(classe.value);
 
     } else{
         classe_stu.style.display = 'none';
         sezione.required = false;
         classe_doc.style.display = 'none';
+        materia.required = false;
+    }
+}
+
+// Aggiungi o Rimuovi classe per docente
+function dragStart(ev) {
+    ev.dataTransfer.setData("Text", ev.target.id);
+}
+
+function allowDrop(ev, valore) {
+    if ((ev.target.id == 'cl_tot') || (ev.target.id == 'cl_inseg'))
+     ev.preventDefault();
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    const data = ev.dataTransfer.getData("Text");
+    ev.target.appendChild(document.getElementById(data));
+
+    let select_class = document.querySelector('#lettura_classe');
+
+    // modifica icone
+    ev.target.lastChild.children[0].classList.remove('fa-plus');
+    ev.target.lastChild.children[0].classList.remove('fa-trash');
+
+    if (ev.target.id == 'cl_tot') {
+        ev.target.lastChild.children[0].classList.add('fa-plus');
+
+        // seleziono la classe
+        let ID_classe = ev.target.lastChild.id.split("_");
+
+        for (const i of  select_class.children) {
+            if (i.value == ID_classe[1]) {
+                i.selected = false;
+            }
+        }
+
+    } else if (ev.target.id == 'cl_inseg') {
+        ev.target.lastChild.children[0].classList.toggle('fa-trash');
+
+        // seleziono la classe
+        let ID_classe = ev.target.lastChild.id.split("_");
+
+        for (const i of  select_class.children) {
+            if (i.value == ID_classe[1]) {
+                i.selected = true;
+            }
+        }
     }
 }
 
