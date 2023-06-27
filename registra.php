@@ -19,15 +19,15 @@
 	
 	<body>
 
-		<a href="login.php" style="left:12px;right:auto;"> <i class="fa-solid fa-caret-left"></i> </a>
-		<a href="index.html"> <i class="fa-solid fa-house"></i> </a>
+		<a href="login.php" class="btn-icon" style="left:12px;right:auto;"> <i class="fa-solid fa-caret-left"></i> </a>
+		<a href="index.html" class="btn-icon"> <i class="fa-solid fa-house"></i> </a>
 	
 		<div class="cont-data cont-signup">
 			<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="form"> <fieldset>
 
 				<div class="cont-title">
                     <img src="img/logo.png" alt="logo">
-					<h1> Registrazione </h1>
+					<h1 class="titolo"> Registrazione </h1>
                 </div>
 
 				<p> Completa tutti i campi </p>
@@ -62,7 +62,7 @@
 						<input type="date" class="inserisci in_data" name="dataN" required>
 					</div>
 
-					<div id="caselle">
+					<div class="caselle">
 						<div>
 							<input type="checkbox" id="M" name="sesso" value="M" onclick="check(this)">
 							<label for="M"> Maschio </label> <i class="fa-solid fa-mars" style="color: blue;"></i>
@@ -81,7 +81,7 @@
 					</select>
 
 					<!-- Solo per studente -->
-					<div id="classe_anno" class="cont-inserisci in_classe" style="display:none;">
+					<div id="classe_anno" class="in_classe" style="display:none;">
 						<label> Classe: </label> 
 						
 						<select class="inserisci in_data select" name="anno">
@@ -136,34 +136,32 @@
 							</div>
 						</div>
 						
-						<div id="cont-mat_inseg">
-							<div class="cont-inserisci in_classe">
-								<label> Materia/e </label>
-								
-								<select id="mat_inseg" class="inserisci in_data select" name="materia[]" style="height:70px;" multiple>
-									<?php
-										include "connessione.php";
-						
-										$sql = "SELECT * FROM materia;";
-										$result = $conn -> query($sql);
-										
-										// Parte ripetuta x la quantità delle materie
-										try{
-											while($row = $result->fetch_assoc()){
-												echo "<option value=" .$row["ID_materia"]. ">" .$row["nome"]. "</option>";
-											}
-										}
-										catch (Exception $e){
-											echo "Errore";
-										}
+						<div class="cont-inserisci in_classe">
+							<label> Materia/e </label>
+							
+							<select id="mat_inseg" class="inserisci in_data select" name="materia[]" style="height:70px;" multiple>
+								<?php
+									include "connessione.php";
 					
-										$result -> free();
-										$conn -> close();
-									?>
-								</select>
-								
-								<div class="cont-inserisci" style="color:#000;"> <i class="fa-solid fa-circle-plus"></i> </div>
-							</div>
+									$sql = "SELECT * FROM materia;";
+									$result = $conn -> query($sql);
+									
+									// Parte ripetuta x la quantità delle materie
+									try{
+										while($row = $result->fetch_assoc()){
+											echo "<option value=" .$row["ID_materia"]. ">" .$row["nome"]. "</option>";
+										}
+									}
+									catch (Exception $e){
+										echo "Errore";
+									}
+				
+									$result -> free();
+									$conn -> close();
+								?>
+							</select>
+							
+							<div class="cont-inserisci" style="color:#000;"> <i class="fa-solid fa-circle-plus"></i> </div>
 						</div>
 
 					</div>
@@ -189,9 +187,9 @@
 					<input type="password" placeholder="Conferma Password" class="inserisci" id="conf_pwd" name="conf_pwd" maxlength="100" required>
 				</div>
 				
-				<div class="cont-button-signup">
-					<input type="reset" value="Cancella" class="bottone cancella">
-					<input type="submit" value="Conferma" class="bottone" name="invio">
+				<div class="grid-col-2" style="margin-top:20px;">
+					<input type="reset" value="Cancella" class="btn bottone btn-cancella">
+					<input type="submit" value="Conferma" class="btn bottone" name="invio">
 				</div>
 
 			</fieldset> </form>

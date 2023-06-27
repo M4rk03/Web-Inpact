@@ -22,9 +22,9 @@
 
         <header>
 			<figure> <a href="index.html"> <img class="logo" src="img/logo.png" alt="logo Web Inpact"> </a> </figure>
-			<div class="header-titolo"> <h1> REGISTRO ALUNNI </h1> </div>
+			<h1 class="titolo"> REGISTRO ALUNNI </h1>
 			<div class="header-account">
-				<a href="login.php"> <i class="fa-solid fa-circle-user"></i>
+				<a href="login.php" class="account-login"> <i class="fa-solid fa-circle-user"></i>
 					<p>Logout</p> </a>
 			</div>
 		</header>
@@ -33,7 +33,7 @@
 			<div class="elenco" style="justify-content:space-evenly;">
 				<a href="docente.php" class="back"> <i class="fa-solid fa-caret-left"></i> </a>
 				
-				<h2> Registro della classe <strong class="subtitle">
+				<h2> Registro della classe <strong class="sottotitolo">
 					<?php
 						session_start();
 						if (isset($_POST["anno"])) {
@@ -50,7 +50,7 @@
 					?> </strong>
 				</h2>
 
-				<h2> Materia: <strong class="subtitle">
+				<h2> Materia: <strong class="sottotitolo">
 					<?php
 						echo strtoupper($_SESSION['materia']);
 					?> </strong>
@@ -92,7 +92,7 @@
 								while($row1 = $result1->fetch_assoc()){
 									$badge = $row1["nome"]."".$row1["livello"];
 
-									echo "<figure class='cont-badge cont-badge-el' onclick=\"modify_badge(this, ".$row["ID"].", '".$row1["dataB"]."')\"> \n";
+									echo "<figure class='cont-badge-stud cont-badge-el' onclick=\"modify_badge(this, ".$row["ID"].", '".$row1["dataB"]."')\"> \n";
 									echo "<img src='img/badge/" .$badge. ".png' alt=" .$badge. "> \n </figure> \n";
 								}
 
@@ -100,7 +100,7 @@
 								echo "<p> Non è stato trovato nessun badge </p>";
 							}
 
-							echo "<figure class='cont-badge cont-badge-el' onclick='add_badge(".$row["ID"].")' style='margin-left: 10px;'> \n";
+							echo "<figure class='cont-badge-stud cont-badge-el' onclick='add_badge(".$row["ID"].")' style='margin-left: 10px;'> \n";
 							echo "<img src='img/addB.png' alt='add badge'> \n </figure> \n";
 							echo "</div> \n </div> \n";
 
@@ -118,10 +118,9 @@
 				<!-- POPUP -->
 				<!-- Assegna badge -->
 				<div id="add-badge" class="cont-popup">
-					<!-- // Da rivedere l'action!! -->
 					<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="form form-badge">
 							
-						<h2>Assegna badge</h2>
+						<h2 class="titolo">Assegna badge</h2>
 				
 						<div class="cont-inserisci">
 							<label> Argomento: </label> 
@@ -187,9 +186,9 @@
 							<textarea class="inserisci in_data" name="testo" rows="4" style="resize:none;height:auto;"></textarea>
 						</div>
 				
-						<div class="cont-button-signup">
-							<input type="reset" onclick="close_add()" value="Chiudi" class="bottone cancella">
-							<input type="submit" value="Assegna" class="bottone" name="assegna">
+						<div class="grid-col-2" style="margin-top:20px;">
+							<input type="reset" onclick="close_add()" value="Chiudi" class="btn bottone btn-cancella">
+							<input type="submit" value="Assegna" class="btn bottone" name="assegna">
 						</div>
 
 					</form>
@@ -202,7 +201,7 @@
 					<div class="cont-modifyB">
 						<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="form form-badge">
 								
-							<h2>Modifica badge</h2>
+							<h2 class="titolo">Modifica badge</h2>
 						
 							<div class="cont-inserisci">
 								<label> Argomento: </label> 
@@ -269,10 +268,10 @@
 							</div>
 
 							<div class="cont-button">
-								<input type="submit" value="Modifica" class="bottone btn-modifica" name="modifica">
-								<input type="button" onclick="close_modify()" value="Chiudi" class="bottone cancella" style="grid-area:secondo;">
+								<input type="submit" value="Modifica" class="btn bottone btn-modifica" name="modifica">
+								<input type="button" onclick="close_modify()" value="Chiudi" class="btn bottone btn-cancella" style="grid-area:secondo;">
 
-								<input type="submit" value="Elimina" class="bottone btn-elimina" name="elimina">
+								<input type="submit" value="Elimina" class="btn bottone btn-elimina" name="elimina">
 							</div>
 						
 						</form>
@@ -287,7 +286,7 @@
 						<p>
 							<?php
 								// PHP di Assegna badge
-								if(isset($_POST['assegna'])) {
+								if (isset($_POST['assegna'])) {
 									include 'connessione.php' ;
 
 									$nome = $_POST["argomento"];
@@ -305,17 +304,15 @@
 
 										if ($conn->query($sql1) === TRUE){
 											echo "Il badge è stato assegnato correttamente";
-											echo "<script> view_alert() </script> \n";
 										} else {
 											echo "Errore nell'assegnazione del badge <br> Riprova";
-											echo "<script> view_alert() </script> \n";
 										}
 
+										echo "<script> view_alert() </script> \n";
 										$result -> free();
 										
 									} catch (Exception $e){
 										echo "Qualcosa è andato storto \n";
-										// echo "<script> view_alert('a') </script> \n";
 									}
 
 									$conn -> close();
@@ -323,7 +320,7 @@
 
 
 								// PHP di Modifica badge
-								if(isset($_POST['modifica'])) {
+								if (isset($_POST['modifica'])) {
 									include 'connessione.php' ;
 
 									$dataB = $_POST["dataB"];
@@ -346,33 +343,29 @@
 										$sql2 = "UPDATE assegna_visualizza SET codBadge = ".$row1["codBadge"].", livello = ".$_POST["livelloB"].", dataB ='".$dataB."' WHERE ID_persona = ".$id_pers." AND codBadge = ".$row["codIniziale"]." AND livello = ".$livelloB_ass.";";
 
 										if ($conn->query($sql2) === TRUE){
-											echo "Il badge è stato modificato correttamente \n";
-											echo "<script> view_alert('a') </script> \n";
+											echo "Il badge è stato modificato correttamente";
 										} else {
-											echo "Errore nella modifica del badge <br> Riprova \n";
-											echo "<script> view_alert('a') </script> \n";
+											echo "Errore nella modifica del badge <br> Riprova";
 										}
 
+										echo "<script> view_alert() </script> \n";
 										$result -> free();
 										$result1 -> free();
 
 									} catch (Exception $e){
 										echo "Errore inprevisto durante l'aggiornamento, riprovare";
-										echo "<script> view_alert('a') </script> \n";
 									}
 
 									$conn -> close();
+
 								} else if (isset($_POST['elimina'])) {
 									include 'connessione.php' ;
 
-									$dataB = $_POST["dataB"];
 									$id_pers = $_POST["ID_persona"];
-
 									$nomeB_ass = $_POST["nomeB_assegnato"];
 									$livelloB_ass = $_POST["livelloB_assegnato"];
 
 									try{
-										// Badge assegnto
 										$sql = "SELECT codBadge FROM badge WHERE nome = '" .$nomeB_ass. "' AND livello = " .$livelloB_ass. ";";
 										$result = $conn -> query($sql);
 										$row = $result -> fetch_assoc();
@@ -380,18 +373,16 @@
 										$sql1 = "DELETE FROM assegna_visualizza WHERE ID_persona = ".$id_pers." AND codBadge = ".$row["codBadge"]." AND livello = ".$livelloB_ass.";";
 
 										if ($conn->query($sql1) === TRUE){
-											echo "Il badge è stato eliminato correttamente \n";
-											echo "<script> view_alert('a') </script> \n";
+											echo "Il badge è stato eliminato correttamente";
 										} else {
-											echo "Errore nell'eliminazione del badge <br> Riprova \n";
-											echo "<script> view_alert('a') </script> \n";
+											echo "Errore nell'eliminazione del badge <br> Riprova";
 										}
 
+										echo "<script> view_alert() </script> \n";
 										$result -> free();
 
 									} catch (Exception $e){
 										echo "Errore inprevisto durante l'aggiornamento, riprovare";
-										echo "<script> view_alert('a') </script> \n";
 									}
 
 									$conn -> close();
@@ -399,7 +390,7 @@
 							?>
 						</p>
 
-						<input type="button" onclick="close_alert()" value="Chiudi" class="btn-close">
+						<input type="button" onclick="close_alert()" value="Chiudi" class="btn btn-close">
 					</div>
 				</div>
 
@@ -410,7 +401,7 @@
 			<figure> <img src="img/scritta.png" alt="scritta Web Imapact" style="width:180px;"> </figure>
 
 			<div id="cont-social">
-				<p>ISISS "M.O. Luciano Dal Cero"</p>
+				<p class="titolo">ISISS "M.O. Luciano Dal Cero"</p>
 				<div class="social">
 					<a href="https://web.whatsapp.com/"> <i class="fa-brands fa-whatsapp"></i> </a>
 					<a href="https://mail.google.com/"> <i class="fa-solid fa-envelope"></i> </a>
@@ -420,7 +411,7 @@
 				<small>Copyright &copy 2023</small>
 			</div>
 
-			<figure style="justify-content:right;"> <img src="img/dalcero.png" alt="logo DalCero" style="width:100px;"> </figure>
+			<figure style="justify-content:right;"> <img src="img/dalcero.png" alt="logo DalCero" class="logo"> </figure>
 		</footer>
 		
 	</body>

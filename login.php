@@ -17,16 +17,16 @@
 		
 	</head>
 	
-	<body onload="controllo()">
+	<body>
 
-		<a href="index.html"> <i class="fa-solid fa-house"></i> </a>
+		<a href="index.html" class="btn-icon"> <i class="fa-solid fa-house"></i> </a>
 	
 		<div class="cont-data">
 			<form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post" class="form"> <fieldset>
 
 				<div class="cont-title">
                     <img src="img/logo.png" alt="logo">
-					<h1> Esegui l'Accesso </h1>
+					<h1 class="titolo"> Esegui l'Accesso </h1>
                 </div>
 
 				<p> Inserisci qui i tuoi dati </p>
@@ -83,10 +83,10 @@
 				<br>
 
 				<div class="cont-button">
-                    <input type="submit" value="Accedi" name="accedi" id="accedi">
+                    <input type="submit" value="Accedi" class="btn btn-accedi" name="accedi">
 
-					<button id="bottone-pwd" onclick="password();"> Password <br> Dimenticata? </button>
-					<a href="registra.php" id="registrati"> Registrati </a>
+					<button class="btn btn-pwd" onclick="password();"> Password <br> Dimenticata? </button>
+					<a href="registra.php" class="btn btn-registrati"> Registrati </a>
 				</div>
 
 			</fieldset> </form>

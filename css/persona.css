@@ -1,4 +1,8 @@
 /* PAGINA */
+html, body{
+	height: auto;
+}
+
 main{
 	grid-template-columns: auto;
 }
@@ -8,13 +12,13 @@ main > h2{
 	margin-bottom: 8px;
 }
 
-
-/* DOCENTE */
-.subtitle{
+.sottotitolo{
 	font-family: Mont;
 	font-size: 26px;
 }
 
+
+/* DOCENTE */
 #registro{
 	background-color: #FEF898;
 	border-radius: 10px;
@@ -42,9 +46,6 @@ main > h2{
 
 .tab-titoli{
 	font-family: Mont;
-	text-align: center;
-
-	padding: 6px;
 	margin: 0px;
 }
 
@@ -65,8 +66,8 @@ main > h2{
 
 .materia{
 	background-color: white;
-    border: 0;
-	border-radius: 10px;
+	border: 0px;
+    border-radius: 10px;
 	box-shadow: 0 4px 10px 1px grey;
 
 	font-family: Mustica;
@@ -117,7 +118,6 @@ div.informatica{
 
 /* STUDENTE */
 .mater-inseg{
-	text-align: center;
 	flex-direction: column;
 	gap: 12px;
 }
@@ -131,24 +131,38 @@ div.informatica{
 	padding: 8px;
 }
 
-.cont-badge{
+.cont-badge-stud{
 	width: 80px;
 	padding: 10px;
 	
     cursor: pointer;
 }
-.cont-badge > img{
+.cont-badge-stud > img{
 	width: 100%;
 }
 
 
 /* ELENCO */
+.back{
+	position: absolute;
+	left: 30px;
+	
+	color: black;
+	font-size: 40px;
+}
+
 .cont-elenco{
 	background-image: linear-gradient(to top, rgba(255, 235, 0, 0.6), transparent); /* #FFEB00 ma trasparente */
 	border-bottom: 2px solid gray;
 }
 .cont-elenco:hover{
 	background-image: linear-gradient(to top, #FFEB00, transparent);
+}
+
+.list-alunno{
+	display: grid;
+	grid-template-columns: 0.3fr 2fr 1fr;
+	gap: 8px;
 }
 
 .elenco{
@@ -158,26 +172,10 @@ div.informatica{
 	padding: 4px 12px;
 }
 .cont-badge-el{
-	background: none;
-	border: none;
-	
 	width: 42px;
 	padding: 0px;
 }
 
-.back{
-	position: absolute;
-	left: 30px;
-	
-	color: black;
-	font-size: 40px;
-}
-
-.list-alunno{
-	display: grid;
-	grid-template-columns: 0.3fr 2fr 1fr;
-	gap: 8px;
-}
 
 /* Popup */
 .cont-popup{
@@ -211,15 +209,15 @@ div.informatica{
 }
 .btn-close{
 	background-color: #C4282B;
-	border: 0px;
 	border-radius: 5px;
 
 	color: #fff;
 	font-family: Mustica;
-	font-size: 18px;
+	letter-spacing: 2px;
 	text-align: center;
 
 	padding: 5px;
+	cursor: pointer;
 }
 
 /* Aggiungi badge */
@@ -233,18 +231,12 @@ div.informatica{
 
 	display: grid;
 	grid-template-columns: 1fr;
-	justify-content: center;
-	align-items: center;
 	gap: 10px;
 	padding: 12px 24px;
 
 }
 .form-badge > h2{
-	color: #C4282B;
-	font-family: Mont;
 	font-size: 40px;
-	text-align: center;
-
 	margin: 2px 0;
 }
 

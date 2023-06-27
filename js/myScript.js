@@ -120,7 +120,10 @@ function drop(ev) {
 
 // ZOOM del Badge
 function zoom_badge(){
-    
+    document.querySelector('#visual-badge').style.display = 'flex';
+}
+function close_visual(){
+    document.querySelector('#visual-badge').style.display = 'none';
 }
 
 // ASSEGNA un badge allo studente
@@ -202,9 +205,9 @@ function modify_badge(e, valore1, valore2){
     cont_form.appendChild(input2);
 }
 function close_modify(){
-    document.querySelector('#modify-badge').style.display = 'none';
     let cont = document.querySelector('.cont-modifyB');
     cont.removeChild(cont.children[0]);
+    document.querySelector('#modify-badge').style.display = 'none';
 }
 
 // Controllo sul seleziona per visualizzare il badge
@@ -238,8 +241,8 @@ function view_alert(){
     document.querySelector('#alerts').style.display = 'flex';
 }
 function close_alert(){
-    document.querySelector('#alerts').style.display = 'none';
     refreshPage();
+    document.querySelector('#alerts').style.display = 'none';
 }
 
 // AGGIORNA la pagina

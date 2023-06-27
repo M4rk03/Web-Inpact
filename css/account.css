@@ -1,9 +1,9 @@
 /* PAGINA */
 html, body{
-	display: block;
 	height: 100%;
 }
-body > a{
+
+.btn-icon{
 	position: absolute;
 	top: 12px;
 	right: 12px;
@@ -13,6 +13,12 @@ body > a{
 }
 
 /* LOGIN */
+.cont-data{
+	display: grid;
+	justify-content: center;
+	align-items: center;
+}
+
 .form{
 	background-color:white;
 	border-radius: 10px;
@@ -35,13 +41,6 @@ fieldset > p{
 	margin-top: -10px;
 }
 
-.cont-data{
-	display: grid;
-	justify-content: center;
-	align-items: center;
-	height: 100%;
-}
-
 .cont-title{
 	text-align: center;
 
@@ -53,20 +52,17 @@ fieldset > p{
 	width: 60px;
 }
 .cont-title > h1{
-	color:#C4282B;
-	font-family:Mont;
 	font-size:40px;
 
-	margin: 0px;
 	margin-left: -60px;
 }
+
 
 /* Insermento credenziali */
 .cont-inserisci{
 	color: lightgrey;
 
 	display: grid;
-	grid-template-columns: 1fr;
 	align-items: center;
 }
 .cont-inserisci > i{
@@ -96,13 +92,6 @@ fieldset > p{
 	cursor: pointer;
 }
 
-#caselle{
-	font-size: 20px;
-
-	display: flex;
-	justify-content: space-evenly;
-	padding: 4px;
-}
 
 /* Bottoni */
 .cont-button{
@@ -113,11 +102,16 @@ fieldset > p{
 	grid-auto-columns: 1fr;
 	gap: 10px;
 }
-#accedi{
+.btn{
+    border: 0px;
+	border-radius: 10px;
+
+    font-size:18px;
+}
+
+.btn-accedi{
 	grid-area: primo;
 	background-color: #C4282B;
-	border: 0px;
-	border-radius: 10px;
 
 	color:white;
 	font-family: Mustica;
@@ -127,23 +121,16 @@ fieldset > p{
 	padding: 16px;
 	cursor: pointer;
 }
-#bottone-pwd{
+.btn-pwd{
 	grid-area: secondo;
-
 	background-color:white;
-	border: 0px;
-	border-radius: 10px;
-
-	font-size:18px;
 	text-decoration:underline;
 }
-#registrati{
+.btn-registrati{
 	grid-area: terzo;
 	background-color:#FEED00;
-	border-radius: 10px;
 
 	color: #000;
-	font-size:18px;
 	text-align: center;
 	text-decoration: none;
 	letter-spacing: 2px;
@@ -151,23 +138,23 @@ fieldset > p{
 	padding: 20px;
 }
 
-#accedi:hover, .bottone:hover{
+.btn-accedi:hover, .bottone:hover{
 	box-shadow: inset 0 0 10px 3px #FEED00;
 }
-#registrati:hover, .cancella:hover{
+.btn-registrati:hover, .cancella:hover{
 	box-shadow: inset 0 0 10px 1px orangered;
 }
 
+
 /* REGISTRATI */
-hr{
-	border: 0px;
-	border-top: 4px dotted #C4282B;
-	width: 100%;
-	margin: 20px 0px;
+.grid-col-2{
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px;
 }
 
+
 .cont-signup{
-	height: auto;
 	padding: 20px;
 }
 
@@ -175,7 +162,6 @@ hr{
 	font-size: 20px;
 
 	display: grid;
-	align-items: center;
 	gap: 20px;
 }
 
@@ -188,9 +174,16 @@ hr{
 	padding: 8px;
 }
 
+.caselle{
+	display: flex;
+	justify-content: space-evenly;
+	padding: 4px;
+}
+
 .in_classe{
 	display: flex;
 	justify-content: center;
+    align-items: center;
 	gap: 12px;
 }
 .in_classe > input{
@@ -199,12 +192,6 @@ hr{
 
 .select{
 	height: auto;
-}
-
-.grid-col-2{
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 20px;
 }
 
 .cont-select-class{
@@ -218,7 +205,6 @@ hr{
 	padding: 8px;
 }
 .cont-select-class > div{
-	font-size: 22px;
 	align-items: center;
 	cursor: move;
 }
@@ -227,21 +213,15 @@ hr{
 	justify-self: right;
 }
 
-#cont-mat_inseg{
-	display: grid;
-	gap: 10px;
+hr{
+	border: 0px;
+	border-top: 4px dotted #C4282B;
+	margin: 20px 0px;
 }
 
-.cont-button-signup{
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 20px;
-	margin-top: 20px;
-}
+/* Bottoni */
 .bottone{
 	background-color: #C4282B;
-	border: 0px;
-	border-radius: 10px;
 
 	color:white;
 	font-family: Mustica;
@@ -251,7 +231,7 @@ hr{
 	padding: 16px;
 	cursor: pointer;
 }
-.cancella{
+.btn-cancella{
 	background-color:#FEED00;
 	color: #000;
 }

@@ -21,15 +21,15 @@
 
         <header>
 			<figure> <a href="index.html"> <img class="logo" src="img/logo.png" alt="logo Web Inpact"> </a> </figure>
-			<div class="header-titolo"> <h1> PAGINA STUDENTE </h1> </div>
+			<h1 class="titolo"> PAGINA STUDENTE </h1>
 			<div class="header-account">
-				<a href="login.php"> <i class="fa-solid fa-circle-user"></i>
+				<a href="login.php" class="account-login"> <i class="fa-solid fa-circle-user"></i>
 					<p>Logout</p> </a>
 			</div>
 		</header>
 		
         <main>
-            <h2> Eleco dei badge assegnati a <strong style="font-family:Mont;font-size:26px;">
+            <h2> Eleco dei badge assegnati a <strong class="sottotitolo">
 				<?php
 					include "connessione.php";
 					session_start();
@@ -87,7 +87,7 @@
 							// Parte ripetuta x la quantita' delle materie insegnate
 							while($row2 = $result2->fetch_assoc()){
 								$badge = $row2["nome"]."".$row2["livello"];
-								echo "<figure class='cont-badge' name='" .$badge. "' onclick='zoom_badge(this)'> \n";
+								echo "<figure class='cont-badge-stud' name='" .$badge. "' onclick='zoom_badge(this)'> \n";
 								echo "<img src='img/badge/" .$badge. ".png' alt=" .$badge. "> \n </figure> \n";
 							}
 						}catch(Exception $e){
@@ -102,13 +102,31 @@
 				?>
 
 			</div>
+
+			<!-- Popup Badge -->
+			<div id="visual-badge" class="cont-popup">
+				<div class="cont-modifyB">
+					<div class="form form-badge">
+							
+						<h2 class="titolo">Badge</h2>
+					
+						<p> Assegnato il 12/06/2023 </p>
+						<p> Dal docente: Tirapelle Vanni </p>
+						<p> Nella materia di: Sistemi e Reti </p>
+						<p> Descrizione: <br> Tante cose belle... </p>
+
+						<input type="button" onclick="close_visual()" value="Chiudi" class="btn bottone">
+			
+					</div>
+				</div>
+			</div>
         </main>
 		
 		<footer>
 			<figure> <img src="img/scritta.png" alt="scritta Web Imapact" style="width:180px;"> </figure>
 
 			<div id="cont-social">
-				<p>ISISS "M.O. Luciano Dal Cero"</p>
+				<p class="titolo">ISISS "M.O. Luciano Dal Cero"</p>
 				<div class="social">
 					<a href="https://web.whatsapp.com/"> <i class="fa-brands fa-whatsapp"></i> </a>
 					<a href="https://mail.google.com/"> <i class="fa-solid fa-envelope"></i> </a>
@@ -118,7 +136,7 @@
 				<small>Copyright &copy 2023</small>
 			</div>
 
-			<figure style="justify-content:right;"> <img src="img/dalcero.png" alt="logo DalCero" style="width:100px;"> </figure>
+			<figure style="justify-content:right;"> <img src="img/dalcero.png" alt="logo DalCero" class="logo"> </figure>
 		</footer>
 
 	</body>

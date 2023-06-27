@@ -20,15 +20,15 @@
 
         <header>
 			<figure> <a href="index.html"> <img class="logo" src="img/logo.png" alt="logo Web Inpact"> </a> </figure>
-			<div class="header-titolo"> <h1> REGISTRO DOCENTE </h1> </div>
+			<h1 class="titolo"> REGISTRO DOCENTE </h1>
 			<div class="header-account">
-				<a href="login.php"> <i class="fa-solid fa-circle-user"></i>
+				<a href="login.php" class="account-login"> <i class="fa-solid fa-circle-user"></i>
 					<p>Logout</p> </a>
 			</div>
 		</header>
 		
         <main>
-            <h2> Classi e materie del docente <strong style="font-family:Mont;font-size:26px;">
+            <h2> Classi e materie del docente <strong class="sottotitolo">
 				<?php
 					include "connessione.php";
 					session_start();
@@ -113,7 +113,7 @@
 			<figure> <img src="img/scritta.png" alt="scritta Web Imapact" style="width:180px;"> </figure>
 
 			<div id="cont-social">
-				<p>ISISS "M.O. Luciano Dal Cero"</p>
+				<p class="titolo">ISISS "M.O. Luciano Dal Cero"</p>
 				<div class="social">
 					<a href="https://web.whatsapp.com/"> <i class="fa-brands fa-whatsapp"></i> </a>
 					<a href="https://mail.google.com/"> <i class="fa-solid fa-envelope"></i> </a>
@@ -123,7 +123,7 @@
 				<small>Copyright &copy 2023</small>
 			</div>
 
-			<figure style="justify-content:right;"> <img src="img/dalcero.png" alt="logo DalCero" style="width:100px;"> </figure>
+			<figure style="justify-content:right;"> <img src="img/dalcero.png" alt="logo DalCero" class="logo"> </figure>
 		</footer>
 
 	</body>

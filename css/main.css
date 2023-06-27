@@ -9,23 +9,35 @@
 	src: url(../font/mustica/MusticaPro-SemiBold.otf);
 }
 
+
 /* PAGINA */
 body{
 	background-color: lightgrey;
 	font-family: Mustica;
 	
 	display: grid;
-	grid-template-rows: auto;
 	gap: 12px;
 	
 	margin: 0px;
-	padding: 0px;
 }
 
 figure{
 	display: flex;
 	margin: 0px;
 }
+figure > a{
+	display: flex;
+}
+
+.titolo{
+	color: #C4282B;
+	font-family: Mont;
+	font-size: 60px;
+    text-align: center;
+
+	margin: 0px;
+}
+
 
 /* Intestazione e Footer */
 header, footer{
@@ -39,24 +51,11 @@ header, footer{
 	padding: 5px;
 }
 
-/* Intestazione */
-figure > a{
-	display: flex;
-}
 .logo{
 	width: 100px;
 }
 
-.header-titolo{
-	color: #C4282B;
-	font-family: Mont;
-	font-size: 30px;
-}
-.header-titolo > h1{
-	text-align: center;
-	margin: 0px;
-}
-
+/* Intestazione */
 .header-account{
 	background-color: #FFEB00;
 	border-radius: 18px;
@@ -70,16 +69,16 @@ figure > a{
 	padding: 6px;
 	margin-right: 10px;
 }
-.header-account > a{
+.account-login{
 	color: #000;
 	text-decoration: none;
 }
-.header-account > a > i{
+.account-login > i{
 	background-color: #fff;
 	border-radius: 50%;
 	font-size: 52px;
 }
-.header-account > a > p{
+.account-login > p{
 	margin: 0px;
 }
 
@@ -103,10 +102,7 @@ main{
 	padding: 10px;
 }
 #info > h3{
-	color: #C4282B;
-	font-family: Mont;
 	font-size: 26px;
-	text-align: center;
 	margin: 8px;
 }
 #info > p{
@@ -120,6 +116,7 @@ main{
 	display: grid;
 	gap: 26px;
 }
+
 .cont-badge{
 	display: flex;
 	flex-wrap: wrap;
@@ -140,7 +137,7 @@ main{
 	transition: 1s;
 }
 .livelli:hover, .badge:hover{
-	box-shadow: 0px 5px 10px 2px orangered;
+	box-shadow: 0px 5px 10px 2px #1D70B7;
 }
 
 .livelli{
@@ -166,21 +163,12 @@ main{
 
 
 /* Footer */
-footer > figure{
-	display: flex;
-	align-items: center;
-	margin: 0px;
-}
-
 #cont-social{
 	text-align: center;
 	padding: 5px;
 }
 #cont-social > p{
-	color: #C4282B;
-	font-family: Mont;
 	font-size: 20px;
-	margin: 0px;
 }
 .social{
 	font-size: 34px;
@@ -196,7 +184,7 @@ footer > figure{
 
 /* Media Query */
 @media screen and (max-width: 1023px) {
-	header > figure > img{
+	.logo{
 		width: 80px;
 	}
 
@@ -208,7 +196,7 @@ footer > figure{
 		font-size: 12px;
 		width: 58px;
 	}
-	.header-account > a > i{
+	.account-login > i{
 		font-size: 36px;
 	}
 }
