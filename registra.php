@@ -10,6 +10,7 @@
 		<link rel="icon" type="image/x-icon" href="img/logo.png">
 		<link rel="stylesheet" href="css/main.css">
 		<link rel="stylesheet" href="css/account.css">
+		<link rel="stylesheet" href="css/persona.css">
 		<link rel="stylesheet" href="fontawesome-icon/css/all.css">
 		<script src="js/myScript.js"></script>
 
@@ -19,8 +20,8 @@
 	
 	<body>
 
-		<a href="login.php" class="btn-icon" style="left:12px;right:auto;"> <i class="fa-solid fa-caret-left"></i> </a>
-		<a href="index.html" class="btn-icon"> <i class="fa-solid fa-house"></i> </a>
+		<a href="login.php" class="btn-icon" style="left:14px;right:auto;"> <i class="fa-solid fa-caret-left fa-4x"></i> </a>
+		<a href="index.html" class="btn-icon"> <i class="fa-solid fa-house fa-3x"></i> </a>
 	
 		<div class="cont-data cont-signup">
 			<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="form"> <fieldset>
@@ -74,23 +75,28 @@
 						</div>
 					</div>
 
-					<select id="type_person" onchange="select_control()" class="inserisci in_data select" name="tipo_pers" required>
-						<option value=""> Seleziona </option>
-						<option value="2"> Docente </option>
-						<option value="1"> Studente </option>
-					</select>
+					<div class="cont-inserisci cont-select">
+						<select id="type_person" onchange="select_control()" class="inserisci in_data select" name="tipo_pers" required>
+							<option value=""> Seleziona </option>
+							<option value="2"> Docente </option>
+							<option value="1"> Studente </option>
+						</select> <i class="fa-solid fa-chevron-down"></i>
+					</div>
 
 					<!-- Solo per studente -->
 					<div id="classe_anno" class="in_classe" style="display:none;">
 						<label> Classe: </label> 
 						
-						<select class="inserisci in_data select" name="anno">
-							<option value="1"> 1 </option>
-							<option value="2"> 2 </option>
-							<option value="3"> 3 </option>
-							<option value="4"> 4 </option>
-							<option value="5"> 5 </option>
-						</select>
+						<div class="cont-inserisci cont-select">
+							<select class="inserisci in_data select" name="anno">
+								<option value=""> - </option>
+								<option value="1"> 1 </option>
+								<option value="2"> 2 </option>
+								<option value="3"> 3 </option>
+								<option value="4"> 4 </option>
+								<option value="5"> 5 </option>
+							</select> <i class="fa-solid fa-chevron-down" style="font-size:18px"></i>
+						</div>
 
 						<input type="text" placeholder="Sezione" class="inserisci in_data" id="classe_sez" name="sezione" required>
 					</div>
@@ -161,7 +167,7 @@
 								?>
 							</select>
 							
-							<div class="cont-inserisci" style="color:#000;"> <i class="fa-solid fa-circle-plus"></i> </div>
+							<div class="cont-inserisci" style="color:#000;"> <i class="fa-solid fa-circle-plus" onclick="add_materia()"></i> </div>
 						</div>
 
 					</div>
@@ -188,7 +194,7 @@
 				</div>
 				
 				<div class="grid-col-2" style="margin-top:20px;">
-					<input type="reset" value="Cancella" class="btn bottone btn-cancella">
+					<input type="reset" onclick="select_control()" value="Cancella" class="btn bottone btn-cancella">
 					<input type="submit" value="Conferma" class="btn bottone" name="invio">
 				</div>
 
@@ -219,7 +225,6 @@
 					if($pw === $cpw){
 
 						if (isset($tipo)) {
-
 							try {
 								$sql = "INSERT INTO persona(nome, cognome, dataNascita, sesso, tipo) VALUES ('".$nome."', '".$cognome."', '".$dataNascita."', '".$sesso."', ".$tipo.")";
 
@@ -304,6 +309,58 @@
 					$conn -> close();
 				} 
 			?> 
+		</div>
+
+		<!-- Aggiungi materia -->
+		<div id="add-materia" class="cont-popup">
+			<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="form form-badge">
+					
+				<h2 class="titolo">Aggiungi materia</h2>
+		
+				<div class="cont-inserisci">
+					<label> Materia: </label>
+					<input type="text" class="inserisci in_data" name="nome_mat">
+				</div>
+		
+				<div class="grid-col-2" style="margin-top:20px;">
+					<input type="reset" onclick="close_mat()" value="Chiudi" class="btn bottone btn-cancella">
+					<input type="submit" value="Aggiungi" class="btn bottone" name="aggiungi">
+				</div>
+
+			</form>
+
+			<?php
+				if (isset($_POST['aggiungi'])) {
+					include 'connessione.php' ;
+
+					$nome_mat = $_POST["nome_mat"];
+					
+					try{
+						$sql = "SELECT ID_materia FROM materia WHERE nome = '" .$nome_mat. "';";
+						$result = $conn -> query($sql);
+						$row = $result -> fetch_assoc();
+
+						if (isset($row['ID_materia'])) {
+							echo "Esiste già la materia";
+						} else {
+							$sql1 = "INSERT INTO materia(nome) VALUES ('".$nome_mat."')";
+
+							if ($conn->query($sql1) === TRUE){
+								echo "La materia è stato aggiunta correttamente";
+							} else {
+								echo "Errore nell'aggiunta della materia <br> Riprova";
+							}
+						}
+							
+						$result -> free();
+						
+					} catch (Exception $e){
+						echo "Qualcosa è andato storto \n";
+					}
+
+					$conn -> close();
+				}
+			?>
 		</div>
 
 	</body>

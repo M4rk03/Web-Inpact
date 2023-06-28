@@ -19,7 +19,7 @@
 	
 	<body>
 
-		<a href="index.html" class="btn-icon"> <i class="fa-solid fa-house"></i> </a>
+		<a href="index.html" class="btn-icon"> <i class="fa-solid fa-house fa-3x"></i> </a>
 	
 		<div class="cont-data">
 			<form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post" class="form"> <fieldset>

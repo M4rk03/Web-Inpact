@@ -68,50 +68,58 @@
 					include "connessione.php";
 					
 					$sql = "SELECT p.nome, p.cognome, p.dataNascita, p.ID_persona as ID FROM persona p JOIN studente s ON p.ID_persona = s.ID_studente JOIN classe c ON s.ID_classe = c.ID_classe WHERE c.anno = " .$_SESSION["anno"]. " AND c.sezione = '" .$_SESSION["sezione"]. "';";
-					$result = $conn -> query($sql);
+					$_result = $conn -> query($sql);
+					$_row = $_result->fetch_assoc();
 					
-					// Parte ripetuta x la quantita' degli studenti
-					$num = 0;
-					try{
-						while($row = $result->fetch_assoc()){
-							$num++;
-							echo "<div class='tabella cont-elenco'> \n";
-							echo "<div class='elenco list-alunno'> \n";
-							echo "<small>" .$num. "</small> \n";
-						
-							$alunno = strtoupper($row["nome"])." ".strtoupper($row["cognome"]);
-							echo "<p>" .$alunno. "</p> \n";
-							echo "<p>" .$row["dataNascita"]. "</p> \n </div> \n";
-							echo "<div class='elenco'> \n";
-						
-							try{
-								$sql1 = "SELECT b.nome, b.livello, av.dataB FROM badge b JOIN assegna_visualizza av ON (b.codBadge = av.codBadge) AND (b.livello = av.livello) JOIN materia m ON b.materia = m.ID_materia WHERE av.ID_persona = " .$row["ID"]. " AND m.nome = '" .$_SESSION["materia"]. "';";
-								$result1 = $conn -> query($sql1);
-								
-								// Parte ripetuta x la quantita' dei badge assegnati
-								while($row1 = $result1->fetch_assoc()){
-									$badge = $row1["nome"]."".$row1["livello"];
+					if (isset($_row['nome'])) {
+						// Parte ripetuta x la quantita' degli studenti
+						try{
+							$result = $conn -> query($sql);
+							$num = 0;
 
-									echo "<figure class='cont-badge-stud cont-badge-el' onclick=\"modify_badge(this, ".$row["ID"].", '".$row1["dataB"]."')\"> \n";
-									echo "<img src='img/badge/" .$badge. ".png' alt=" .$badge. "> \n </figure> \n";
+							while($row = $result->fetch_assoc()){
+								$num++;
+								echo "<div class='tabella cont-elenco'> \n";
+								echo "<div class='elenco list-alunno'> \n";
+								echo "<small>" .$num. "</small> \n";
+							
+								$alunno = strtoupper($row["nome"])." ".strtoupper($row["cognome"]);
+								echo "<p>" .$alunno. "</p> \n";
+								echo "<p>" .$row["dataNascita"]. "</p> \n </div> \n";
+								echo "<div class='elenco'> \n";
+							
+								try{
+									$sql1 = "SELECT b.nome, b.livello, av.dataB FROM badge b JOIN assegna_visualizza av ON (b.codBadge = av.codBadge) AND (b.livello = av.livello) JOIN materia m ON b.materia = m.ID_materia WHERE av.ID_persona = " .$row["ID"]. " AND m.nome = '" .$_SESSION["materia"]. "';";
+									$result1 = $conn -> query($sql1);
+									
+									// Parte ripetuta x la quantita' dei badge assegnati
+									while($row1 = $result1->fetch_assoc()){
+										$badge = $row1["nome"]."".$row1["livello"];
+
+										echo "<figure class='cont-badge-stud cont-badge-el' onclick=\"modify_badge(this, ".$row["ID"].", '".$row1["dataB"]."')\"> \n";
+										echo "<img src='img/badge/" .$badge. ".png' alt=" .$badge. "> \n </figure> \n";
+									}
+
+								}catch (Exception $e){
+									echo "Qualcosa è andato storto nella ricerca dei badge";
 								}
 
-							}catch (Exception $e){
-								echo "<p> Non è stato trovato nessun badge </p>";
+								echo "<figure class='cont-badge-stud cont-badge-el' onclick='add_badge(".$row["ID"].")' style='margin-left: 10px;'> \n";
+								echo "<img src='img/addB.png' alt='add badge'> \n </figure> \n";
+								echo "</div> \n </div> \n";
+
+								$result1 -> free();
 							}
-
-							echo "<figure class='cont-badge-stud cont-badge-el' onclick='add_badge(".$row["ID"].")' style='margin-left: 10px;'> \n";
-							echo "<img src='img/addB.png' alt='add badge'> \n </figure> \n";
-							echo "</div> \n </div> \n";
-
-							$result1 -> free();
 						}
-					}
-					catch (Exception $e){
-						echo "<p> Non è stato trovato nessun alunno </p>";
+						catch (Exception $e){
+							echo "Qualcosa è andato storto nella ricerca degli alunni";
+						}
+
+						$result -> free();
+					} else {
+						echo "<p class='cont-elenco' style='text-align:center;'> Non è stato trovato nessun alunno </p>";
 					}
 
-					$result -> free();
 					$conn -> close();
 				?>
 
@@ -398,7 +406,7 @@
         </main>
 		
 		<footer>
-			<figure> <img src="img/scritta.png" alt="scritta Web Imapact" style="width:180px;"> </figure>
+			<figure> <img src="img/scritta.png" alt="scritta Web Imapact" class="logo_scritta"> </figure>
 
 			<div id="cont-social">
 				<p class="titolo">ISISS "M.O. Luciano Dal Cero"</p>

@@ -32,7 +32,7 @@ figure > a{
 .titolo{
 	color: #C4282B;
 	font-family: Mont;
-	font-size: 60px;
+	font-size: 58px;
     text-align: center;
 
 	margin: 0px;
@@ -54,6 +54,9 @@ header, footer{
 .logo{
 	width: 100px;
 }
+.logo_scritta{
+	width: 180px;
+}
 
 /* Intestazione */
 .header-account{
@@ -67,7 +70,7 @@ header, footer{
 	justify-self: right;
 	width: 78px;
 	padding: 6px;
-	margin-right: 10px;
+	margin-right: 8px;
 }
 .account-login{
 	color: #000;
@@ -187,22 +190,51 @@ main{
 	.logo{
 		width: 80px;
 	}
+	.logo_scritta{
+		width: 140px;
+	}
 
-	.header-titolo{
-		font-size: 20px;
+	.titolo{
+		font-size: 42px;
 	}
 
 	.header-account{
+		border-radius: 14px;
 		font-size: 12px;
-		width: 58px;
+		width: 56px;
 	}
 	.account-login > i{
 		font-size: 36px;
 	}
+
+	main{
+		grid-template-columns: auto;
+	}
 }
 
 @media screen and (max-width: 767px) {
-	.header-titolo{
-		font-size: 15px;
+	.logo{
+		width: 60px;
+	}
+	.logo_scritta{
+		width: 100px;
+	}
+
+	.titolo{
+		font-size: 22px;
+	}
+
+	.header-account{
+		border-radius: 12px;
+		font-size: 10px;
+		width: 46px;
+	}
+	.account-login > i{
+		font-size: 30px;
+	}
+
+	.livelli, .badge{
+		width: auto;
+		margin: 0 10px;
 	}
 }

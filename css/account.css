@@ -5,11 +5,10 @@ html, body{
 
 .btn-icon{
 	position: absolute;
-	top: 12px;
-	right: 12px;
+	top: 14px;
+	right: 14px;
 
 	color: #000;
-	font-size: 44px;
 }
 
 /* LOGIN */
@@ -191,7 +190,24 @@ fieldset > p{
 }
 
 .select{
+	background: none;
+	appearance: none;
+	-webkit-appearance: none;
+
 	height: auto;
+	min-width: 62px;
+    z-index: 2;
+}
+
+.cont-select{
+	position: relative;
+}
+.cont-select > i{
+	color: #000;
+	font-size: 22px;
+    
+	right: 12px;
+	z-index: 1;
 }
 
 .cont-select-class{

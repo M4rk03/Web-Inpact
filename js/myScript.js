@@ -118,6 +118,14 @@ function drop(ev) {
     }
 }
 
+// Aggiungi materia
+function add_materia(){
+    document.querySelector('#add-materia').style.display = 'flex';
+}
+function close_mat(){
+    document.querySelector('#add-materia').style.display = 'none';
+}
+
 // ZOOM del Badge
 function zoom_badge(){
     document.querySelector('#visual-badge').style.display = 'flex';

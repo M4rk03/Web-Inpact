@@ -56,48 +56,66 @@
 					$result1 = $conn -> query($sql1);
 					
 					// Parte ripetuta x la quantita' delle materie
-					while($row1 = $result1->fetch_assoc()){
-						$materia = $row1["materia"];
-						$nome_prof = $row1["nome"]." ".$row1["cognome"];
-
-						echo "<div class='tabella'> \n";
-
-						// Controllo colore materia
-						$color_name = '';
-
-						if($materia == 'Tpsi'){
-							$color_name = 'tpsi';
-						} elseif($materia == 'Sistemi e Reti'){
-							$color_name = 'sistemi';
-						} elseif($materia == 'Informatica'){
-							$color_name = 'informatica';
-						} else{
-							$color_name = 'sistemi';
-						}
-
-						echo "<div class='texture mater-inseg " .$color_name. "'> \n";
-						echo "<p>" .$materia. "</p> \n";
-						echo "<small>" .$nome_prof. "</small> \n </div> \n";
-						echo "<div class='texture cont-materie sez-badge'> \n";
-
-						try{
-							$sql2 = "SELECT b.nome, b.livello, av.dataB FROM badge b JOIN assegna_visualizza av ON (b.codBadge = av.codBadge) AND (b.livello = av.livello) JOIN account a ON av.ID_persona = a.ID_persona WHERE a.nomeUtente = '" .$_SESSION["nomeUtente"]. "' AND b.materia = " .$row1["ID"]. ";";
-							$result2 = $conn -> query($sql2);
-							
-							// Parte ripetuta x la quantita' delle materie insegnate
-							while($row2 = $result2->fetch_assoc()){
-								$badge = $row2["nome"]."".$row2["livello"];
-								echo "<figure class='cont-badge-stud' name='" .$badge. "' onclick='zoom_badge(this)'> \n";
-								echo "<img src='img/badge/" .$badge. ".png' alt=" .$badge. "> \n </figure> \n";
+					try {
+						while($row1 = $result1->fetch_assoc()){
+							$materia = $row1["materia"];
+							$nome_prof = $row1["nome"]." ".$row1["cognome"];
+	
+							echo "<div class='tabella'> \n";
+	
+							// Controllo colore materia
+							$color_name = '';
+	
+							if($materia == 'Tpsi'){
+								$color_name = 'tpsi';
+							} elseif($materia == 'Sistemi e Reti'){
+								$color_name = 'sistemi';
+							} elseif($materia == 'Informatica'){
+								$color_name = 'informatica';
+							} else{
+								$color_name = 'sistemi';
 							}
-						}catch(Exception $e){
-							echo "<p> Non è stato trovato nessun badge </p>";
-						}
+	
+							echo "<div class='texture mater-inseg " .$color_name. "'> \n";
+							echo "<p>" .$materia. "</p> \n";
+							echo "<small>" .$nome_prof. "</small> \n </div> \n";
+	
+							try{
+								$sql2 = "SELECT b.nome, b.livello, av.dataB FROM badge b JOIN assegna_visualizza av ON (b.codBadge = av.codBadge) AND (b.livello = av.livello) JOIN account a ON av.ID_persona = a.ID_persona WHERE a.nomeUtente = '" .$_SESSION["nomeUtente"]. "' AND b.materia = " .$row1["ID"]. ";";
+								$_result = $conn -> query($sql2);
+								$_row = $_result->fetch_assoc();
+								
+								if (isset($_row['nome'])) {
 
-						echo "</div> \n </div> \n";
+									$result2 = $conn -> query($sql2);
+									echo "<div class='texture cont-materie sez-badge'> \n";
+
+									// Parte ripetuta x la quantita' dei badge
+									while($row2 = $result2->fetch_assoc()){
+										$badge = $row2["nome"]."".$row2["livello"];
+										echo "<figure class='cont-badge-stud' name='" .$badge. "' onclick='zoom_badge(this)'> \n";
+										echo "<img src='img/badge/" .$badge. ".png' alt=" .$badge. "> \n </figure> \n";
+									}
+
+									echo "</div> \n";
+									$result2 -> free();
+
+								} else {
+									echo "<div class='texture'> Non hai badge assegnati </div> \n";
+								}
+
+							}catch(Exception $e){
+								echo "Qualcosa è andato storto nella ricerca dei badge";
+							}
+	
+							echo "</div> \n";
+
+						}
+					} catch (Exception $e) {
+						echo "Qualcosa è andato storto nella ricerca delle materie";
 					}
+
 					$result1 -> free();
-					$result2 -> free();
 					$conn -> close();
 				?>
 
@@ -106,24 +124,26 @@
 			<!-- Popup Badge -->
 			<div id="visual-badge" class="cont-popup">
 				<div class="cont-modifyB">
-					<div class="form form-badge">
-							
-						<h2 class="titolo">Badge</h2>
-					
-						<p> Assegnato il 12/06/2023 </p>
-						<p> Dal docente: Tirapelle Vanni </p>
-						<p> Nella materia di: Sistemi e Reti </p>
-						<p> Descrizione: <br> Tante cose belle... </p>
 
-						<input type="button" onclick="close_visual()" value="Chiudi" class="btn bottone">
-			
+					<img src="img/badge/C3.png" alt="C3">
+
+					<div class="info-badge">
+						<h2 class="titolo"> Badge </h2>
+					
+						<p> Assegnato il: 12/06/2023 </p>
+						<p> Docente: Tirapelle Vanni </p>
+						<p> Materia: Sistemi e Reti </p>
+						<p> Descrizione: <br> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt dicta adipisci ut voluptate ullam laudantium, aut rem atque ratione ipsum ipsa sed eius sint odio, excepturi quibusdam, impedit labore delectus? </p>
+
+						<input type="button" onclick="close_visual()" value="Chiudi" class="btn-close">
 					</div>
+
 				</div>
 			</div>
         </main>
 		
 		<footer>
-			<figure> <img src="img/scritta.png" alt="scritta Web Imapact" style="width:180px;"> </figure>
+			<figure> <img src="img/scritta.png" alt="scritta Web Imapact" class="logo_scritta"> </figure>
 
 			<div id="cont-social">
 				<p class="titolo">ISISS "M.O. Luciano Dal Cero"</p>
