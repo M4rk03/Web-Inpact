@@ -304,6 +304,18 @@ div.informatica{
 	font-size: 16px;
 }
 
+.info-badge-desc{
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+	gap: 6px;
+	margin-bottom: 0px;
+}
+.info-badge-desc > span{
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
 
 /* Media Query */
 @media screen and (max-width: 1023px) {

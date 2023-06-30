@@ -130,9 +130,9 @@
 					<div class="info-badge">
 						<h2 class="titolo"> Badge </h2>
 					
-						<p> Assegnato il: 12/06/2023 </p>
-						<p> Docente: Tirapelle Vanni </p>
-						<p> Materia: Sistemi e Reti </p>
+						<p class="info-badge-desc"> Assegnato il: <span> 12/06/2023 <i class="fa-solid fa-calendar"></i> </span>
+						Docente: <span> Tirapelle Vanni <i class="fa-solid fa-user-tie"></i> </span>
+						Materia: <span> Sistemi e Reti  <i class="fa-solid fa-book"></i> </span> </p>
 						<p> Descrizione: <br> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt dicta adipisci ut voluptate ullam laudantium, aut rem atque ratione ipsum ipsa sed eius sint odio, excepturi quibusdam, impedit labore delectus? </p>
 
 						<input type="button" onclick="close_visual()" value="Chiudi" class="btn-close">
