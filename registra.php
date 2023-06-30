@@ -21,7 +21,7 @@
 	<body>
 
 		<a href="login.php" class="btn-icon" style="left:14px;right:auto;"> <i class="fa-solid fa-caret-left fa-4x"></i> </a>
-		<a href="index.html" class="btn-icon"> <i class="fa-solid fa-house fa-3x"></i> </a>
+		<a href="index.html" class="btn-icon" style="top:26px"> <i class="fa-solid fa-house fa-3x"></i> </a>
 	
 		<div class="cont-data cont-signup">
 			<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="form"> <fieldset>

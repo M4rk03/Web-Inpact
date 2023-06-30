@@ -38,6 +38,8 @@ main > h2{
 	border: 3px solid #C4282B;
 	border-radius:10px;
 
+	text-align: center;
+
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -52,7 +54,7 @@ main > h2{
 
 .classe{
 	font-size: 40px;
-	justify-content: space-around;
+	justify-content: space-evenly;
 }
 .classe > p{
 	margin: 0px;
@@ -124,6 +126,9 @@ div.informatica{
 }
 .mater-inseg > p{
 	font-size: 40px;
+	line-height: 44px;
+	text-align: center;
+
 	margin: 0px;
 }
 
@@ -305,13 +310,31 @@ div.informatica{
 	.cont-materie{
 		justify-content: center;
 	}
+
+	.mater-inseg > p{
+		font-size: 28px;
+		line-height: 32px;
+	}
+
+	.list-alunno{
+		font-size: 14px;
+	}
+
+	/* Popup */
+	.cont-modifyB > img{
+		width: 250px;
+	}
+
+	.info-badge{
+		font-size: 18px;
+		padding: 0px 12px;
+	}
 }
 
 @media screen and (max-width: 767px) {
-	main > h2{
+	main > h2, .elenco > h2{
 		font-size: 16px;
 	}
-
 	.sottotitolo{
 		font-size: 18px;
 	}
@@ -324,12 +347,78 @@ div.informatica{
 		font-size: 12px;
 	}
 
+	/* DOCENTE */
 	.classe{
 		font-size: 30px;
+		flex-direction: column;
+		justify-content: center;
+		gap: 10px;
 	}
 
 	.materia{
 		font-size: 18px;
-		width: 180px;
+		width: 170px;
+	}
+
+	/* STUDENTE */
+	.mater-inseg > p{
+		font-size: 18px;
+		line-height: 22px;
+	}
+	.mater-inseg > small{
+		font-size: 10px;
+	}
+
+	.cont-badge-stud{
+		width: 50px;
+	}
+
+	/* ELENCO */
+	.back{
+		left: 20px;
+		font-size: 22px;
+	}
+
+	.elenco{
+		gap: 14px;
+	}
+
+	.list-alunno{
+		font-size: 12px;
+		grid-template-areas:
+			'num nome nome'
+			'num data data';
+		row-gap: 0px;
+	}
+	.list-alunno > small{
+		grid-area: num;
+	}
+	.list-alunno > p{
+		grid-area: nome;
+		margin: 4px 0;
+	}
+	.list-alunno > p:last-child{
+		grid-area: data;
+	}
+
+	/* Popup */
+	.cont-modifyB > img{
+		width: 150px;
+	}
+
+	.info-badge{
+		font-size: 18px;
+		padding: 0px;
+	}
+}
+
+@media screen and (max-width: 374px) {
+	.materia{
+		font-size: 14px;
+		width: 130px;
+	}
+
+	.back{
+		left: 12px;
 	}
 }

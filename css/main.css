@@ -221,7 +221,8 @@ main{
 	}
 
 	.titolo{
-		font-size: 22px;
+		font-size: 28px;
+		line-height: 28px;
 	}
 
 	.header-account{
@@ -233,8 +234,23 @@ main{
 		font-size: 30px;
 	}
 
+	#info{
+		font-size: 14px;
+	}
+	#info > h3{
+		font-size: 18px;
+	}
+
 	.livelli, .badge{
 		width: auto;
 		margin: 0 10px;
+	}
+
+	.livelli{
+		font-size: 22px;
+	}
+
+	.imgB{
+		width: 44%;
 	}
 }

@@ -85,7 +85,7 @@
 							
 								$alunno = strtoupper($row["nome"])." ".strtoupper($row["cognome"]);
 								echo "<p>" .$alunno. "</p> \n";
-								echo "<p>" .$row["dataNascita"]. "</p> \n </div> \n";
+								echo "<p>" .substr($row["dataNascita"], 8, 2)."-".substr($row["dataNascita"], 5, 2)."-".substr($row["dataNascita"], 0, 4). "</p> \n </div> \n";
 								echo "<div class='elenco'> \n";
 							
 								try{
@@ -133,55 +133,59 @@
 						<div class="cont-inserisci">
 							<label> Argomento: </label> 
 							
-							<select id="add-nomeB" class="inserisci in_data select" onchange="visual_img()" name="argomento" required>
-								<option value=""> Seleziona </option>
-								<?php
-									include "connessione.php";
-									
-									$sql = "SELECT DISTINCT b.nome FROM badge b JOIN materia m ON b.materia = m.ID_materia WHERE m.nome = '" .$_SESSION["materia"]. "';";
-									$result = $conn -> query($sql);
-									
-									// Parte ripetuta x la quantita' dei badge
-									try{
-										while($row = $result->fetch_assoc()){
-											echo "<option value=" .$row["nome"]. ">" .$row["nome"]. "</option>";
+							<div class="cont-inserisci cont-select">
+								<select id="add-nomeB" class="inserisci in_data select" onchange="visual_img()" name="argomento" required>
+									<option value=""> Seleziona </option>
+									<?php
+										include "connessione.php";
+										
+										$sql = "SELECT DISTINCT b.nome FROM badge b JOIN materia m ON b.materia = m.ID_materia WHERE m.nome = '" .$_SESSION["materia"]. "';";
+										$result = $conn -> query($sql);
+										
+										// Parte ripetuta x la quantita' dei badge
+										try{
+											while($row = $result->fetch_assoc()){
+												echo "<option value=" .$row["nome"]. ">" .$row["nome"]. "</option>";
+											}
 										}
-									}
-									catch (Exception $e){
-										echo "Errore";
-									}
-				
-									$result -> free();
-									$conn -> close();
-								?>
-							</select>
+										catch (Exception $e){
+											echo "Errore";
+										}
+								
+										$result -> free();
+										$conn -> close();
+									?>
+								</select> <i class="fa-solid fa-chevron-down"></i>
+							</div>
 						</div>
 			
 						<div class="cont-inserisci">
 							<label> Livello: </label> 
 							
-							<select id="add-livelloB" class="inserisci in_data select" onchange="visual_img()" name="livello" required>
-								<option value=""> Seleziona </option>
-								<?php
-									include "connessione.php";
-					
-									$sql = "SELECT DISTINCT livello FROM badge;";
-									$result = $conn -> query($sql);
-									
-									// Parte ripetuta x i livelli dei badge
-									try{
-										while($row = $result->fetch_assoc()){
-											echo "<option value=" .$row["livello"]. ">" .$row["livello"]. "</option>";
+							<div class="cont-inserisci cont-select">
+								<select id="add-livelloB" class="inserisci in_data select" onchange="visual_img()" name="livello" required>
+									<option value=""> Seleziona </option>
+									<?php
+										include "connessione.php";
+								
+										$sql = "SELECT DISTINCT livello FROM badge;";
+										$result = $conn -> query($sql);
+										
+										// Parte ripetuta x i livelli dei badge
+										try{
+											while($row = $result->fetch_assoc()){
+												echo "<option value=" .$row["livello"]. ">" .$row["livello"]. "</option>";
+											}
 										}
-									}
-									catch (Exception $e){
-										echo "Errore";
-									}
-				
-									$result -> free();
-									$conn -> close();
-								?>
-							</select>
+										catch (Exception $e){
+											echo "Errore";
+										}
+								
+										$result -> free();
+										$conn -> close();
+									?>
+								</select> <i class="fa-solid fa-chevron-down"></i>
+							</div>
 						</div>
 			
 						<div class="cont-inserisci">
@@ -214,55 +218,59 @@
 							<div class="cont-inserisci">
 								<label> Argomento: </label> 
 								
-								<select id="mod-nomeB" class="inserisci in_data select" onchange="visual_img()" name="nomeB" required>
-									<option value=""> Seleziona </option>
-									<?php
-										include "connessione.php";
-						
-										$sql = "SELECT DISTINCT b.nome FROM badge b JOIN materia m ON b.materia = m.ID_materia WHERE m.nome = '" .$_SESSION["materia"]. "';";
-										$result = $conn -> query($sql);
-										
-										// Parte ripetuta x la quantita' dei badge
-										try{
-											while($row = $result->fetch_assoc()){
-												echo "<option value=" .$row["nome"]. ">" .$row["nome"]. "</option>";
+								<div class="cont-inserisci cont-select">
+									<select id="mod-nomeB" class="inserisci in_data select" onchange="visual_img()" name="nomeB" required>
+										<option value=""> Seleziona </option>
+										<?php
+											include "connessione.php";
+									
+											$sql = "SELECT DISTINCT b.nome FROM badge b JOIN materia m ON b.materia = m.ID_materia WHERE m.nome = '" .$_SESSION["materia"]. "';";
+											$result = $conn -> query($sql);
+											
+											// Parte ripetuta x la quantita' dei badge
+											try{
+												while($row = $result->fetch_assoc()){
+													echo "<option value=" .$row["nome"]. ">" .$row["nome"]. "</option>";
+												}
 											}
-										}
-										catch (Exception $e){
-											echo "Errore";
-										}
-					
-										$result -> free();
-										$conn -> close();
-									?>
-								</select>
+											catch (Exception $e){
+												echo "Errore";
+											}
+									
+											$result -> free();
+											$conn -> close();
+										?>
+									</select> <i class="fa-solid fa-chevron-down"></i>
+								</div>
 							</div>
 						
 							<div class="cont-inserisci">
 								<label> Livello: </label> 
 								
-								<select id="mod-livelloB" class="inserisci in_data select" onchange="visual_img()" name="livelloB" required>
-									<option value=""> Seleziona </option>
-									<?php
-										include "connessione.php";
-						
-										$sql = "SELECT DISTINCT livello FROM badge;";
-										$result = $conn -> query($sql);
-										
-										// Parte ripetuta x i livelli dei badge
-										try{
-											while($row = $result->fetch_assoc()){
-												echo "<option value=" .$row["livello"]. ">" .$row["livello"]. "</option>";
+								<div class="cont-inserisci cont-select">
+									<select id="mod-livelloB" class="inserisci in_data select" onchange="visual_img()" name="livelloB" required>
+										<option value=""> Seleziona </option>
+										<?php
+											include "connessione.php";
+									
+											$sql = "SELECT DISTINCT livello FROM badge;";
+											$result = $conn -> query($sql);
+											
+											// Parte ripetuta x i livelli dei badge
+											try{
+												while($row = $result->fetch_assoc()){
+													echo "<option value=" .$row["livello"]. ">" .$row["livello"]. "</option>";
+												}
 											}
-										}
-										catch (Exception $e){
-											echo "Errore";
-										}
-					
-										$result -> free();
-										$conn -> close();
-									?>
-								</select>
+											catch (Exception $e){
+												echo "Errore";
+											}
+									
+											$result -> free();
+											$conn -> close();
+										?>
+									</select> <i class="fa-solid fa-chevron-down"></i>
+								</div>
 							</div>
 						
 							<div class="cont-inserisci">

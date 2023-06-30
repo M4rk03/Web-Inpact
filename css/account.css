@@ -140,7 +140,7 @@ fieldset > p{
 .btn-accedi:hover, .bottone:hover{
 	box-shadow: inset 0 0 10px 3px #FEED00;
 }
-.btn-registrati:hover, .cancella:hover{
+.btn-registrati:hover, .btn-cancella:hover{
 	box-shadow: inset 0 0 10px 1px orangered;
 }
 
