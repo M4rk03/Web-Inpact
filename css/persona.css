@@ -300,6 +300,9 @@ div.informatica{
 .info-badge > h2{
 	font-size: 30px;
 }
+.info-badge > p{
+	font-family: Mont;
+}
 .info-badge > input{
 	font-size: 16px;
 }
@@ -310,7 +313,9 @@ div.informatica{
 	gap: 6px;
 	margin-bottom: 0px;
 }
-.info-badge-desc > span{
+.descri{
+	font-family: Mustica;
+
 	display: flex;
 	justify-content: space-evenly;
 	align-items: center;

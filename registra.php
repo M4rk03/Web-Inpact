@@ -167,7 +167,7 @@
 								?>
 							</select>
 							
-							<div class="cont-inserisci" style="color:#000;"> <i class="fa-solid fa-circle-plus" onclick="add_materia()"></i> </div>
+							<div class="cont-inserisci" style="color:#000;"> <i class="fa-solid fa-circle-plus" onclick="add_materia()" style="cursor:pointer;"></i> </div>
 						</div>
 
 					</div>
@@ -319,7 +319,7 @@
 		
 				<div class="cont-inserisci">
 					<label> Materia: </label>
-					<input type="text" class="inserisci in_data" name="nome_mat">
+					<input type="text" id="ins-mat" class="inserisci in_data" name="nome_mat">
 				</div>
 		
 				<div class="grid-col-2" style="margin-top:20px;">

@@ -93,7 +93,7 @@
 									// Parte ripetuta x la quantita' dei badge
 									while($row2 = $result2->fetch_assoc()){
 										$badge = $row2["nome"]."".$row2["livello"];
-										echo "<figure class='cont-badge-stud' name='" .$badge. "' onclick='zoom_badge(this)'> \n";
+										echo "<figure class='cont-badge-stud' name='" .$badge. "' onclick=\"zoom_badge('".$badge."', '".$row2["dataB"]."', '".$nome_prof."', '".$row1["materia"]."')\"> \n";
 										echo "<img src='img/badge/" .$badge. ".png' alt=" .$badge. "> \n </figure> \n";
 									}
 
@@ -125,15 +125,15 @@
 			<div id="visual-badge" class="cont-popup">
 				<div class="cont-modifyB">
 
-					<img src="img/badge/C3.png" alt="C3">
+					<!-- Immagine Badge -->
 
 					<div class="info-badge">
 						<h2 class="titolo"> Badge </h2>
 					
-						<p class="info-badge-desc"> Assegnato il: <span> 12/06/2023 <i class="fa-solid fa-calendar"></i> </span>
-						Docente: <span> Tirapelle Vanni <i class="fa-solid fa-user-tie"></i> </span>
-						Materia: <span> Sistemi e Reti  <i class="fa-solid fa-book"></i> </span> </p>
-						<p> Descrizione: <br> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt dicta adipisci ut voluptate ullam laudantium, aut rem atque ratione ipsum ipsa sed eius sint odio, excepturi quibusdam, impedit labore delectus? </p>
+						<p class="info-badge-desc"> Assegnato il: <span id="data" class="descri"> <i class="fa-solid fa-calendar"></i> </span>
+						Docente: <span id="prof" class="descri"> <i class="fa-solid fa-user-tie"></i> </span>
+						Materia: <span id="mat" class="descri">  <i class="fa-solid fa-book"></i> </span> </p>
+						<p> Descrizione: <br> <span class="descri"> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt dicta adipisci ut voluptate ullam laudantium, aut rem atque ratione ipsum ipsa sed eius sint odio, excepturi quibusdam, impedit labore delectus? </span> </p>
 
 						<input type="button" onclick="close_visual()" value="Chiudi" class="btn-close">
 					</div>

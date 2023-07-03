@@ -121,17 +121,33 @@ function drop(ev) {
 // Aggiungi materia
 function add_materia(){
     document.querySelector('#add-materia').style.display = 'flex';
+    document.querySelector('#ins-mat').required = true;
 }
 function close_mat(){
     document.querySelector('#add-materia').style.display = 'none';
+    document.querySelector('#ins-mat').required = false;
 }
 
 // ZOOM del Badge
-function zoom_badge(){
+function zoom_badge(b, d, prof, m){
     document.querySelector('#visual-badge').style.display = 'flex';
+    let cont = document.querySelector('#visual-badge').children[0];
+
+    // visualizza img badge
+    let img = document.createElement('img');
+    let url_img = 'img/badge/' + b + '.png';
+    img.setAttribute('src', url_img);
+    cont.insertBefore(img, cont.children[0]);
+
+    // passaggio dati
+    document.querySelector('#data').firstChild.textContent = d.substring(8, 10) + "/" + d.substring(5, 7) + "/" + d.substring(0, 4);
+    document.querySelector('#prof').firstChild.textContent = prof;
+    document.querySelector('#mat').firstChild.textContent = m;
 }
 function close_visual(){
     document.querySelector('#visual-badge').style.display = 'none';
+    let cont = document.querySelector('#visual-badge').children[0];
+    cont.removeChild(cont.children[0])
 }
 
 // ASSEGNA un badge allo studente

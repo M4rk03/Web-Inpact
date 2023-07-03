@@ -5,6 +5,11 @@
 }
 
 @font-face{
+	font-family: Mont-light;
+	src: url(../font/mont/Mont-ExtraLightDEMO.otf);
+}
+
+@font-face{
 	font-family: Mustica;
 	src: url(../font/mustica/MusticaPro-SemiBold.otf);
 }
