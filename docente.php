@@ -123,7 +123,7 @@
 				<small>Copyright &copy 2023</small>
 			</div>
 
-			<figure style="justify-content:right;"> <img src="img/dalcero.png" alt="logo DalCero" class="logo"> </figure>
+			<figure> <img src="img/dalcero.png" alt="logo DalCero" class="logo"> </figure>
 		</footer>
 
 	</body>

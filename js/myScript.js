@@ -129,7 +129,7 @@ function close_mat(){
 }
 
 // ZOOM del Badge
-function zoom_badge(b, d, prof, m){
+function zoom_badge(b, d, prof, m, t){
     document.querySelector('#visual-badge').style.display = 'flex';
     let cont = document.querySelector('#visual-badge').children[0];
 
@@ -143,6 +143,11 @@ function zoom_badge(b, d, prof, m){
     document.querySelector('#data').firstChild.textContent = d.substring(8, 10) + "/" + d.substring(5, 7) + "/" + d.substring(0, 4);
     document.querySelector('#prof').firstChild.textContent = prof;
     document.querySelector('#mat').firstChild.textContent = m;
+    
+    if (t == "") {
+        t = "<em> Nessuna descrizione </em>";
+    }
+    document.querySelector('#desc').innerHTML = t;
 }
 function close_visual(){
     document.querySelector('#visual-badge').style.display = 'none';
@@ -170,7 +175,7 @@ function close_add(){
 }
 
 // MODIFICA un badge allo studente
-function modify_badge(e, valore1, valore2){
+function modify_badge(e, valore1, valore2, valore3){
     document.querySelector('#modify-badge').style.display = 'flex';
     let cont = document.querySelector('.cont-modifyB');
     let cont_form = cont.children[0];
@@ -190,6 +195,9 @@ function modify_badge(e, valore1, valore2){
 
     // passaggio della variabile dataB
     document.querySelector('#mod-dataB').value = valore2;
+
+    // passaggio della variabile descrizione
+    document.querySelector('#mod-descri').value = valore3;
 
     // visualizza img badge
     let badge = e.children[0].alt;

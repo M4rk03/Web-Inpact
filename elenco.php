@@ -89,14 +89,14 @@
 								echo "<div class='elenco'> \n";
 							
 								try{
-									$sql1 = "SELECT b.nome, b.livello, av.dataB FROM badge b JOIN assegna_visualizza av ON (b.codBadge = av.codBadge) AND (b.livello = av.livello) JOIN materia m ON b.materia = m.ID_materia WHERE av.ID_persona = " .$row["ID"]. " AND m.nome = '" .$_SESSION["materia"]. "';";
+									$sql1 = "SELECT b.nome, b.livello, av.dataB, av.descrizione FROM badge b JOIN assegna_visualizza av ON (b.codBadge = av.codBadge) AND (b.livello = av.livello) JOIN materia m ON b.materia = m.ID_materia WHERE av.ID_persona = " .$row["ID"]. " AND m.nome = '" .$_SESSION["materia"]. "';";
 									$result1 = $conn -> query($sql1);
 									
 									// Parte ripetuta x la quantita' dei badge assegnati
 									while($row1 = $result1->fetch_assoc()){
 										$badge = $row1["nome"]."".$row1["livello"];
 
-										echo "<figure class='cont-badge-stud cont-badge-el' onclick=\"modify_badge(this, ".$row["ID"].", '".$row1["dataB"]."')\"> \n";
+										echo "<figure class='cont-badge-stud cont-badge-el' onclick=\"modify_badge(this, ".$row["ID"].", '".$row1["dataB"]."', '".$row1["descrizione"]."')\"> \n";
 										echo "<img src='img/badge/" .$badge. ".png' alt=" .$badge. "> \n </figure> \n";
 									}
 
@@ -280,7 +280,7 @@
 						
 							<div class="cont-inserisci">
 								<label> Descrizione: </label>
-								<textarea class="inserisci in_data" name="testo" rows="4" style="resize:none;height:auto;">Sei stato molto bravo...</textarea>
+								<textarea id="mod-descri" class="inserisci in_data" name="testo" rows="4" style="resize:none;height:auto;"></textarea>
 							</div>
 
 							<div class="cont-button">
@@ -308,7 +308,7 @@
 									$nome = $_POST["argomento"];
 									$livello = $_POST["livello"]; 
 									$dataB = $_POST["dataB"];
-									//$descrizione = $_POST["testo"];
+									$descrizione = $_POST["testo"];
 									$id_pers = $_POST["ID_persona"];
 									
 									try{
@@ -316,7 +316,7 @@
 										$result = $conn -> query($sql);
 										$row = $result -> fetch_assoc();
 
-										$sql1 = "INSERT INTO assegna_visualizza(ID_persona, codBadge, livello, dataB) VALUES (".$id_pers.", ".$row["codBadge"].", ".$livello.", '".$dataB."')";
+										$sql1 = "INSERT INTO assegna_visualizza(ID_persona, codBadge, livello, dataB, descrizione) VALUES (".$id_pers.", ".$row["codBadge"].", ".$livello.", '".$dataB."', '".$descrizione."')";
 
 										if ($conn->query($sql1) === TRUE){
 											echo "Il badge è stato assegnato correttamente";
@@ -340,6 +340,7 @@
 									include 'connessione.php' ;
 
 									$dataB = $_POST["dataB"];
+									$descrizione = $_POST["testo"];
 									$id_pers = $_POST["ID_persona"];
 
 									$nomeB_ass = $_POST["nomeB_assegnato"];
@@ -356,7 +357,7 @@
 										$result1 = $conn -> query($sql1);
 										$row1 = $result1 -> fetch_assoc();
 										
-										$sql2 = "UPDATE assegna_visualizza SET codBadge = ".$row1["codBadge"].", livello = ".$_POST["livelloB"].", dataB ='".$dataB."' WHERE ID_persona = ".$id_pers." AND codBadge = ".$row["codIniziale"]." AND livello = ".$livelloB_ass.";";
+										$sql2 = "UPDATE assegna_visualizza SET codBadge = ".$row1["codBadge"].", livello = ".$_POST["livelloB"].", dataB ='".$dataB."', descrizione = '".$descrizione."' WHERE ID_persona = ".$id_pers." AND codBadge = ".$row["codIniziale"]." AND livello = ".$livelloB_ass.";";
 
 										if ($conn->query($sql2) === TRUE){
 											echo "Il badge è stato modificato correttamente";
@@ -427,7 +428,7 @@
 				<small>Copyright &copy 2023</small>
 			</div>
 
-			<figure style="justify-content:right;"> <img src="img/dalcero.png" alt="logo DalCero" class="logo"> </figure>
+			<figure> <img src="img/dalcero.png" alt="logo DalCero" class="logo"> </figure>
 		</footer>
 		
 	</body>

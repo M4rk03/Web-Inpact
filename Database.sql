@@ -60,7 +60,7 @@ CREATE TABLE if NOT EXISTS Assegna_Visualizza(
 	codBadge INT,
 	livello TINYINT(1),
 	dataB date,
-	descrizione CHAR,
+	descrizione TEXT,
 	PRIMARY KEY(ID_persona, codBadge, livello),
 	CONSTRAINT fk_pers_ass_IDpersona FOREIGN KEY(ID_persona) REFERENCES Persona(ID_persona) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT fk_badge_ass_codbadge_livello FOREIGN KEY(codBadge, livello) REFERENCES Badge(codBadge, livello) ON DELETE CASCADE ON UPDATE CASCADE

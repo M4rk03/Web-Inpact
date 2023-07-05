@@ -189,6 +189,10 @@ main{
 	color: #1D70B7;
 }
 
+footer > figure:last-child{
+	justify-content: right;
+}
+
 
 /* Media Query */
 @media screen and (max-width: 1023px) {
@@ -215,9 +219,18 @@ main{
 	main{
 		grid-template-columns: auto;
 	}
+
+	#cont-social > p{
+		font-size: 18px;
+	}
+
+	.social{
+		font-size: 30px;
+	}
 }
 
 @media screen and (max-width: 767px) {
+	/* Intestazione */
 	.logo{
 		width: 60px;
 	}
@@ -239,6 +252,8 @@ main{
 		font-size: 30px;
 	}
 
+	/* Contenuto */
+
 	#info{
 		font-size: 14px;
 	}
@@ -257,5 +272,32 @@ main{
 
 	.imgB{
 		width: 44%;
+	}
+	
+	/* Footer */
+	footer{
+		grid-template-columns: none;
+		grid-template-areas: 
+			"img1 social"
+			"img2 social";
+		gap: 5px;
+	}
+	footer > figure:first-child{
+		grid-area: img1;
+	}
+	footer > figure:last-child{
+		grid-area: img2;
+		justify-content: left;
+	}
+
+	#cont-social{
+		grid-area: social;
+	}
+	#cont-social > p{
+		font-size: 16px;
+	}
+
+	.social{
+		font-size: 26px;
 	}
 }

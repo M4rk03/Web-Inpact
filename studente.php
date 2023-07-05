@@ -81,7 +81,7 @@
 							echo "<small>" .$nome_prof. "</small> \n </div> \n";
 	
 							try{
-								$sql2 = "SELECT b.nome, b.livello, av.dataB FROM badge b JOIN assegna_visualizza av ON (b.codBadge = av.codBadge) AND (b.livello = av.livello) JOIN account a ON av.ID_persona = a.ID_persona WHERE a.nomeUtente = '" .$_SESSION["nomeUtente"]. "' AND b.materia = " .$row1["ID"]. ";";
+								$sql2 = "SELECT b.nome, b.livello, av.dataB, av.descrizione FROM badge b JOIN assegna_visualizza av ON (b.codBadge = av.codBadge) AND (b.livello = av.livello) JOIN account a ON av.ID_persona = a.ID_persona WHERE a.nomeUtente = '" .$_SESSION["nomeUtente"]. "' AND b.materia = " .$row1["ID"]. ";";
 								$_result = $conn -> query($sql2);
 								$_row = $_result->fetch_assoc();
 								
@@ -93,7 +93,7 @@
 									// Parte ripetuta x la quantita' dei badge
 									while($row2 = $result2->fetch_assoc()){
 										$badge = $row2["nome"]."".$row2["livello"];
-										echo "<figure class='cont-badge-stud' name='" .$badge. "' onclick=\"zoom_badge('".$badge."', '".$row2["dataB"]."', '".$nome_prof."', '".$row1["materia"]."')\"> \n";
+										echo "<figure class='cont-badge-stud' name='" .$badge. "' onclick=\"zoom_badge('".$badge."', '".$row2["dataB"]."', '".$nome_prof."', '".$row1["materia"]."', '".$row2["descrizione"]."')\"> \n";
 										echo "<img src='img/badge/" .$badge. ".png' alt=" .$badge. "> \n </figure> \n";
 									}
 
@@ -133,7 +133,7 @@
 						<p class="info-badge-desc"> Assegnato il: <span id="data" class="descri"> <i class="fa-solid fa-calendar"></i> </span>
 						Docente: <span id="prof" class="descri"> <i class="fa-solid fa-user-tie"></i> </span>
 						Materia: <span id="mat" class="descri">  <i class="fa-solid fa-book"></i> </span> </p>
-						<p> Descrizione: <br> <span class="descri"> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt dicta adipisci ut voluptate ullam laudantium, aut rem atque ratione ipsum ipsa sed eius sint odio, excepturi quibusdam, impedit labore delectus? </span> </p>
+						<p> Descrizione: <br> <span id="desc" class="descri" style="justify-content:left;"> </span> </p>
 
 						<input type="button" onclick="close_visual()" value="Chiudi" class="btn-close">
 					</div>
@@ -156,7 +156,7 @@
 				<small>Copyright &copy 2023</small>
 			</div>
 
-			<figure style="justify-content:right;"> <img src="img/dalcero.png" alt="logo DalCero" class="logo"> </figure>
+			<figure> <img src="img/dalcero.png" alt="logo DalCero" class="logo"> </figure>
 		</footer>
 
 	</body>

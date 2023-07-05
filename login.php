@@ -66,10 +66,10 @@
 									echo "location.href ='docente.php';";
 									echo "</script>";
 								} else{
-									throw new Exception("Tipo dell'account errato");
+									throw new Exception("<p class='error'> Tipo dell'account errato </p>");
 								}
 							} else{
-								throw new Exception("Errore nell'inserimento dei dati <br> Controlla che l'email o la password siano corrette");
+								throw new Exception("<p class='error'> Errore nell'inserimento dei dati <br> Controlla che l'email o la password siano corrette </p>");
 							}
 						}catch (Exception $e){
 							echo $e -> getMessage();

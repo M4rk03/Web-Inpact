@@ -194,7 +194,7 @@
 				</div>
 				
 				<div class="grid-col-2" style="margin-top:20px;">
-					<input type="reset" onclick="select_control()" value="Cancella" class="btn bottone btn-cancella">
+					<input type="reset" onclick="refreshPage()" value="Cancella" class="btn bottone btn-cancella">
 					<input type="submit" value="Conferma" class="btn bottone" name="invio">
 				</div>
 

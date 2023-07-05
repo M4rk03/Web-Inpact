@@ -11,6 +11,14 @@ html, body{
 	color: #000;
 }
 
+.error{
+	font-size: 16px;
+	text-align: center;
+	
+    margin: 10px 0px;
+    margin-bottom: -20px;
+}
+
 /* LOGIN */
 .cont-data{
 	display: grid;
