@@ -353,7 +353,7 @@ div.informatica{
 		font-size: 16px;
 	}
 	.sottotitolo{
-		font-size: 18px;
+		font-size: 16px;
 	}
 
 	.tabella{
@@ -387,12 +387,12 @@ div.informatica{
 	}
 
 	.cont-badge-stud{
-		width: 50px;
+		width: 48px;
 	}
 
 	/* ELENCO */
 	.back{
-		left: 20px;
+		left: 12px;
 		font-size: 22px;
 	}
 
@@ -424,8 +424,11 @@ div.informatica{
 	}
 
 	.info-badge{
-		font-size: 18px;
+		font-size: 14px;
 		padding: 0px;
+	}
+	.info-badge > input{
+		font-size: 14px;
 	}
 }
 
@@ -433,9 +436,5 @@ div.informatica{
 	.materia{
 		font-size: 14px;
 		width: 130px;
-	}
-
-	.back{
-		left: 12px;
 	}
 }

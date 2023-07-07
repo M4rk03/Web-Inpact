@@ -189,6 +189,10 @@ main{
 	color: #1D70B7;
 }
 
+.icon-margin{
+	margin-left: 8px;
+}
+
 footer > figure:last-child{
 	justify-content: right;
 }
@@ -263,13 +267,16 @@ footer > figure:last-child{
 
 	.livelli, .badge{
 		width: auto;
-		margin: 0 10px;
 	}
 
 	.livelli{
 		font-size: 22px;
+		margin: 0 10px;
 	}
 
+	.badge{
+		margin: 0 30px;
+	}
 	.imgB{
 		width: 44%;
 	}

@@ -30,10 +30,10 @@
 		</header>
 		
         <main>
-			<div class="elenco" style="justify-content:space-evenly;">
+			<div class="elenco" style="text-align:center;justify-content:space-evenly;">
 				<a href="docente.php" class="back"> <i class="fa-solid fa-caret-left"></i> </a>
 				
-				<h2> Registro della classe <strong class="sottotitolo">
+				<h2> Registro classe <strong class="sottotitolo">
 					<?php
 						session_start();
 						if (isset($_POST["anno"])) {
