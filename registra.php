@@ -8,9 +8,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<link rel="icon" type="image/x-icon" href="img/logo.png">
-		<link rel="stylesheet" href="css/main.css">
-		<link rel="stylesheet" href="css/account.css">
-		<link rel="stylesheet" href="css/persona.css">
+		<link rel="stylesheet" href="scss/style.css">
 		<link rel="stylesheet" href="fontawesome-icon/css/all.css">
 		<script src="js/myScript.js"></script>
 
@@ -194,8 +192,8 @@
 				</div>
 				
 				<div class="grid-col-2" style="margin-top:20px;">
-					<input type="reset" onclick="refreshPage()" value="Cancella" class="btn bottone btn-cancella">
-					<input type="submit" value="Conferma" class="btn bottone" name="invio">
+					<input type="reset" onclick="refreshPage()" value="Cancella" class="btn btn-primary btn-cancella">
+					<input type="submit" value="Conferma" class="btn btn-primary" name="invio">
 				</div>
 
 			</fieldset> </form>
@@ -323,8 +321,8 @@
 				</div>
 		
 				<div class="grid-col-2" style="margin-top:20px;">
-					<input type="reset" onclick="close_mat()" value="Chiudi" class="btn bottone btn-cancella">
-					<input type="submit" value="Aggiungi" class="btn bottone" name="aggiungi">
+					<input type="reset" onclick="close_mat()" value="Chiudi" class="btn btn-primary btn-cancella">
+					<input type="submit" value="Aggiungi" class="btn btn-primary" name="aggiungi">
 				</div>
 
 			</form>

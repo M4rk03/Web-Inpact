@@ -175,6 +175,9 @@ div.informatica{
 	width: 42px;
 	padding: 0px;
 }
+.cont-badge-el > img{
+	width: 100%;
+}
 
 .list-alunno{
 	display: grid;

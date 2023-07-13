@@ -1,0 +1,95 @@
+.grid-col-2{
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px;
+}
+
+
+.cont-signup{
+	padding: 20px;
+}
+
+#signup{
+	font-size: 20px;
+
+	display: grid;
+	gap: 20px;
+}
+
+.cont-inserisci{
+	label{
+		color: #000;
+		padding: 8px;
+	}
+}
+
+.in_data{
+	padding: 8px;
+}
+
+.caselle{
+	display: flex;
+	justify-content: space-evenly;
+	padding: 4px;
+}
+
+.in_classe{
+	display: flex;
+	justify-content: center;
+    align-items: center;
+	gap: 12px;
+
+	input{
+		width: 100px;
+	}
+}
+
+.select{
+	background: none;
+	appearance: none;
+	-webkit-appearance: none;
+
+	height: auto;
+	min-width: 62px;
+    z-index: 2;
+}
+
+.cont-select{
+	position: relative;
+	grid-template-columns: auto !important;
+
+	i{
+		color: #000;
+		font-size: 22px;
+		
+		right: 12px;
+		z-index: 1;
+	}
+}
+
+.cont-select-class{
+	border: 2px dashed $secondaryColor;
+
+	color: #000;
+
+	display: grid;
+	gap: 8px;
+	height: fit-content;
+	padding: 8px;
+
+	div{
+		align-items: center;
+		cursor: move;
+
+		i{
+			font-size: 20px;
+			justify-self: right;
+		}
+	}
+}
+
+hr{
+	border: 0px;
+	border-top: 4px dotted $primaryColor;
+	margin: 20px 0px;
+}

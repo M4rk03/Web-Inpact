@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" class="persona">
     <head>
 
 		<meta charset="UTF-8">
@@ -8,8 +8,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<link rel="icon" type="image/x-icon" href="img/logo.png">
-		<link rel="stylesheet" href="css/main.css">
-		<link rel="stylesheet" href="css/account.css">
+		<link rel="stylesheet" href="scss/style.css">
 		<link rel="stylesheet" href="fontawesome-icon/css/all.css">
 		<script src="js/myScript.js"></script>
 
@@ -17,7 +16,7 @@
 		
 	</head>
 	
-	<body>
+	<body class="persona">
 
 		<a href="index.html" class="btn-icon"> <i class="fa-solid fa-house fa-3x"></i> </a>
 	
@@ -83,7 +82,7 @@
 				<br>
 
 				<div class="cont-button">
-                    <input type="submit" value="Accedi" class="btn btn-accedi" name="accedi">
+                    <input type="submit" value="Accedi" class="btn btn-primary btn-accedi" name="accedi">
 
 					<button class="btn btn-pwd" onclick="password();"> Password <br> Dimenticata? </button>
 					<a href="registra.php" class="btn btn-registrati"> Registrati </a>

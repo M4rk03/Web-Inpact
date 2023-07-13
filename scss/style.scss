@@ -1,0 +1,11 @@
+@import "variables";
+
+/* Layout */
+@import "generic-style";
+@import "header";
+@import "footer";
+
+/* Pagine */
+@import "pages/home";
+@import "pages/account";
+@import "pages/persona";

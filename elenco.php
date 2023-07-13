@@ -8,9 +8,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<link rel="icon" type="image/x-icon" href="img/logo.png">
-		<link rel="stylesheet" href="css/main.css">
-		<link rel="stylesheet" href="css/account.css">
-        <link rel="stylesheet" href="css/persona.css">
+		<link rel="stylesheet" href="scss/style.css">
 		<link rel="stylesheet" href="fontawesome-icon/css/all.css">
 		<script src="js/myScript.js"></script>
 
@@ -96,7 +94,7 @@
 									while($row1 = $result1->fetch_assoc()){
 										$badge = $row1["nome"]."".$row1["livello"];
 
-										echo "<figure class='cont-badge-stud cont-badge-el' onclick=\"modify_badge(this, ".$row["ID"].", '".$row1["dataB"]."', '".$row1["descrizione"]."')\"> \n";
+										echo "<figure class='cont-badge-el' onclick=\"modify_badge(this, ".$row["ID"].", '".$row1["dataB"]."', '".$row1["descrizione"]."')\"> \n";
 										echo "<img src='img/badge/" .$badge. ".png' alt=" .$badge. "> \n </figure> \n";
 									}
 
@@ -104,7 +102,7 @@
 									echo "Qualcosa è andato storto nella ricerca dei badge";
 								}
 
-								echo "<figure class='cont-badge-stud cont-badge-el' onclick='add_badge(".$row["ID"].")' style='margin-left: 10px;'> \n";
+								echo "<figure class='cont-badge-el' onclick='add_badge(".$row["ID"].")' style='margin-left: 10px;'> \n";
 								echo "<img src='img/addB.png' alt='add badge'> \n </figure> \n";
 								echo "</div> \n </div> \n";
 
@@ -199,8 +197,8 @@
 						</div>
 				
 						<div class="grid-col-2" style="margin-top:20px;">
-							<input type="reset" onclick="close_add()" value="Chiudi" class="btn bottone btn-cancella">
-							<input type="submit" value="Assegna" class="btn bottone" name="assegna">
+							<input type="reset" onclick="close_add()" value="Chiudi" class="btn btn-primary btn-cancella">
+							<input type="submit" value="Assegna" class="btn btn-primary" name="assegna">
 						</div>
 
 					</form>
@@ -284,10 +282,10 @@
 							</div>
 
 							<div class="cont-button">
-								<input type="submit" value="Modifica" class="btn bottone btn-modifica" name="modifica">
-								<input type="button" onclick="close_modify()" value="Chiudi" class="btn bottone btn-cancella" style="grid-area:secondo;">
+								<input type="submit" value="Modifica" class="btn btn-primary btn-modifica" name="modifica">
+								<input type="button" onclick="close_modify()" value="Chiudi" class="btn btn-primary btn-cancella" style="grid-area:secondo;">
 
-								<input type="submit" value="Elimina" class="btn bottone btn-elimina" name="elimina">
+								<input type="submit" value="Elimina" class="btn btn-primary btn-elimina" name="elimina">
 							</div>
 						
 						</form>
@@ -407,7 +405,7 @@
 							?>
 						</p>
 
-						<input type="button" onclick="close_alert()" value="Chiudi" class="btn btn-close">
+						<input type="button" onclick="close_alert()" value="Chiudi" class="btn btn-primary btn-close">
 					</div>
 				</div>
 

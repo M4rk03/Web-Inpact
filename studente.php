@@ -8,8 +8,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<link rel="icon" type="image/x-icon" href="img/logo.png">
-		<link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="css/persona.css">
+		<link rel="stylesheet" href="scss/style.css">
 		<link rel="stylesheet" href="fontawesome-icon/css/all.css">
 		<script src="js/myScript.js"></script>
 
@@ -135,7 +134,7 @@
 						Materia: <span id="mat" class="descri">  <i class="fa-solid fa-book"></i> </span> </p>
 						<p> Descrizione: <br> <span id="desc" class="descri" style="justify-content:left;"> </span> </p>
 
-						<input type="button" onclick="close_visual()" value="Chiudi" class="btn-close">
+						<input type="button" onclick="close_visual()" value="Chiudi" class="btn-primary btn-close">
 					</div>
 
 				</div>
