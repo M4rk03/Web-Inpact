@@ -8,9 +8,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<link rel="icon" type="image/x-icon" href="img/logo.png">
-		<link rel="stylesheet" href="scss/style.css">
+		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="fontawesome-icon/css/all.css">
-		<script src="js/myScript.js"></script>
 
 		<title>Login</title>
 		
@@ -32,12 +31,12 @@
 
 				<div class="cont-inserisci">
 					<i class="fa-solid fa-circle-user"></i>
-					<input type="email" placeholder="Username" class="inserisci" name="email" required>
+					<input type="email" placeholder="Username" class="inserisci in_data" name="email" required>
 				</div>
 
 				<div class="cont-inserisci">
-					<i class="fa-solid fa-lock" id="icon_lock" onclick="icon_change()"></i>
-					<input type="password" placeholder="Password" class="inserisci" id="pwd" name="password" maxlength="100" required>
+					<i class="fa-solid fa-lock" id="icon_lock" onclick="icon_change(this)"></i>
+					<input type="password" placeholder="Password" class="inserisci in_data" id="pwd" name="password" maxlength="100" required>
 				</div>
 
 				<?php
@@ -82,14 +81,15 @@
 				<br>
 
 				<div class="cont-button">
-                    <input type="submit" value="Accedi" class="btn btn-primary btn-accedi" name="accedi">
+                    <input type="submit" value="Accedi" class="btn-primary btn-accedi" name="accedi">
 
-					<button class="btn btn-pwd" onclick="password();"> Password <br> Dimenticata? </button>
-					<a href="registra.php" class="btn btn-registrati"> Registrati </a>
+					<a class="btn-primary btn-pwd"> Password <br> Dimenticata? </a>
+					<a href="registra.php" class="btn-primary btn-secondary btn-registrati"> Registrati </a>
 				</div>
 
 			</fieldset> </form>
 		</div>
 
+		<script src="js/myScript.js"></script>
 	</body>
 </html>

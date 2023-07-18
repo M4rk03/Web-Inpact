@@ -8,9 +8,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<link rel="icon" type="image/x-icon" href="img/logo.png">
-		<link rel="stylesheet" href="scss/style.css">
+		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="fontawesome-icon/css/all.css">
-		<script src="js/myScript.js"></script>
 
 		<title>Registro di Classe</title>
 
@@ -132,7 +131,7 @@
 							<label> Argomento: </label> 
 							
 							<div class="cont-inserisci cont-select">
-								<select id="add-nomeB" class="inserisci in_data select" onchange="visual_img()" name="argomento" required>
+								<select id="add-nomeB" class="inserisci select" onchange="visual_img()" name="argomento" required>
 									<option value=""> Seleziona </option>
 									<?php
 										include "connessione.php";
@@ -161,7 +160,7 @@
 							<label> Livello: </label> 
 							
 							<div class="cont-inserisci cont-select">
-								<select id="add-livelloB" class="inserisci in_data select" onchange="visual_img()" name="livello" required>
+								<select id="add-livelloB" class="inserisci select" onchange="visual_img()" name="livello" required>
 									<option value=""> Seleziona </option>
 									<?php
 										include "connessione.php";
@@ -188,17 +187,17 @@
 			
 						<div class="cont-inserisci">
 							<label> Data: </label>
-							<input type="date" class="inserisci in_data" name="dataB" required>
+							<input type="date" class="inserisci" name="dataB" required>
 						</div>
 
 						<div class="cont-inserisci">
 							<label> Descrizione: </label>
-							<textarea class="inserisci in_data" name="testo" rows="4" style="resize:none;height:auto;"></textarea>
+							<textarea class="inserisci" name="testo" rows="4" style="resize:none;height:auto;"></textarea>
 						</div>
 				
 						<div class="grid-col-2" style="margin-top:20px;">
-							<input type="reset" onclick="close_add()" value="Chiudi" class="btn btn-primary btn-cancella">
-							<input type="submit" value="Assegna" class="btn btn-primary" name="assegna">
+							<input type="reset" onclick="close_add()" value="Chiudi" class="btn-primary btn-secondary">
+							<input type="submit" value="Assegna" class="btn-primary" name="assegna">
 						</div>
 
 					</form>
@@ -217,7 +216,7 @@
 								<label> Argomento: </label> 
 								
 								<div class="cont-inserisci cont-select">
-									<select id="mod-nomeB" class="inserisci in_data select" onchange="visual_img()" name="nomeB" required>
+									<select id="mod-nomeB" class="inserisci select" onchange="visual_img()" name="nomeB" required>
 										<option value=""> Seleziona </option>
 										<?php
 											include "connessione.php";
@@ -246,7 +245,7 @@
 								<label> Livello: </label> 
 								
 								<div class="cont-inserisci cont-select">
-									<select id="mod-livelloB" class="inserisci in_data select" onchange="visual_img()" name="livelloB" required>
+									<select id="mod-livelloB" class="inserisci select" onchange="visual_img()" name="livelloB" required>
 										<option value=""> Seleziona </option>
 										<?php
 											include "connessione.php";
@@ -273,19 +272,19 @@
 						
 							<div class="cont-inserisci">
 								<label> Data: </label>
-								<input type="date" id="mod-dataB" class="inserisci in_data" name="dataB" required>
+								<input type="date" id="mod-dataB" class="inserisci" name="dataB" required>
 							</div>
 						
 							<div class="cont-inserisci">
 								<label> Descrizione: </label>
-								<textarea id="mod-descri" class="inserisci in_data" name="testo" rows="4" style="resize:none;height:auto;"></textarea>
+								<textarea id="mod-descri" class="inserisci" name="testo" rows="4" style="resize:none;height:auto;"></textarea>
 							</div>
 
 							<div class="cont-button">
-								<input type="submit" value="Modifica" class="btn btn-primary btn-modifica" name="modifica">
-								<input type="button" onclick="close_modify()" value="Chiudi" class="btn btn-primary btn-cancella" style="grid-area:secondo;">
+								<input type="submit" value="Modifica" class="btn-primary btn-modifica" name="modifica">
+								<input type="button" onclick="close_modify()" value="Chiudi" class="btn-primary btn-secondary" style="grid-area:secondo;">
 
-								<input type="submit" value="Elimina" class="btn btn-primary btn-elimina" name="elimina">
+								<input type="submit" value="Elimina" class="btn-primary btn-elimina" name="elimina">
 							</div>
 						
 						</form>
@@ -405,7 +404,7 @@
 							?>
 						</p>
 
-						<input type="button" onclick="close_alert()" value="Chiudi" class="btn btn-primary btn-close">
+						<input type="button" onclick="close_alert()" value="Chiudi" class="btn-primary btn-close">
 					</div>
 				</div>
 
@@ -418,10 +417,10 @@
 			<div id="cont-social">
 				<p class="titolo">ISISS "M.O. Luciano Dal Cero"</p>
 				<div class="social">
-					<a href="https://web.whatsapp.com/"> <i class="fa-brands fa-whatsapp"></i> </a>
-					<a href="https://mail.google.com/"> <i class="fa-solid fa-envelope"></i> </a>
-					<a href="https://it-it.facebook.com/"> <i class="fa-brands fa-facebook"></i> </a>
-					<a href="https://www.instagram.com/accounts/login/"> <i class="fa-brands fa-instagram"></i> </a>
+					<a href="https://web.whatsapp.com/" target="_blank"> <i class="fa-brands fa-whatsapp"></i> </a>
+					<a href="https://mail.google.com/" target="_blank"> <i class="fa-solid fa-envelope"></i> </a>
+					<a href="https://it-it.facebook.com/" target="_blank"> <i class="fa-brands fa-facebook"></i> </a>
+					<a href="https://www.instagram.com/accounts/login/" target="_blank"> <i class="fa-brands fa-instagram"></i> </a>
 				</div>
 				<small>Copyright &copy 2023</small>
 			</div>
@@ -429,5 +428,6 @@
 			<figure> <img src="img/dalcero.png" alt="logo DalCero" class="logo"> </figure>
 		</footer>
 		
+		<script src="js/myScript.js"></script>
 	</body>
 </html>

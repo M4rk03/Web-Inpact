@@ -1,0 +1,112 @@
+/* Login e Signup */
+.btn-primary{
+	background-color: $primaryColor;
+	border: 0px;
+	border-radius: 10px;
+
+	color: $whiteColor;
+	font-family: $secondaryFont;
+	font-size: 22px;
+	letter-spacing: 2px;
+
+	padding: 16px;
+	cursor: pointer;
+
+	&:hover{
+		box-shadow: inset 0 0 10px 3px $secondaryColor;
+	}
+}
+
+.btn-secondary{
+	background-color: $secondaryColor;
+	color: #000;
+
+	&:hover{
+		box-shadow: inset 0 0 10px 1px $shadeColor;
+	}
+}
+
+.cont-button{
+	display: grid;
+	grid-template-areas: 
+		"primo primo"
+		"secondo terzo";
+	grid-auto-columns: 1fr;
+	gap: 10px;
+	
+	.btn-accedi{
+		grid-area: primo;
+		font-size: 26px;
+		letter-spacing: 4px;
+
+		padding: 18px;
+	}
+	.btn-pwd{
+		grid-area: secondo;
+		background-color: $whiteColor;
+
+		color: #000;
+		font-size: 16px;
+		text-align: center;
+		text-decoration: none;
+		letter-spacing: 1px;
+
+		padding: 10px;
+
+		&:hover{
+			box-shadow: none;
+			text-decoration: underline;
+		}
+	}
+	.btn-registrati{
+		grid-area: terzo;
+
+		text-align: center;
+		text-decoration: none;
+	
+		padding: 18px;
+	}
+}
+
+/* Popup */
+.btn-close{
+	border-radius: 5px;
+
+	font-size: 18px;
+	text-align: center;
+
+	padding: 5px;
+}
+
+.btn-modifica{
+	grid-area: primo;
+	letter-spacing: 4px;
+	margin-top: 10px;
+}
+.btn-elimina{
+	grid-area: terzo;
+	background-color: $secondaryColor-light;
+	box-shadow: inset 0 0 25px 10px orange;
+
+	color: #000;
+	transition: 0.5s;
+
+	&:hover{
+		background-color: orange;
+	}
+}
+
+/* Media Query */
+@media screen and (max-width: 1023px) {
+    .btn-primary{
+		font-size: 18px;
+		padding: 14px;
+	}
+}
+
+@media screen and (max-width: 767px) {
+    .btn-primary{
+		font-size: 16px;
+		padding: 12px;
+	}
+}

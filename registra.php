@@ -8,9 +8,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<link rel="icon" type="image/x-icon" href="img/logo.png">
-		<link rel="stylesheet" href="scss/style.css">
+		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="fontawesome-icon/css/all.css">
-		<script src="js/myScript.js"></script>
 
 		<title>Registrazione</title>
 		
@@ -40,7 +39,7 @@
 							$result = $conn -> query($sql);
 							$row = $result -> fetch_assoc();
 							$id = $row["id"] + 1;
-							echo "<input type='number' class='inserisci in_data' name='ID_persona' value='" .$id. "' readonly>";
+							echo "<input type='number' class='inserisci' name='ID_persona' value='" .$id. "' readonly>";
 							$result -> free();
 							$conn -> close();
 						?>
@@ -48,33 +47,39 @@
 					
 					<div class="cont-inserisci">
 						<label> Nome: </label>
-						<input type="text" class="inserisci in_data" name="nome" required>
+						<input type="text" class="inserisci" name="nome" required>
 					</div>
 
 					<div class="cont-inserisci">
 						<label> Cognome: </label>
-						<input type="text" class="inserisci in_data" name="cognome" required>
+						<input type="text" class="inserisci" name="cognome" required>
 					</div>
 
 					<div class="cont-inserisci">
 						<label> Data di Nascita: </label>
-						<input type="date" class="inserisci in_data" name="dataN" required>
+						<input type="date" class="inserisci" name="dataN" required>
 					</div>
 
 					<div class="caselle">
-						<div>
-							<input type="checkbox" id="M" name="sesso" value="M" onclick="check(this)">
-							<label for="M"> Maschio </label> <i class="fa-solid fa-mars" style="color: blue;"></i>
+						<div class="radio">
+							<input type="radio" id="M" name="sesso" value="M" onchange="checkRadio(this)">
+							<label for="M"> 
+								<i class="fa-regular fa-circle" id="male"></i> 
+								Maschio 
+							</label> <i class="fa-solid fa-mars" style="color: blue;"></i>
 						</div>
 						
-						<div>
-							<input type="checkbox" id="F" name="sesso" value="F" onclick="check(this)">
-							<label for="F"> Femmina </label> <i class="fa-solid fa-venus" style="color: magenta;"></i>
+						<div class="radio">
+							<input type="radio" id="F" name="sesso" value="F" onchange="checkRadio(this)">
+							<label for="F"> 
+								<i class="fa-regular fa-circle" id="female"></i> 
+								Femmina 
+							</label> <i class="fa-solid fa-venus" style="color: magenta;"></i>
 						</div>
 					</div>
 
 					<div class="cont-inserisci cont-select">
-						<select id="type_person" onchange="select_control()" class="inserisci in_data select" name="tipo_pers" required>
+						<select id="type_person" onchange="select_control()" class="inserisci select" name="tipo_pers" required>
 							<option value=""> Seleziona </option>
 							<option value="2"> Docente </option>
 							<option value="1"> Studente </option>
@@ -86,7 +91,7 @@
 						<label> Classe: </label> 
 						
 						<div class="cont-inserisci cont-select">
-							<select class="inserisci in_data select" name="anno">
+							<select class="inserisci select" name="anno">
 								<option value=""> - </option>
 								<option value="1"> 1 </option>
 								<option value="2"> 2 </option>
@@ -96,7 +101,7 @@
 							</select> <i class="fa-solid fa-chevron-down" style="font-size:18px"></i>
 						</div>
 
-						<input type="text" placeholder="Sezione" class="inserisci in_data" id="classe_sez" name="sezione" required>
+						<input type="text" placeholder="Sezione" class="inserisci" id="classe_sez" name="sezione" required>
 					</div>
 
 					<!-- Solo per docente -->
@@ -116,11 +121,11 @@
 										// Parte ripetuta x la quantità delle classe
 										try{
 											while($row = $result->fetch_assoc()){
-												echo "<div id='ID_".$row["ID_classe"]."' class='grid-col-2 inserisci in_data' ondragstart='dragStart(event)' draggable='true'> " .strtoupper($row["anno"])."".strtoupper($row["sezione"]). " <i class='fa-solid fa-plus'></i> </div>";
+												echo "<div id='ID_".$row["ID_classe"]."' class='grid-col-2 inserisci' ondragstart='dragStart(event)' draggable='true'> " .strtoupper($row["anno"])."".strtoupper($row["sezione"]). " <i class='fa-solid fa-plus'></i> </div>";
 											}
 
 											$result1 = $conn -> query($sql);
-											echo  "<select id='lettura_classe' class='inserisci in_data select' name='classe[]' multiple hidden>";
+											echo  "<select id='lettura_classe' class='inserisci select' name='classe[]' multiple hidden>";
 											while($row1 = $result1->fetch_assoc()){
 												echo "<option value='" .$row1["ID_classe"]. "'> " .$row1["anno"]. "" .$row1["sezione"]. " </option>";
 											}
@@ -143,7 +148,7 @@
 						<div class="cont-inserisci in_classe">
 							<label> Materia/e </label>
 							
-							<select id="mat_inseg" class="inserisci in_data select" name="materia[]" style="height:70px;" multiple>
+							<select id="mat_inseg" class="inserisci select" name="materia[]" style="height:72px;" multiple>
 								<?php
 									include "connessione.php";
 					
@@ -177,23 +182,23 @@
 					<i class="fa-solid fa-circle-user"></i>
 					<?php
 						$email = "ciao" .$id. "@scuola.it";
-						echo "<input type='email' placeholder='Username' class='inserisci' name='email' value='" .$email. "' readonly>";
+						echo "<input type='email' placeholder='Username' class='inserisci in_data' name='email' value='" .$email. "' readonly>";
 					?>
 				</div>
 
 				<div class="cont-inserisci">
-					<i class="fa-solid fa-lock" id="icon_lock" onclick="icon_change()"></i>
-					<input type="password" placeholder="Password" class="inserisci" id="pwd" name="pwd" maxlength="100" required>
+					<i class="fa-solid fa-lock" id="icon_lock" onclick="icon_change(this)"></i>
+					<input type="password" placeholder="Password" class="inserisci in_data" id="pwd" name="pwd" maxlength="100" required>
 				</div>
 
 				<div class="cont-inserisci">
-					<i class="fa-solid fa-lock" id="icon_lock2" onclick="icon_change2()"></i>
-					<input type="password" placeholder="Conferma Password" class="inserisci" id="conf_pwd" name="conf_pwd" maxlength="100" required>
+					<i class="fa-solid fa-lock" id="icon_lock2" onclick="icon_change(this)"></i>
+					<input type="password" placeholder="Conferma Password" class="inserisci in_data" id="conf_pwd" name="conf_pwd" maxlength="100" required>
 				</div>
 				
 				<div class="grid-col-2" style="margin-top:20px;">
-					<input type="reset" onclick="refreshPage()" value="Cancella" class="btn btn-primary btn-cancella">
-					<input type="submit" value="Conferma" class="btn btn-primary" name="invio">
+					<input type="reset" onclick="refreshPage()" value="Cancella" class="btn-primary btn-secondary">
+					<input type="submit" value="Conferma" class="btn-primary" name="invio">
 				</div>
 
 			</fieldset> </form>
@@ -317,12 +322,12 @@
 		
 				<div class="cont-inserisci">
 					<label> Materia: </label>
-					<input type="text" id="ins-mat" class="inserisci in_data" name="nome_mat">
+					<input type="text" id="ins-mat" class="inserisci" name="nome_mat">
 				</div>
 		
 				<div class="grid-col-2" style="margin-top:20px;">
-					<input type="reset" onclick="close_mat()" value="Chiudi" class="btn btn-primary btn-cancella">
-					<input type="submit" value="Aggiungi" class="btn btn-primary" name="aggiungi">
+					<input type="reset" onclick="close_mat()" value="Chiudi" class="btn-primary btn-secondary">
+					<input type="submit" value="Aggiungi" class="btn-primary" name="aggiungi">
 				</div>
 
 			</form>
@@ -361,5 +366,6 @@
 			?>
 		</div>
 
+		<script src="js/myScript.js"></script>
 	</body>
 </html>

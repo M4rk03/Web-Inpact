@@ -1,0 +1,11 @@
+body{
+	background-color: $backgroundColor;
+	font-family: $secondaryFont;
+	
+	display: grid;
+	gap: 12px;
+	
+	margin: 0px;
+}
+
+@import "home/content";

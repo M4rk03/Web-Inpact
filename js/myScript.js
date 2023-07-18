@@ -1,25 +1,9 @@
-
-var n = 0
-// Seleziona max un checkbox
-function check(chkBox){
-    if (chkBox.checked){
-        if(n == 1){
-            chkBox.checked = false;
-        } else{
-            n++;
-        }
-    } else{
-        n--;
-    }
-}
-
 // PASSWORD
-function icon_change(){
-    let icon_lock = document.querySelector('#icon_lock');
-    let pwd = document.querySelector('#pwd');
+function icon_change(e){
+    let pwd = e.parentElement.children[1];
 
-    icon_lock.classList.toggle('fa-lock');
-    icon_lock.classList.toggle('fa-unlock');
+    e.classList.toggle('fa-lock');
+    e.classList.toggle('fa-unlock');
 
     if(pwd.type == "password"){
         pwd.type = "text";
@@ -27,17 +11,28 @@ function icon_change(){
         pwd.type = "password";
     }
 }
-function icon_change2(){
-    let icon_lock = document.querySelector('#icon_lock2');
-    let pwd = document.querySelector('#conf_pwd');
 
-    icon_lock.classList.toggle('fa-lock');
-    icon_lock.classList.toggle('fa-unlock');
+// Controllo sull'input radio
+function checkRadio(el) {
+    let object1 = document.querySelector('#male');
+    let object2 = document.querySelector('#female');
 
-    if(pwd.type == "password"){
-        pwd.type = "text";
-    } else{
-        pwd.type = "password";
+    if (el.id == 'M') {
+        if (el.checked) {
+            object1.classList.toggle('fa-circle');
+            object1.classList.toggle('fa-circle-dot');
+
+            object2.classList.add('fa-circle');
+            object2.classList.remove('fa-circle-dot');
+        }
+    } else {
+        if (el.checked) {
+            object2.classList.toggle('fa-circle');
+            object2.classList.toggle('fa-circle-dot');
+
+            object1.classList.add('fa-circle');
+            object1.classList.remove('fa-circle-dot');
+        }
     }
 }
 
