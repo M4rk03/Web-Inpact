@@ -321,7 +321,7 @@
 											echo "Errore nell'assegnazione del badge <br> Riprova";
 										}
 
-										echo "<script> view_alert() </script> \n";
+										//echo "<script> view_alert() </script> \n";
 										$result -> free();
 										
 									} catch (Exception $e){
@@ -362,7 +362,7 @@
 											echo "Errore nella modifica del badge <br> Riprova";
 										}
 
-										echo "<script> view_alert() </script> \n";
+										//echo "<script> view_alert() </script> \n";
 										$result -> free();
 										$result1 -> free();
 
@@ -392,7 +392,7 @@
 											echo "Errore nell'eliminazione del badge <br> Riprova";
 										}
 
-										echo "<script> view_alert() </script> \n";
+										//echo "<script> view_alert() </script> \n";
 										$result -> free();
 
 									} catch (Exception $e){

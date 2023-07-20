@@ -11,7 +11,7 @@ main{
 #info{
     background-color: $whiteColor;
     border: 3px solid $primaryColor;
-    border-radius: 10px;
+    border-radius: 14px;
 
     font-size: 18px;
     text-align: justify;
@@ -24,7 +24,7 @@ main{
     }
 
     p{
-        line-height: 28px;
+        line-height: 26px;
         padding: 5px;
         margin: 0;
 
@@ -46,7 +46,7 @@ main{
     
         .livelli, .badge{
             background-color: $secondaryColor-light;
-            border-radius: 10px;
+            border-radius: 20px;
             box-shadow: 0px 5px 10px 2px $grayColor;
         
             text-align: center;
@@ -58,7 +58,7 @@ main{
             transition: 1s;
         }
         .livelli:hover, .badge:hover{
-            box-shadow: 0px 5px 10px 2px $thirthColor;
+            box-shadow: 0px 5px 10px 2px $primaryColor;
         }
         
         .livelli{
@@ -67,6 +67,7 @@ main{
         
             grid-template-columns: 1fr 1.2fr;
             width: 260px;
+            min-height: 120px;
         
             img{
                 justify-self: center;
@@ -86,7 +87,7 @@ main{
     }
 }
 
-/* Media Query */ 
+/* Media Query */
 @media screen and (max-width: 1023px) {
 	#main{
 		grid-template-columns: auto;
@@ -121,15 +122,27 @@ main{
         
             .livelli{
                 font-size: 22px;
-                margin: 0 10px;
+                min-height: 142px;
+                margin: 0 20px;
             }
         
             .badge{
-                margin: 0 30px;
+                margin: 0 50px;
         
                 .imgB{
                     width: 44%;
                 }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 374px) {
+    #cont-generic{
+        .cont-badge{
+            .livelli{
+                font-size: 20px;
+                min-height: 120px;
             }
         }
     }

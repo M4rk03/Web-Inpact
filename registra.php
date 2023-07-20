@@ -101,7 +101,7 @@
 							</select> <i class="fa-solid fa-chevron-down" style="font-size:18px"></i>
 						</div>
 
-						<input type="text" placeholder="Sezione" class="inserisci" id="classe_sez" name="sezione" required>
+						<input type="text" placeholder="Sezione" class="inserisci" id="classe_sez" name="sezione" maxlength="4" required>
 					</div>
 
 					<!-- Solo per docente -->

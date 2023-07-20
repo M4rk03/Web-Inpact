@@ -1,4 +1,6 @@
 footer{
+    padding-top: 16px;
+
     #cont-social{
         text-align: center;
         padding: 5px;
@@ -12,7 +14,7 @@ footer{
         
             display: flex;
             justify-content: space-evenly;
-            margin-top: 5px;
+            margin: 10px;
         
             a{
                 color: $thirthColor;

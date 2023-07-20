@@ -36,7 +36,7 @@
 			position: absolute;
 		
 			&:checked + label i{
-				color: goldenrod;
+				color: darkgoldenrod;
 			}
 		}
 
@@ -58,7 +58,7 @@
 	gap: 12px;
 
 	input{
-		width: 100px;
+		width: 108px;
 	}
 }
 

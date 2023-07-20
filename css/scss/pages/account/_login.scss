@@ -43,7 +43,7 @@
 	}
 
 	h1{
-		font-size:40px;
+		font-size: 40px;
 		margin-left: -60px;
 	}
 }
@@ -82,7 +82,7 @@
 	}
 }
 .in_data{
-	height: 58px;
+	height: 62px;
 	padding-left: 54px;
 }
 
@@ -90,11 +90,13 @@
 @media screen and (max-width: 1023px) {
     .inserisci{
 		font-size: 20px;
+		height: 46px;
 	}
 }
 
 @media screen and (max-width: 767px) {
     .inserisci{
 		font-size: 18px;
+		height: 42px;
 	}
 }
