@@ -14,6 +14,20 @@
   font-display: swap;
 }
 /* Layout */
+::-moz-selection {
+  background-color: #1D70B7;
+  color: #fff;
+}
+::selection {
+  background-color: #1D70B7;
+  color: #fff;
+}
+
+::-moz-selection {
+  background-color: #1D70B7;
+  color: #fff;
+}
+
 figure {
   display: flex;
   margin: 0px;
@@ -37,11 +51,12 @@ header, footer {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
   align-items: center;
-  padding: 5px;
+  padding: 10px;
 }
 
 .logo {
-  width: 100px;
+  border-radius: 10px;
+  width: 90px;
 }
 
 .logo_scritta {
@@ -51,7 +66,7 @@ header, footer {
 /* Media Query */
 @media screen and (max-width: 1023px) {
   .logo {
-    width: 80px;
+    width: 70px;
   }
   .logo_scritta {
     width: 140px;
@@ -62,7 +77,8 @@ header, footer {
 }
 @media screen and (max-width: 767px) {
   .logo {
-    width: 60px;
+    border-radius: 8px;
+    width: 50px;
   }
   .logo_scritta {
     width: 100px;
@@ -74,14 +90,16 @@ header, footer {
 }
 .header-account {
   background-color: #FFEB00;
+  box-sizing: border-box;
   border-radius: 14px;
   font-family: "Mustica";
   text-align: center;
   display: grid;
   justify-self: right;
-  width: 78px;
-  padding: 6px;
-  margin-right: 8px;
+  align-items: center;
+  width: 90px;
+  height: 90px;
+  padding: 0 6px;
 }
 .header-account .account-login {
   color: #000;
@@ -99,9 +117,10 @@ header, footer {
 /* Media Query */
 @media screen and (max-width: 1023px) {
   .header-account {
-    border-radius: 14px;
+    border-radius: 12px;
     font-size: 12px;
-    width: 56px;
+    width: 70px;
+    height: 70px;
   }
   .header-account .account-login i {
     font-size: 36px;
@@ -109,10 +128,10 @@ header, footer {
 }
 @media screen and (max-width: 767px) {
   .header-account {
-    border-radius: 12px;
+    border-radius: 10px;
     font-size: 10px;
-    width: 40px;
-    margin-right: 5px;
+    width: 50px;
+    height: 50px;
   }
   .header-account .account-login i {
     font-size: 28px;
@@ -141,6 +160,10 @@ footer #cont-social .social a {
 }
 footer #cont-social .social a:hover {
   scale: 1.2;
+}
+footer #cont-social small {
+  font-size: 12px;
+  letter-spacing: 0.5px;
 }
 footer figure:last-child {
   justify-content: right;
@@ -177,6 +200,9 @@ footer figure:last-child {
   footer #cont-social .social {
     font-size: 26px;
   }
+  footer #cont-social small {
+    font-size: 10px;
+  }
 }
 /* Pagine */
 body {
@@ -210,7 +236,7 @@ main {
   margin: 8px;
 }
 #info p {
-  line-height: 26px;
+  line-height: 28px;
   padding: 5px;
   margin: 0;
 }
@@ -309,10 +335,11 @@ main {
   top: 14px;
   right: 14px;
   color: #000;
+  font-size: 40px;
 }
 
 .error {
-  font-size: 16px;
+  font-size: 14px;
   text-align: center;
   margin: 10px 0px;
   margin-bottom: -20px;
@@ -347,17 +374,12 @@ main {
 }
 
 .cont-title {
-  text-align: center;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: center;
-}
-.cont-title img {
-  width: 60px;
+  background-image: url(../img/logo.webp);
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 .cont-title h1 {
   font-size: 40px;
-  margin-left: -60px;
 }
 
 .cont-inserisci {
@@ -396,15 +418,53 @@ main {
 
 /* Media Query */
 @media screen and (max-width: 1023px) {
+  .form {
+    width: 480px;
+  }
+  .form fieldset p {
+    font-size: 16px;
+  }
+  .cont-title h1 {
+    font-size: 36px;
+  }
+  .cont-inserisci i {
+    font-size: 28px;
+  }
   .inserisci {
     font-size: 20px;
     height: 46px;
   }
+  .in_data {
+    height: 58px;
+  }
 }
 @media screen and (max-width: 767px) {
+  .form {
+    width: 280px;
+    padding: 8px;
+  }
+  .form fieldset {
+    gap: 8px;
+    padding: 4px;
+  }
+  .form fieldset p {
+    font-size: 14px;
+  }
+  .cont-title h1 {
+    font-size: 24px;
+  }
+  .cont-inserisci i {
+    font-size: 28px;
+    margin-left: 8px;
+  }
   .inserisci {
     font-size: 18px;
     height: 42px;
+    padding: 4px;
+  }
+  .in_data {
+    height: 50px;
+    padding-left: 42px;
   }
 }
 .grid-col-2 {
@@ -415,6 +475,7 @@ main {
 
 .cont-signup {
   padding: 20px;
+  margin-top: 30px;
 }
 
 #signup {
@@ -504,6 +565,17 @@ hr {
   margin: 20px 0px;
 }
 
+@media screen and (max-width: 1023px) {
+  #signup {
+    font-size: 18px;
+  }
+}
+@media screen and (max-width: 767px) {
+  #signup {
+    font-size: 16px;
+    gap: 10px;
+  }
+}
 /* Login e Signup */
 .btn-primary {
   background-color: #C4282B;
@@ -593,10 +665,35 @@ hr {
     font-size: 18px;
     padding: 14px;
   }
+  .cont-button .btn-accedi {
+    font-size: 22px;
+    padding: 16px;
+  }
+  .cont-button .btn-pwd {
+    font-size: 14px;
+    padding: 10px;
+  }
+  .cont-button .btn-registrati {
+    padding: 16px;
+  }
 }
 @media screen and (max-width: 767px) {
   .btn-primary {
     font-size: 16px;
+    padding: 12px;
+  }
+  .cont-button {
+    gap: 6px;
+  }
+  .cont-button .btn-accedi {
+    font-size: 18px;
+    padding: 12px;
+  }
+  .cont-button .btn-pwd {
+    font-size: 12px;
+    padding: 6px;
+  }
+  .cont-button .btn-registrati {
     padding: 12px;
   }
 }
@@ -764,6 +861,16 @@ hr {
     font-size: 14px;
   }
 }
+@media screen and (max-width: 1023px) {
+  .btn-icon {
+    font-size: 38px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .btn-icon {
+    font-size: 28px;
+  }
+}
 main h2 {
   text-align: center;
   margin: 0;
@@ -821,6 +928,7 @@ div.informatica {
   display: flex;
   justify-content: center;
   align-items: center;
+  min-width: 90px;
   padding: 6px;
 }
 .tabella .tab-titoli {
@@ -994,7 +1102,7 @@ div.informatica {
     font-size: 22px;
   }
   .elenco {
-    gap: 14px;
+    gap: 10px;
   }
   .elenco .cont-badge-el {
     width: 42px;

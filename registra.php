@@ -17,14 +17,13 @@
 	
 	<body>
 
-		<a href="login.php" class="btn-icon" style="left:14px;right:auto;"> <i class="fa-solid fa-caret-left fa-4x"></i> </a>
-		<a href="index.html" class="btn-icon" style="top:26px"> <i class="fa-solid fa-house fa-3x"></i> </a>
+		<a href="login.php" class="btn-icon" style="left:14px;right:auto;"> <i class="fa-solid fa-caret-left"></i> </a>
+		<a href="index.html" class="btn-icon"> <i class="fa-solid fa-house"></i> </a>
 	
 		<div class="cont-data cont-signup">
 			<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="form"> <fieldset>
 
 				<div class="cont-title">
-                    <img src="img/logo.png" alt="logo">
 					<h1 class="titolo"> Registrazione </h1>
                 </div>
 
@@ -217,14 +216,6 @@
 					$pw = $_POST["pwd"];
 					$cpw = $_POST["conf_pwd"];
 					
-					// solo studente
-					$anno = $_POST["anno"];
-					$sezione = $_POST["sezione"];
-
-					//solo docente
-					$classe = $_POST["classe"];
-					$materia = $_POST["materia"];
-					
 					if($pw === $cpw){
 
 						if (isset($tipo)) {
@@ -234,6 +225,9 @@
 								if ($conn->query($sql) === TRUE) {
 									if ($tipo == 1){
 										// INSERT per studente
+										$anno = $_POST["anno"];
+										$sezione = $_POST["sezione"];
+
 										$sql1 = "SELECT ID_classe FROM classe WHERE anno = " .$anno. " AND sezione = '" .$sezione.  "';";
 										$result = $conn -> query($sql1);
 										$row = $result -> fetch_assoc();
@@ -255,6 +249,8 @@
 											} else {
 												echo "Errore nella creazione della classe <br> Riprova";
 											}
+
+											$result1 -> free();
 										}
 			
 										$sql3 = "INSERT INTO studente(ID_studente, ID_classe) VALUES (".$id.", ".$ID_classe.")";
@@ -266,10 +262,12 @@
 										}
 
 										$result -> free();
-										$result1 -> free();
 			
 									} else if ($tipo == 2){
 										// INSERT per docente
+										$classe = $_POST["classe"];
+										$materia = $_POST["materia"];
+
 										foreach ($materia as $i) {
 											foreach ($classe as $j) {
 												$sql1 = "INSERT INTO insegna(ID_persona, ID_materia, ID_classe) VALUES (".$id.", ".$i.", ".$j.")";

@@ -26,6 +26,11 @@ footer{
                 }
             }
         }
+
+        small{
+            font-size: 12px;
+            letter-spacing: 0.5px;
+        }
     }
     
     figure:last-child{
@@ -74,6 +79,10 @@ footer{
     
             .social{
                 font-size: 26px;
+            }
+
+            small{
+                font-size: 10px;
             }
         }
 	}

@@ -102,11 +102,41 @@
 		font-size: 18px;
 		padding: 14px;
 	}
+
+	.cont-button{
+		.btn-accedi{
+			font-size: 22px;
+			padding: 16px;
+		}
+		.btn-pwd{
+			font-size: 14px;
+			padding: 10px;
+		}
+		.btn-registrati{
+			padding: 16px;
+		}
+	}
 }
 
 @media screen and (max-width: 767px) {
     .btn-primary{
 		font-size: 16px;
 		padding: 12px;
+	}
+
+	.cont-button{
+		gap: 6px;
+
+		.btn-accedi{
+			font-size: 18px;
+			padding: 12px;
+		}
+		.btn-pwd{
+			font-size: 12px;
+			padding: 6px;
+		}
+		.btn-registrati{
+			padding: 12px;
+		}
 	}
 }

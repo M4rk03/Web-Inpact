@@ -32,19 +32,12 @@
 }
 
 .cont-title{
-	text-align: center;
-
-	display: grid;
-	grid-template-columns: auto 1fr;
-	align-items: center;
-
-	img{
-		width: 60px;
-	}
+	background-image: url(../img/logo.webp);
+	background-size: contain;
+	background-repeat: no-repeat;
 
 	h1{
 		font-size: 40px;
-		margin-left: -60px;
 	}
 }
 
@@ -88,15 +81,72 @@
 
 /* Media Query */
 @media screen and (max-width: 1023px) {
+	.form{
+		width: 480px;
+
+		fieldset{
+			p{
+				font-size: 16px;
+			}
+		}
+	}
+
+	.cont-title{
+		h1{
+			font-size: 36px;
+		}
+	}
+
+	.cont-inserisci{
+		i{
+			font-size: 28px;
+		}
+	}
+
     .inserisci{
 		font-size: 20px;
 		height: 46px;
 	}
+	.in_data{
+		height: 58px;
+	}
 }
 
 @media screen and (max-width: 767px) {
+	.form{
+		width: 280px;
+		padding: 8px;
+
+		fieldset{
+			gap: 8px;
+			padding: 4px;
+
+			p{
+				font-size: 14px;
+			}
+		}
+	}
+
+	.cont-title{
+		h1{
+			font-size: 24px;
+		}
+	}
+
+	.cont-inserisci{
+		i{
+			font-size: 28px;
+			margin-left: 8px;
+		}
+	}
+
     .inserisci{
 		font-size: 18px;
 		height: 42px;
+		padding: 4px;
+	}
+	.in_data{
+		height: 50px;
+		padding-left: 42px;
 	}
 }

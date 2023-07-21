@@ -1,5 +1,6 @@
 .header-account{
 	background-color: $secondaryColor;
+    box-sizing: border-box;
 	border-radius: 14px;
 
 	font-family: $secondaryFont;
@@ -7,9 +8,10 @@
 
 	display: grid;
 	justify-self: right;
-	width: 78px;
-	padding: 6px;
-	margin-right: 8px;
+    align-items: center;
+	width: 90px;
+    height: 90px;
+	padding: 0 6px;
 
     .account-login{
         color: #000;
@@ -30,9 +32,10 @@
 /* Media Query */
 @media screen and (max-width: 1023px) {
 	.header-account{
-		border-radius: 14px;
+        border-radius: 12px;
 		font-size: 12px;
-		width: 56px;
+		width: 70px;
+        height: 70px;
 
         .account-login{
             i{
@@ -45,10 +48,10 @@
 
 @media screen and (max-width: 767px) {
 	.header-account{
-		border-radius: 12px;
+        border-radius: 10px;
 		font-size: 10px;
-		width: 40px;
-        margin-right: 5px;
+		width: 50px;
+        height: 50px;
 
         .account-login{
             i{

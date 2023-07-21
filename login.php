@@ -17,13 +17,12 @@
 	
 	<body class="persona">
 
-		<a href="index.html" class="btn-icon"> <i class="fa-solid fa-house fa-3x"></i> </a>
+		<a href="index.html" class="btn-icon"> <i class="fa-solid fa-house"></i> </a>
 	
 		<div class="cont-data">
 			<form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post" class="form"> <fieldset>
 
 				<div class="cont-title">
-                    <img src="img/logo.png" alt="logo">
 					<h1 class="titolo"> Esegui l'Accesso </h1>
                 </div>
 

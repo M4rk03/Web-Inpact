@@ -1,3 +1,12 @@
+::selection{
+	background-color: $thirthColor;
+	color: $whiteColor;
+}
+::-moz-selection{
+	background-color: $thirthColor;
+	color: $whiteColor;
+}
+
 figure{
 	display: flex;
 	margin: 0px;
@@ -24,11 +33,12 @@ header, footer{
 	display: grid;
 	grid-template-columns: 1fr 3fr 1fr;
 	align-items: center;
-	padding: 5px;
+	padding: 10px;
 }
 
 .logo{
-	width: 100px;
+	border-radius: 10px;
+	width: 90px;
 }
 .logo_scritta{
 	width: 180px;
@@ -37,7 +47,7 @@ header, footer{
 /* Media Query */
 @media screen and (max-width: 1023px) {
 	.logo{
-		width: 80px;
+		width: 70px;
 	}
 	.logo_scritta{
 		width: 140px;
@@ -50,7 +60,8 @@ header, footer{
 
 @media screen and (max-width: 767px) {
 	.logo{
-		width: 60px;
+		border-radius: 8px;
+		width: 50px;
 	}
 	.logo_scritta{
 		width: 100px;

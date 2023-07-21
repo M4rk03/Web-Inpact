@@ -18,7 +18,7 @@
 	<body>
 
         <header>
-			<figure> <a href="index.html"> <img class="logo" src="img/logo.png" alt="logo Web Inpact"> </a> </figure>
+			<figure> <a href="index.html"> <img class="logo" src="img/logo.webp" alt="logo Web Inpact"> </a> </figure>
 			<h1 class="titolo"> PAGINA STUDENTE </h1>
 			<div class="header-account">
 				<a href="login.php" class="account-login"> <i class="fa-solid fa-circle-user"></i>
@@ -141,7 +141,7 @@
         </main>
 		
 		<footer>
-			<figure> <img src="img/scritta.png" alt="scritta Web Imapact" class="logo_scritta"> </figure>
+			<figure> <img src="img/scritta.webp" alt="scritta Web Imapact" class="logo_scritta"> </figure>
 
 			<div id="cont-social">
 				<p class="titolo">ISISS "M.O. Luciano Dal Cero"</p>
@@ -154,7 +154,7 @@
 				<small>Copyright &copy 2023</small>
 			</div>
 
-			<figure> <img src="img/dalcero.png" alt="logo DalCero" class="logo"> </figure>
+			<figure> <img src="img/dalcero.webp" alt="logo DalCero" class="logo"> </figure>
 		</footer>
 
 		<script src="js/myScript.js"></script>
