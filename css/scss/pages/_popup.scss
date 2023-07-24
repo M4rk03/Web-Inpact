@@ -44,11 +44,10 @@
 	padding: 20px;
 }
 
-/* Aggiungi badge */
-#add-badge{
-	img{
-        width: 400px;
-    }
+.badge-popup{
+    justify-self: center;
+    width: 350px;
+    z-index: 1;
 }
 
 /* Modifica badge */
@@ -65,11 +64,6 @@
 	max-width: 1000px;
 	padding: 10px;
 
-    img{
-        justify-self: center;
-        width: 300px;
-    }
-
     form{
         box-shadow: none;
         padding: 12px;
@@ -84,10 +78,11 @@
 .info-badge{
 	font-size: 20px;
 	display: grid;
+    gap: 20px;
 	padding: 24px 36px;
 
     h2{
-        font-size: 30px;
+        font-size: 36px;
     }
 
     p{
@@ -141,24 +136,22 @@
         }
     }
 
-    #add-badge{
-        img{
-            width: 250px;
-        }
+    .badge-popup{
+        width: 250px;
     }
 
 	.cont-modifyB{
         grid-template-columns: 0.6fr 1fr;
         padding: 4px;
-
-        img{
-            width: 250px;
-        }
     }
 
 	.info-badge{
 		font-size: 18px;
 		padding: 0px 12px;
+
+        h2{
+            font-size: 32px;
+        }
 	}
 }
 
@@ -172,20 +165,19 @@
         }
     }
 
-    #add-badge{
-        img{
-            position: absolute;
-            opacity: 12%;
-        }
+    .badge-popup{
+        position: absolute;
+        opacity: 16%;
+        width: 250px;
+    }
+
+    input, textarea{
+        background: none;
+        z-index: 2;
     }
 
     .cont-modifyB{
         grid-template-columns: 1fr;
-
-        img{
-            position: absolute;
-            opacity: 12%;
-        }
 
         form{
             .cont-inserisci{
@@ -196,7 +188,16 @@
 
 	.info-badge{
 		font-size: 14px;
-		padding: 0px;
+        gap: 10px;
+		padding: 5px;
+
+        .info-badge-img{
+            width: 120px;
+        }
+
+        h2{
+            font-size: 28px;
+        }
 
         input{
             font-size: 14px;

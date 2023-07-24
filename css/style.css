@@ -300,10 +300,10 @@ main {
 }
 @media screen and (max-width: 767px) {
   #info {
-    font-size: 14px;
+    font-size: 16px;
   }
   #info h3 {
-    font-size: 18px;
+    font-size: 20px;
     margin: 0px;
   }
   #info p {
@@ -576,7 +576,6 @@ hr {
     gap: 10px;
   }
 }
-/* Login e Signup */
 .btn-primary {
   background-color: #C4282B;
   border: 0px;
@@ -603,6 +602,7 @@ hr {
   box-shadow: inset 0 0 14px 4px #FFEB00;
 }
 
+/* Login e Signup */
 .cont-button {
   display: grid;
   grid-template-areas: "primo primo" "secondo terzo";
@@ -641,7 +641,7 @@ hr {
   border-radius: 5px;
   font-size: 18px;
   text-align: center;
-  padding: 5px;
+  padding: 5px !important;
 }
 
 .btn-modifica {
@@ -737,9 +737,10 @@ hr {
   padding: 20px;
 }
 
-/* Aggiungi badge */
-#add-badge img {
-  width: 400px;
+.badge-popup {
+  justify-self: center;
+  width: 350px;
+  z-index: 1;
 }
 
 /* Modifica badge */
@@ -755,10 +756,6 @@ hr {
   max-width: 1000px;
   padding: 10px;
 }
-.cont-modifyB img {
-  justify-self: center;
-  width: 300px;
-}
 .cont-modifyB form {
   box-shadow: none;
   padding: 12px;
@@ -771,10 +768,11 @@ hr {
 .info-badge {
   font-size: 20px;
   display: grid;
+  gap: 20px;
   padding: 24px 36px;
 }
 .info-badge h2 {
-  font-size: 30px;
+  font-size: 36px;
 }
 .info-badge p {
   font-family: "Mont";
@@ -816,19 +814,19 @@ hr {
   .form-badge h2 {
     font-size: 30px;
   }
-  #add-badge img {
+  .badge-popup {
     width: 250px;
   }
   .cont-modifyB {
     grid-template-columns: 0.6fr 1fr;
     padding: 4px;
   }
-  .cont-modifyB img {
-    width: 250px;
-  }
   .info-badge {
     font-size: 18px;
     padding: 0px 12px;
+  }
+  .info-badge h2 {
+    font-size: 32px;
   }
 }
 @media screen and (max-width: 767px) {
@@ -839,23 +837,31 @@ hr {
   .form-badge h2 {
     font-size: 26px;
   }
-  #add-badge img {
+  .badge-popup {
     position: absolute;
-    opacity: 12%;
+    opacity: 16%;
+    width: 250px;
+  }
+  input, textarea {
+    background: none;
+    z-index: 2;
   }
   .cont-modifyB {
     grid-template-columns: 1fr;
-  }
-  .cont-modifyB img {
-    position: absolute;
-    opacity: 12%;
   }
   .cont-modifyB form .cont-inserisci {
     grid-template-columns: 1fr 2fr;
   }
   .info-badge {
     font-size: 14px;
-    padding: 0px;
+    gap: 10px;
+    padding: 5px;
+  }
+  .info-badge .info-badge-img {
+    width: 120px;
+  }
+  .info-badge h2 {
+    font-size: 28px;
   }
   .info-badge input {
     font-size: 14px;
@@ -888,7 +894,7 @@ span.tpsi {
 }
 
 div.tpsi {
-  box-shadow: inset 0 0 30px 2px #2cbbfb;
+  background: linear-gradient(to bottom right, #2cbbfb, #c3ecfe, white, white, #c3ecfe, #2cbbfb);
 }
 
 span.sistemi {
@@ -896,7 +902,7 @@ span.sistemi {
 }
 
 div.sistemi {
-  box-shadow: inset 0 0 30px 2px #4169e1;
+  background: linear-gradient(to bottom right, #4169e1, #b8c7f4, white, white, #b8c7f4, #4169e1);
 }
 
 span.informatica {
@@ -904,7 +910,15 @@ span.informatica {
 }
 
 div.informatica {
-  box-shadow: inset 0 0 30px 2px #ff7f50;
+  background: linear-gradient(to bottom right, #ff7f50, #ffdacc, white, white, #ffdacc, #ff7f50);
+}
+
+span.altro {
+  background-image: linear-gradient(to right, gray, lightgray);
+}
+
+div.altro {
+  background: linear-gradient(to bottom right, gray, lightgray, white, white, lightgray, gray);
 }
 
 #registro {
@@ -1007,6 +1021,7 @@ div.informatica {
 .mater-inseg {
   flex-direction: column;
   gap: 12px;
+  min-height: 100px;
 }
 .mater-inseg p {
   font-size: 40px;

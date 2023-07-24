@@ -7,7 +7,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<link rel="icon" type="image/x-icon" href="img/logo.png">
+		<link rel="icon" type="image/x-icon" href="img/logo.webp">
 		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="fontawesome-icon/css/all.css">
 
@@ -31,10 +31,11 @@
 				<?php
 					include "connessione.php";
 					session_start();
-					$sql = "SELECT p.cognome, p.nome FROM persona p JOIN account a ON p.ID_persona = a.ID_persona WHERE a.nomeUtente = '" .$_SESSION["nomeUtente"]. "';";
+					$sql = "SELECT p.cognome, p.nome, s.ID_classe FROM persona p JOIN account a ON p.ID_persona = a.ID_persona JOIN studente s ON a.ID_persona = s.ID_studente WHERE a.nomeUtente = '" .$_SESSION["nomeUtente"]. "';";
 					$result = $conn -> query($sql);
 					$row = $result -> fetch_assoc();
 					print_r(" ".$row["cognome"]." ".$row["nome"]."\n");
+
 					$result -> free();
 					$conn -> close();
 				?> </strong>
@@ -50,7 +51,7 @@
 				<?php
 					include "connessione.php";
 					
-					$sql1 = "SELECT DISTINCT m.nome as materia, m.ID_materia as ID, p.nome, p.cognome FROM materia m JOIN insegna i ON m.ID_materia = i.ID_materia JOIN persona p ON i.ID_persona = p.ID_persona;";
+					$sql1 = "SELECT DISTINCT m.nome as materia, m.ID_materia as ID, p.nome, p.cognome FROM materia m JOIN insegna i ON m.ID_materia = i.ID_materia JOIN persona p ON i.ID_persona = p.ID_persona WHERE i.ID_classe = " .$row["ID_classe"]. ";";
 					$result1 = $conn -> query($sql1);
 					
 					// Parte ripetuta x la quantita' delle materie
@@ -71,7 +72,7 @@
 							} elseif($materia == 'Informatica'){
 								$color_name = 'informatica';
 							} else{
-								$color_name = 'sistemi';
+								$color_name = 'altro';
 							}
 	
 							echo "<div class='texture mater-inseg " .$color_name. "'> \n";

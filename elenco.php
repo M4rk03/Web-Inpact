@@ -7,7 +7,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<link rel="icon" type="image/x-icon" href="img/logo.png">
+		<link rel="icon" type="image/x-icon" href="img/logo.webp">
 		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="fontawesome-icon/css/all.css">
 
@@ -93,7 +93,7 @@
 									while($row1 = $result1->fetch_assoc()){
 										$badge = $row1["nome"]."".$row1["livello"];
 
-										echo "<figure class='cont-badge-el' onclick=\"modify_badge(this, ".$row["ID"].", '".$row1["dataB"]."', '".$row1["descrizione"]."')\"> \n";
+										echo "<figure class='cont-badge-el' onclick=\"modifyBadge(this, ".$row["ID"].", '".$row1["dataB"]."', '".$row1["descrizione"]."')\"> \n";
 										echo "<img src='img/badge/" .$badge. ".png' alt=" .$badge. "> \n </figure> \n";
 									}
 
@@ -101,7 +101,7 @@
 									echo "Qualcosa è andato storto nella ricerca dei badge";
 								}
 
-								echo "<figure class='cont-badge-el' onclick='add_badge(".$row["ID"].")' style='margin-left: 10px;'> \n";
+								echo "<figure class='cont-badge-el' onclick='addBadge(".$row["ID"].")' style='margin-left: 10px;'> \n";
 								echo "<img src='img/addB.png' alt='add badge'> \n </figure> \n";
 								echo "</div> \n </div> \n";
 
@@ -131,7 +131,7 @@
 							<label> Argomento: </label> 
 							
 							<div class="cont-inserisci cont-select">
-								<select id="add-nomeB" class="inserisci select" onchange="visual_img()" name="argomento" required>
+								<select id="add-nomeB" class="inserisci select" onchange="visual_badge()" name="argomento" required>
 									<option value=""> Seleziona </option>
 									<?php
 										include "connessione.php";
@@ -160,7 +160,7 @@
 							<label> Livello: </label> 
 							
 							<div class="cont-inserisci cont-select">
-								<select id="add-livelloB" class="inserisci select" onchange="visual_img()" name="livello" required>
+								<select id="add-livelloB" class="inserisci select" onchange="visual_badge()" name="livello" required>
 									<option value=""> Seleziona </option>
 									<?php
 										include "connessione.php";
@@ -216,7 +216,7 @@
 								<label> Argomento: </label> 
 								
 								<div class="cont-inserisci cont-select">
-									<select id="mod-nomeB" class="inserisci select" onchange="visual_img()" name="nomeB" required>
+									<select id="mod-nomeB" class="inserisci select" onchange="visual_badge()" name="nomeB" required>
 										<option value=""> Seleziona </option>
 										<?php
 											include "connessione.php";
@@ -245,7 +245,7 @@
 								<label> Livello: </label> 
 								
 								<div class="cont-inserisci cont-select">
-									<select id="mod-livelloB" class="inserisci select" onchange="visual_img()" name="livelloB" required>
+									<select id="mod-livelloB" class="inserisci select" onchange="visual_badge()" name="livelloB" required>
 										<option value=""> Seleziona </option>
 										<?php
 											include "connessione.php";
@@ -294,6 +294,12 @@
 				</div>
 
 				<!-- Popup di notifica -->
+				<script> 
+					function viewAlert(){
+						document.querySelector('#alerts').style.display = 'flex';
+					} 
+				</script>
+
 				<div id="alerts" class="cont-popup">
 					<div class="cont-alerts">
 						<p>
@@ -321,8 +327,8 @@
 											echo "Errore nell'assegnazione del badge <br> Riprova";
 										}
 
-										//echo "<script> view_alert() </script> \n";
 										$result -> free();
+										echo "<script> viewAlert() </script> \n";
 										
 									} catch (Exception $e){
 										echo "Qualcosa è andato storto \n";
@@ -362,12 +368,13 @@
 											echo "Errore nella modifica del badge <br> Riprova";
 										}
 
-										//echo "<script> view_alert() </script> \n";
 										$result -> free();
 										$result1 -> free();
 
+										//echo "<script> viewAlert() </script> \n";
+
 									} catch (Exception $e){
-										echo "Errore inprevisto durante l'aggiornamento, riprovare";
+										echo "Errore inprevisto durante l'aggiornamento, riprovare \n";
 									}
 
 									$conn -> close();
@@ -392,19 +399,20 @@
 											echo "Errore nell'eliminazione del badge <br> Riprova";
 										}
 
-										//echo "<script> view_alert() </script> \n";
 										$result -> free();
+										//echo "<script> viewAlert() </script> \n";
 
 									} catch (Exception $e){
 										echo "Errore inprevisto durante l'aggiornamento, riprovare";
 									}
 
 									$conn -> close();
+
 								}
 							?>
 						</p>
 
-						<input type="button" onclick="close_alert()" value="Chiudi" class="btn-primary btn-close">
+						<input type="button" onclick="close_alert()" value="Chiudi" class="btn-primary btn-close" name="chiudi">
 					</div>
 				</div>
 
@@ -427,7 +435,7 @@
 
 			<figure> <img src="img/dalcero.webp" alt="logo DalCero" class="logo"> </figure>
 		</footer>
-		
+
 		<script src="js/myScript.js"></script>
 	</body>
 </html>

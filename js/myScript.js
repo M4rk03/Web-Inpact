@@ -5,11 +5,7 @@ function icon_change(e){
     e.classList.toggle('fa-lock');
     e.classList.toggle('fa-unlock');
 
-    if(pwd.type == "password"){
-        pwd.type = "text";
-    } else{
-        pwd.type = "password";
-    }
+    pwd.type == "password" ? pwd.type = "text" : pwd.type = "password";
 }
 
 // Controllo sull'input radio
@@ -71,9 +67,8 @@ function dragStart(ev) {
     ev.dataTransfer.setData("Text", ev.target.id);
 }
 
-function allowDrop(ev, valore) {
-    if ((ev.target.id == 'cl_tot') || (ev.target.id == 'cl_inseg'))
-     ev.preventDefault();
+function allowDrop(ev) {
+    if ((ev.target.id == 'cl_tot') || (ev.target.id == 'cl_inseg')) ev.preventDefault();
 }
 
 function drop(ev) {
@@ -106,15 +101,13 @@ function drop(ev) {
         let ID_classe = ev.target.lastChild.id.split("_");
 
         for (const i of  select_class.children) {
-            if (i.value == ID_classe[1]) {
-                i.selected = true;
-            }
+            if (i.value == ID_classe[1]) i.selected = true;
         }
     }
 }
 
 // Aggiungi materia
-function add_materia(){
+function addMateria(){
     document.querySelector('#add-materia').style.display = 'flex';
     document.querySelector('#ins-mat').required = true;
 }
@@ -123,150 +116,132 @@ function close_mat(){
     document.querySelector('#ins-mat').required = false;
 }
 
+// Passaggio di variabile per popup
+function passVariable(variable, name) {
+    let input = document.createElement('input');
+    input.value = variable;
+    input.name = name;
+    input.setAttribute('hidden', input);
+
+    return input;
+}
+
+// Visualizzazione badge
+function visual_img(url){
+    let img = document.createElement('img');
+    let url_img = 'img/badge/' + url + '.png';
+    img.setAttribute('src', url_img);
+    img.classList.add('badge-popup')
+
+    return img;
+}
+
 // ZOOM del Badge
-function zoom_badge(b, d, prof, m, t){
-    document.querySelector('#visual-badge').style.display = 'flex';
-    let cont = document.querySelector('#visual-badge').children[0];
+let visualizza_badge = document.querySelector('#visual-badge');
+function zoom_badge(badge, data, prof, mat, testo){
+    visualizza_badge.style.display = 'flex';
+    let cont = visualizza_badge.children[0];
 
     // visualizza img badge
-    let img = document.createElement('img');
-    let url_img = 'img/badge/' + b + '.png';
-    img.setAttribute('src', url_img);
+    let img = visual_img(badge);
+    img.classList.add('.info-badge-img');
     cont.insertBefore(img, cont.children[0]);
 
     // passaggio dati
-    document.querySelector('#data').firstChild.textContent = d.substring(8, 10) + "/" + d.substring(5, 7) + "/" + d.substring(0, 4);
+    document.querySelector('#data').firstChild.textContent = data.substring(8, 10) + "/" + data.substring(5, 7) + "/" + data.substring(0, 4);
     document.querySelector('#prof').firstChild.textContent = prof;
-    document.querySelector('#mat').firstChild.textContent = m;
+    document.querySelector('#mat').firstChild.textContent = mat;
     
-    if (t == "") {
-        t = "<em> Nessuna descrizione </em>";
-    }
-    document.querySelector('#desc').innerHTML = t;
+    if (testo == "") testo = "<em> Nessuna descrizione </em>";
+    document.querySelector('#desc').innerHTML = testo;
 }
 function close_visual(){
-    document.querySelector('#visual-badge').style.display = 'none';
-    let cont = document.querySelector('#visual-badge').children[0];
+    visualizza_badge.style.display = 'none';
+    let cont = visualizza_badge.children[0];
     cont.removeChild(cont.children[0])
 }
 
 // ASSEGNA un badge allo studente
-function add_badge(valore){
-    let cont = document.querySelector('#add-badge');
-    cont.style.display = 'flex';
+let add_badge = document.querySelector('#add-badge');
 
-    let input = document.createElement('input');
-    input.value = valore;
-    input.name = 'ID_persona';
-    input.setAttribute('hidden', input);
+function addBadge(valore){
+    add_badge.style.display = 'flex';
+    let add_badge_child = add_badge.children[0];
 
-    if (cont.children[0].lastElementChild.tagName == 'INPUT'){
-        cont.children[0].removeChild(cont.children[0].lastChild);
+    if (add_badge_child.lastElementChild.tagName == 'INPUT'){
+        add_badge_child.removeChild(add_badge_child.lastChild);
     }
-    cont.children[0].appendChild(input);
+    add_badge_child.appendChild(passVariable(valore, 'ID_persona'));
 }
 function close_add(){
-    document.querySelector('#add-badge').style.display = 'none';
+    add_badge.style.display = 'none';
+
+    if (add_badge.children[0].tagName == 'IMG'){
+        add_badge.removeChild(add_badge.children[0]);
+    }
 }
 
 // MODIFICA un badge allo studente
-function modify_badge(e, valore1, valore2, valore3){
+let modify_badge = document.querySelector('.cont-modifyB');
+
+function modifyBadge(e, IDpers, data, text){
     document.querySelector('#modify-badge').style.display = 'flex';
-    let cont = document.querySelector('.cont-modifyB');
-    let cont_form = cont.children[0];
+    let modify_badge_child = modify_badge.children[0];
 
     // passaggio della variabile ID_persona
-    let input = document.createElement('input');
-    input.value = valore1;
-    input.name = 'ID_persona';
-    input.setAttribute('hidden', input);
-    
-    if (cont_form.lastElementChild.tagName == 'INPUT'){
-        cont_form.removeChild(cont_form.lastChild);
-        cont_form.removeChild(cont_form.lastChild);
-        cont_form.removeChild(cont_form.lastChild);
+    if (modify_badge_child.lastElementChild.tagName == 'INPUT'){
+        for (let i=0; i < 3; i++) {
+            modify_badge_child.removeChild(modify_badge_child.lastChild);
+        }
     }
-    cont_form.appendChild(input);
+    modify_badge_child.appendChild(passVariable(IDpers, 'ID_persona'));
 
-    // passaggio della variabile dataB
-    document.querySelector('#mod-dataB').value = valore2;
-
-    // passaggio della variabile descrizione
-    document.querySelector('#mod-descri').value = valore3;
+    // passaggio delle variabili dataB e descrizione
+    document.querySelector('#mod-dataB').value = data;
+    document.querySelector('#mod-descri').value = text;
 
     // visualizza img badge
     let badge = e.children[0].alt;
-
-    let img = document.createElement('img');
-    let url_img = 'img/badge/' + badge + '.png';
-    img.setAttribute('src', url_img);
-    cont.insertBefore(img, cont.children[0]);
+    modify_badge.insertBefore(visual_img(badge), modify_badge_child);
 
     let nameB = document.querySelector('#mod-nomeB');
     let levelB = document.querySelector('#mod-livelloB');
+
+    let badge_nome = badge.match(/[A-Z][a-z]*/)[0];
+    let badge_livello = badge.match(/\d+/)[0];
     
-    for (const i of  nameB.children) {
-        if (i.value == badge.match(/[A-Z][a-z]*/)[0]) {
-            i.selected = true;
-        }
+    for (const i of nameB.children) {
+        if (i.value == badge_nome) i.selected = true;
     }
 
-    for (const i of  levelB.children) {
-        if (i.value == badge.match(/\d+/)[0]) {
-            i.selected = true;
-        }
+    for (const i of levelB.children) {
+        if (i.value == badge_livello) i.selected = true;
     }
 
-    // passaggio della variabile nomeB
-    let input1 = document.createElement('input');
-    input1.value = badge.match(/[A-Z][a-z]*/)[0];
-    input1.name = 'nomeB_assegnato';
-    input1.setAttribute('hidden', input1);
-    cont_form.appendChild(input1);
-
-    // passaggio della variabile livelloB
-    let input2 = document.createElement('input');
-    input2.value = badge.match(/\d+/)[0];
-    input2.name = 'livelloB_assegnato';
-    input2.setAttribute('hidden', input2);
-    cont_form.appendChild(input2);
+    // passaggio delle variabili nomeB e livelloB
+    modify_badge_child.appendChild(passVariable(badge_nome, 'nomeB_assegnato'));
+    modify_badge_child.appendChild(passVariable(badge_livello, 'livelloB_assegnato'));
 }
 function close_modify(){
-    let cont = document.querySelector('.cont-modifyB');
-    cont.removeChild(cont.children[0]);
     document.querySelector('#modify-badge').style.display = 'none';
+    modify_badge.removeChild(modify_badge.children[0]);
 }
 
-// Controllo sul seleziona per visualizzare il badge
-var num = 0;
-function visual_img(){
+// Controllo per visualizzare il badge
+function visual_badge(){
     let nameB = document.querySelector('#add-nomeB');
     let levelB = document.querySelector('#add-livelloB');
-    let addB = document.querySelector('#add-badge');
 
-    let img = document.createElement('img');
-    let url_img = 'img/badge/' + nameB.value + levelB.value + '.png';
+    let badge = nameB.value + levelB.value;
 
-    if(nameB.value == '' || levelB.value == ''){
-        if(addB.firstElementChild.tagName == 'IMG'){
-            addB.removeChild(addB.firstChild);
-        }
-    } else{
-        img.setAttribute('src', url_img);
+    if(add_badge.firstElementChild.tagName == 'IMG') add_badge.removeChild(add_badge.firstElementChild);
 
-        if(addB.firstElementChild.tagName == 'IMG'){
-            addB.removeChild(addB.firstChild);
-        }
-        if(addB.firstElementChild.tagName != 'IMG'){
-            addB.insertBefore(img, addB.children[0]);
-        }
+    if(nameB.value != '' && levelB.value != ''){
+        if(add_badge.firstElementChild.tagName != 'IMG') add_badge.insertBefore(visual_img(badge), add_badge.children[0]);
     }
 }
 
 // POPUP di notifiche
-function view_alert(){
-    document.querySelector('#alerts').style.display = 'flex';
-}
 function close_alert(){
     refreshPage();
     document.querySelector('#alerts').style.display = 'none';
