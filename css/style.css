@@ -88,7 +88,16 @@ header, footer {
     line-height: 28px;
   }
 }
+@keyframes tendina {
+  from {
+    top: 20px;
+  }
+  to {
+    top: 90px;
+  }
+}
 .header-account {
+  position: relative;
   background-color: #FFEB00;
   box-sizing: border-box;
   border-radius: 14px;
@@ -99,42 +108,129 @@ header, footer {
   align-items: center;
   width: 90px;
   height: 90px;
-  padding: 0 6px;
 }
-.header-account .account-login {
+.header-account .account-icon {
+  background-color: #FFEB00;
   color: #000;
   text-decoration: none;
+  z-index: 2;
 }
-.header-account .account-login i {
+.header-account .account-icon i {
   background-color: #fff;
   border-radius: 50%;
   font-size: 52px;
 }
-.header-account .account-login p {
+.header-account .account-icon p {
   margin: 0px;
+}
+.header-account .account-options {
+  position: absolute;
+  top: 20px;
+  background-color: #FEF898;
+  box-shadow: inset 0 0 6px 2px #FFEB00;
+  box-sizing: border-box;
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 14px;
+  text-align: left;
+  display: none;
+  width: 90px;
+  padding: 0 4px;
+  z-index: 1;
+}
+.header-account .account-options p {
+  border-radius: 4px;
+  padding: 2px 6px;
+  margin: 6px 0;
+  cursor: pointer;
+}
+.header-account .account-options p i {
+  margin-right: 2px;
+}
+.header-account .account-options p:hover {
+  background-color: #fff;
+  color: #C4282B;
+}
+.header-account .account-options a {
+  color: #000;
+  text-decoration: none;
+}
+
+.menu:hover {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+.menu:hover .account-options {
+  top: 90px;
+  display: block;
+  animation-name: tendina;
+  animation-duration: 0.6s;
 }
 
 /* Media Query */
 @media screen and (max-width: 1023px) {
+  @keyframes tendina {
+    from {
+      top: 20px;
+    }
+    to {
+      top: 70px;
+    }
+  }
   .header-account {
     border-radius: 12px;
     font-size: 12px;
     width: 70px;
     height: 70px;
   }
-  .header-account .account-login i {
+  .header-account .account-icon i {
     font-size: 36px;
+  }
+  .header-account .account-options {
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    width: 70px;
+  }
+  .header-account .account-options p {
+    border-radius: 3px;
+    padding: 2px 5px;
+    margin: 5px 0;
+  }
+  .menu:hover .account-options {
+    top: 70px;
   }
 }
 @media screen and (max-width: 767px) {
+  @keyframes tendina {
+    from {
+      top: 20px;
+    }
+    to {
+      top: 50px;
+    }
+  }
   .header-account {
-    border-radius: 10px;
+    border-radius: 8px;
     font-size: 10px;
     width: 50px;
     height: 50px;
   }
-  .header-account .account-login i {
+  .header-account .account-icon i {
     font-size: 28px;
+  }
+  .header-account .account-options {
+    box-shadow: inset 0 0 4px 1px #FFEB00;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    width: 50px;
+    padding: 0 2px;
+  }
+  .header-account .account-options p {
+    border-radius: 2px;
+    padding: 1px 4px;
+    margin: 4px 0;
+  }
+  .menu:hover .account-options {
+    top: 50px;
   }
 }
 footer {

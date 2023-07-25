@@ -11,7 +11,7 @@
 		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="fontawesome-icon/css/all.css">
 
-		<title>Login</title>
+		<title> WebInpact - Login </title>
 		
 	</head>
 	

@@ -11,7 +11,7 @@
 		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="fontawesome-icon/css/all.css">
 
-		<title>Registrazione</title>
+		<title> WebInpact - Registrazione </title>
 		
 	</head>
 	
@@ -61,7 +61,7 @@
 
 					<div class="caselle">
 						<div class="radio">
-							<input type="radio" id="M" name="sesso" value="M" onchange="checkRadio(this)">
+							<input type="radio" id="M" name="sesso" value="M" onchange="checkRadio(this)" required>
 							<label for="M"> 
 								<i class="fa-regular fa-circle" id="male"></i> 
 								Maschio 
@@ -69,7 +69,7 @@
 						</div>
 						
 						<div class="radio">
-							<input type="radio" id="F" name="sesso" value="F" onchange="checkRadio(this)">
+							<input type="radio" id="F" name="sesso" value="F" onchange="checkRadio(this)" required>
 							<label for="F"> 
 								<i class="fa-regular fa-circle" id="female"></i> 
 								Femmina 
@@ -78,7 +78,7 @@
 					</div>
 
 					<div class="cont-inserisci cont-select">
-						<select id="type_person" onchange="select_control()" class="inserisci select" name="tipo_pers" required>
+						<select onchange="select_control(this)" class="inserisci select" name="tipo_pers" required>
 							<option value=""> Seleziona </option>
 							<option value="2"> Docente </option>
 							<option value="1"> Studente </option>
@@ -100,7 +100,7 @@
 							</select> <i class="fa-solid fa-chevron-down" style="font-size:18px"></i>
 						</div>
 
-						<input type="text" placeholder="Sezione" class="inserisci" id="classe_sez" name="sezione" maxlength="4" required>
+						<input type="text" placeholder="Sezione" class="inserisci" name="sezione" maxlength="4">
 					</div>
 
 					<!-- Solo per docente -->
@@ -114,13 +114,15 @@
 									<?php
 										include "connessione.php";
 						
-										$sql = "SELECT * FROM classe;";
+										$sql = "SELECT COUNT(c.ID_classe) as num, c.ID_classe, c.anno, c.sezione FROM classe c JOIN studente s ON c.ID_classe = s.ID_classe GROUP BY c.ID_classe;";
 										$result = $conn -> query($sql);
 										
 										// Parte ripetuta x la quantità delle classe
 										try{
 											while($row = $result->fetch_assoc()){
-												echo "<div id='ID_".$row["ID_classe"]."' class='grid-col-2 inserisci' ondragstart='dragStart(event)' draggable='true'> " .strtoupper($row["anno"])."".strtoupper($row["sezione"]). " <i class='fa-solid fa-plus'></i> </div>";
+												if ($row['num'] > 1) {
+													echo "<div id='ID_".$row["ID_classe"]."' class='grid-col-2 inserisci' ondragstart='dragStart(event)' draggable='true'> " .strtoupper($row["anno"])."".strtoupper($row["sezione"]). " <i class='fa-solid fa-plus'></i> </div>";
+												}
 											}
 
 											$result1 = $conn -> query($sql);
@@ -147,7 +149,7 @@
 						<div class="cont-inserisci in_classe">
 							<label> Materia/e </label>
 							
-							<select id="mat_inseg" class="inserisci select" name="materia[]" style="height:72px;" multiple>
+							<select class="inserisci select" name="materia[]" style="height:72px;" multiple>
 								<?php
 									include "connessione.php";
 					

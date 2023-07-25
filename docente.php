@@ -11,7 +11,7 @@
 		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="fontawesome-icon/css/all.css">
 
-		<title>Registro docente</title>
+		<title> WebInpact - Registro docente </title>
 
 	</head>
 	
@@ -20,9 +20,18 @@
         <header>
 			<figure> <a href="index.html"> <img class="logo" src="img/logo.webp" alt="logo Web Inpact"> </a> </figure>
 			<h1 class="titolo"> REGISTRO DOCENTE </h1>
-			<div class="header-account">
-				<a href="login.php" class="account-login"> <i class="fa-solid fa-circle-user"></i>
-					<p>Logout</p> </a>
+			<div class="header-account menu">
+
+				<div class="account-icon"> 
+					<i class="fa-solid fa-circle-user"></i>
+					<p>Account</p> 
+				</div>
+
+				<div class="account-options">
+					<p onclick="deleteAccount()"> Elimina </p>
+					<a href="login.php"> <p> <i class="fa-solid fa-xmark"></i> Esci </p> </a>
+				</div>
+
 			</div>
 		</header>
 		
@@ -106,6 +115,49 @@
 				?>
 
 			</div>
+			
+			<!-- Popup -->
+			<div id="delete-acc" class="cont-popup">
+				<div class="cont-alerts">
+					<p> Sei sicuro di voler eliminare il tuo account definitivamente? </p>
+
+					<form action="<?php echo $_SERVER['PHP_SELF'];?>" method="get">
+	
+						<div class="grid-col-2" style="margin-top:20px;">
+							<button onclick="close_delete()" class="btn-primary btn-secondary"> Annulla </button>
+							<input type="submit" value="Elimina" class="btn-primary" name="elimina">
+						</div>
+					</form>
+
+					<?php
+						if (isset($_GET['elimina'])) {
+							include 'connessione.php' ;
+
+							try{
+								$sql = "SELECT ID_persona FROM account WHERE nomeUtente = '" .$_SESSION["nomeUtente"]. "';";
+								$result = $conn -> query($sql);
+								$row = $result -> fetch_assoc();
+								
+								$sql1 = "DELETE FROM persona WHERE ID_persona = ".$row["ID_persona"].";";
+
+								if ($conn->query($sql1) === TRUE){
+									echo "L'account è stato eliminato correttamente";
+									echo "<script> location.href = 'index.html' </script>";
+								} else {
+									echo "Errore nell'eliminazione dell'account <br> Riprova";
+								}
+
+								$result -> free();
+
+							} catch (Exception $e){
+								echo "Qualcosa è andato storto";
+							}
+
+							$conn -> close();
+						}
+					?>
+				</div>
+			</div>
         </main>
 		
 		<footer>
@@ -125,5 +177,6 @@
 			<figure> <img src="img/dalcero.webp" alt="logo DalCero" class="logo"> </figure>
 		</footer>
 
+		<script src="js/myScript.js"></script>
 	</body>
 </html>

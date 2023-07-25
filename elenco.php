@@ -11,7 +11,7 @@
 		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="fontawesome-icon/css/all.css">
 
-		<title>Registro di Classe</title>
+		<title> WebInpact - Registro di Classe </title>
 
 	</head>
 	
@@ -21,7 +21,7 @@
 			<figure> <a href="index.html"> <img class="logo" src="img/logo.webp" alt="logo Web Inpact"> </a> </figure>
 			<h1 class="titolo"> REGISTRO ALUNNI </h1>
 			<div class="header-account">
-				<a href="login.php" class="account-login"> <i class="fa-solid fa-circle-user"></i>
+				<a href="login.php" class="account-icon"> <i class="fa-solid fa-circle-user"></i>
 					<p>Logout</p> </a>
 			</div>
 		</header>

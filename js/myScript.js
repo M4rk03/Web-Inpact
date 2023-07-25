@@ -21,7 +21,7 @@ function checkRadio(el) {
             object2.classList.add('fa-circle');
             object2.classList.remove('fa-circle-dot');
         }
-    } else {
+    } else if (el.id == 'F') {
         if (el.checked) {
             object2.classList.toggle('fa-circle');
             object2.classList.toggle('fa-circle-dot');
@@ -33,32 +33,28 @@ function checkRadio(el) {
 }
 
 // Controllo sul seleziona tipo persona
-function select_control(){
-    let type_person = document.querySelector('#type_person');
-    let classe_stu = document.querySelector('#classe_anno');
-    let sezione = document.querySelector('#classe_sez');
-    let classe_doc = document.querySelector('#classe_doc');
-    let materia = document.querySelector('#mat_inseg');
+function select_control(e){
+    let student = document.querySelector('#classe_anno');
+    let anno = student.children[1].children[0];
+    let sezione = student.children[2];
+
+    let teacher = document.querySelector('#classe_doc');
+    let materia = teacher.children[1].children[1];
     
-    if(type_person.value == 1){
-        classe_stu.style.display = 'flex';
+    student.style.display = 'none';
+    anno.required = false;
+    sezione.required = false;
+    teacher.style.display = 'none';
+    materia.required = false;
+
+    if(e.value == 1){
+        student.style.display = 'flex';
+        anno.required = true;
         sezione.required = true;
 
-        classe_doc.style.display = 'none';
-        materia.required = false;
-
-    } else if(type_person.value == 2){
-        classe_doc.style.display = 'grid';
+    } else if(e.value == 2){
+        teacher.style.display = 'grid';
         materia.required = true;
-
-        classe_stu.style.display = 'none';
-        sezione.required = false;
-
-    } else{
-        classe_stu.style.display = 'none';
-        sezione.required = false;
-        classe_doc.style.display = 'none';
-        materia.required = false;
     }
 }
 
@@ -138,6 +134,7 @@ function visual_img(url){
 
 // ZOOM del Badge
 let visualizza_badge = document.querySelector('#visual-badge');
+
 function zoom_badge(badge, data, prof, mat, testo){
     visualizza_badge.style.display = 'flex';
     let cont = visualizza_badge.children[0];
@@ -239,6 +236,14 @@ function visual_badge(){
     if(nameB.value != '' && levelB.value != ''){
         if(add_badge.firstElementChild.tagName != 'IMG') add_badge.insertBefore(visual_img(badge), add_badge.children[0]);
     }
+}
+
+//Popup per eliminare l'account
+function deleteAccount() {
+    document.querySelector('#delete-acc').style.display = 'flex';
+}
+function close_delete() {
+    document.querySelector('#delete-acc').style.display = 'none';
 }
 
 // POPUP di notifiche
