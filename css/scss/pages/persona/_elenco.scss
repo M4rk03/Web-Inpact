@@ -31,12 +31,31 @@
 .cont-elenco{
 	background-image: linear-gradient(to top, rgba(255, 235, 0, 0.6), transparent); /* $secondaryColor ma trasparente */
 	border-bottom: 2px solid $grayColor;
+	align-items: center;
 
     .list-alunno{
         display: grid;
         grid-template-columns: 0.3fr 2fr 1fr;
         gap: 8px;
     }
+
+	.cont-scroll{
+		overflow-x: auto;
+		margin-bottom: 2px;
+
+		.elenco{
+			float: left;
+		}
+
+		&::-webkit-scrollbar{
+			height: 8px;
+		}
+		&::-webkit-scrollbar-thumb{
+			background-color: #FFFDEB;
+			box-shadow: inset 0px 0 4px -1px $grayColor;
+			border-radius: 20px;
+		}
+	}
 
 	&:hover{
 		background-image: linear-gradient(to top, $secondaryColor, transparent);

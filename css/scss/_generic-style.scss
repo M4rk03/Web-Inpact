@@ -6,6 +6,13 @@
 	background-color: $thirthColor;
 	color: $whiteColor;
 }
+::-webkit-scrollbar{
+	width: 5px;
+}
+::-webkit-scrollbar-thumb{
+	background-color: #FFFDEB;
+	border-radius: 20px;
+}
 
 figure{
 	display: flex;

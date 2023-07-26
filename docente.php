@@ -81,7 +81,7 @@
 								// Passaggio dei dati per la pagina elenco
 								echo "<form action='elenco.php' method='post'> \n";
 								echo "<input name='anno' value='" .$row1["anno"]. "' hidden> <input name='sezione' value='" .$row1["sezione"]. "' hidden>";
-								echo "<input name='materia' value='" .$row2["nome"]. "' hidden> \n";
+								echo "<input name='materia' value='" .$row2["nome"]. "' hidden> \n <input name='nomeUtente' value='" .$_SESSION["nomeUtente"]. "' hidden> \n";
 
 
 								$nome = strtoupper($row2["nome"]);
