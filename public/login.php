@@ -1,3 +1,15 @@
+<?php 
+	require_once('../init.php');
+
+	if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+		// se sei loggato esce dall'account
+        if (isset($_SESSION['nomeUtente'])) {
+            session_destroy();
+            redirect();
+        }
+	}
+?>
+
 <!DOCTYPE html>
 <html lang="it" class="persona">
     <head>
@@ -40,28 +52,24 @@
 
 				<?php
 					if(isset($_POST['accedi'])){
-						session_start();
-						$_SESSION["nomeUtente"] = $_POST["email"];
-						$_SESSION["password"] = $_POST["password"];
+						include "../connessione.php";
+
+						$email = $_POST["email"];
+						$password = $_POST["password"];
 
 						try{
-							include "../connessione.php";
-							$sql = "SELECT a.nomeUtente, a.password, p.tipo FROM account a JOIN persona p ON a.ID_persona = p.ID_persona WHERE a.nomeUtente = '" .$_POST["email"]. "' AND a.password = '" .$_POST["password"]. "';";
+							$sql = "SELECT a.nomeUtente, a.password, p.tipo FROM account a JOIN persona p ON a.ID_persona = p.ID_persona WHERE a.nomeUtente = '" .$email. "' AND a.password = '" .$password. "';";
 							$result = $conn -> query($sql);
 							$row = $result -> fetch_assoc();
-							if((isset($row["nomeUtente"]) AND isset($row["password"])) AND ($row["nomeUtente"] === $_SESSION["nomeUtente"] AND $row["password"] === $_SESSION["password"])){
-								$_SESSION['tipo'] = $row["tipo"];
+							
+							if((isset($row["nomeUtente"]) AND isset($row["password"])) AND ($row["nomeUtente"] === $email AND $row["password"] === $password)){
+								$_SESSION["nomeUtente"] = $email;
+								$tipo = $row["tipo"];
 
-								if($_SESSION["tipo"] == 1){
-									header('location:studente.php');
-									echo "<script type ='text/javascript'>";
-									echo "location.href ='studente.php';";
-									echo "</script>";
-								} else if($_SESSION["tipo"] == 2){
-									header('location:docente.php');
-									echo "<script type ='text/javascript'>";
-									echo "location.href ='docente.php';";
-									echo "</script>";
+								if($tipo == 1){
+									redirect('studente.php');
+								} else if($tipo == 2){
+									redirect('docente.php');
 								} else{
 									throw new Exception("<p class='error'> Tipo dell'account errato </p>");
 								}
@@ -69,7 +77,7 @@
 								throw new Exception("<p class='error'> Errore nell'inserimento dei dati <br> Controlla che l'email o la password siano corrette </p>");
 							}
 						}catch (Exception $e){
-							echo $e -> getMessage();
+							echo '<div>'.$e -> getMessage().'</div>';
 						}
 
 						$result -> free();

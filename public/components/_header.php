@@ -8,22 +8,27 @@
         //REGISTRO ALUNNI
     ?>
 
-    <div class="header-account">
-        <a href="./login.php" class="account-icon"> <i class="fa-solid fa-circle-user"></i>
-            <p>Accedi</p> </a>
+    <?php   // ACCOUNT
+            //echo isset($_SESSION['nomeUtente']) ? 'si' : 'no';
 
-        <?php 
-            /*
-                <div class="account-icon"> 
-					<i class="fa-solid fa-circle-user"></i>
-					<p>Account</p> 
-				</div>
+            if (isset($_SESSION['nomeUtente'])) {
+                echo '<div class="header-account menu">';
 
-				<div class="account-options">
-					<p onclick="deleteAccount()"> Elimina </p>
-					<a href="./login.php"> <p> <i class="fa-solid fa-xmark"></i> Esci </p> </a>
-				</div>
-            */
+                echo '<div class="account-icon">';
+                echo '<i class="fa-solid fa-circle-user"></i>';
+                echo '<p> Account </p> </div>';
+
+                echo '<div class="account-options">';
+                echo '<p onclick="deleteAccount()"> Elimina </p>';
+                echo '<a href="./login.php"> <p> <i class="fa-solid fa-xmark"></i> Esci </p> </a> </div>';
+                
+            } else {
+                echo '<div class="header-account">';
+
+                echo '<a href="./login.php" class="account-icon"> <i class="fa-solid fa-circle-user"></i>';
+                echo '<p> Accedi </p> </a>';
+            }
+
+            echo '</div>';
         ?>
-    </div>
 </header>
