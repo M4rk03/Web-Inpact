@@ -1,16 +1,16 @@
 @font-face {
   font-family: "Mont";
-  src: url("../font/mont/Mont-HeavyDEMO.otf");
+  src: url("../media/font/mont/Mont-HeavyDEMO.otf");
   font-display: swap;
 }
 /*@font-face{
 	font-family: 'Mont-light';
-	src: url('../font/mont/Mont-ExtraLightDEMO.otf');
+	src: url('../media/font/mont/Mont-ExtraLightDEMO.otf');
 	font-display: swap;
 }*/
 @font-face {
   font-family: "Mustica";
-  src: url("../font/mustica/MusticaPro-SemiBold.otf");
+  src: url("../media/font/mustica/MusticaPro-SemiBold.otf");
   font-display: swap;
 }
 /* Layout */

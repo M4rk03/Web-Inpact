@@ -1,0 +1,81 @@
+::selection{
+	background-color: $thirthColor;
+	color: $whiteColor;
+}
+::-moz-selection{
+	background-color: $thirthColor;
+	color: $whiteColor;
+}
+::-webkit-scrollbar{
+	width: 5px;
+}
+::-webkit-scrollbar-thumb{
+	background-color: #FFFDEB;
+	border-radius: 20px;
+}
+
+figure{
+	display: flex;
+	margin: 0px;
+
+    a{
+        display: flex;
+    }
+}
+
+.titolo{
+	color: $primaryColor;
+	font-family: $primaryFont;
+	font-size: 58px;
+    text-align: center;
+
+	margin: 0px;
+}
+
+header, footer{
+	background-color: #fffdeb;
+	/*background-color: $whiteColor;
+	box-shadow: 0 0 10px 0 $shadeColor;*/
+
+	display: grid;
+	grid-template-columns: 1fr 3fr 1fr;
+	align-items: center;
+	padding: 10px;
+}
+
+.logo{
+	border-radius: 10px;
+	width: 90px;
+}
+.logo_scritta{
+	width: 180px;
+}
+
+/* Media Query */
+@media screen and (max-width: 1023px) {
+	.logo{
+		width: 70px;
+	}
+	.logo_scritta{
+		width: 140px;
+	}
+
+	.titolo{
+		font-size: 42px;
+	}
+}
+
+@media screen and (max-width: 767px) {
+	.logo{
+		border-radius: 8px;
+		width: 50px;
+	}
+	.logo_scritta{
+		width: 100px;
+	}
+
+	.titolo{
+		font-size: 28px;
+		line-height: 28px;
+	}
+}

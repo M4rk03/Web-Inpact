@@ -1,0 +1,31 @@
+main{
+    h2{
+        text-align: center;
+        margin: 0;
+        margin-bottom: 8px;
+    }
+}
+
+.sottotitolo{
+	font-family: $primaryFont;
+	font-size: 26px;
+}
+
+/* Colore materie */
+@import "persona/color-mat";
+
+@import "persona/docente";
+@import "persona/studente";
+@import "persona/elenco";
+
+/* Media Query */
+@media screen and (max-width: 767px) {
+	main, .elenco{
+        h2{
+            font-size: 16px;
+        }
+    }
+	.sottotitolo{
+		font-size: 16px;
+	}
+}

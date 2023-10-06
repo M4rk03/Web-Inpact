@@ -7,9 +7,9 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<link rel="icon" type="image/x-icon" href="../img/logo.webp">
-		<link rel="stylesheet" href="../css/style.css">
-		<link rel="stylesheet" href="../fontawesome-icon/css/all.css">
+		<link rel="icon" type="image/x-icon" href="./media/img/logo.webp">
+		<link rel="stylesheet" href="./css/style.css">
+		<link rel="stylesheet" href="./media/fontawesome-icon/css/all.css">
 
 		<title> WebInpact - Home </title>
 		
@@ -41,35 +41,35 @@
 
 				<div class="cont-badge">
 					<div class="livelli"> 
-						<img class="imgB" src="../img/badge_webp/C1.webp" alt="C base">
+						<img class="imgB" src="./media/img/badge_webp/C1.webp" alt="C base">
 						<p> LIVELLO <br> BASE</p>
 					</div>
 					
 					<div class="livelli">
-						<img class="imgB" src="../img/badge_webp/C2.webp" alt="C intermedio">
+						<img class="imgB" src="./media/img/badge_webp/C2.webp" alt="C intermedio">
 						<p> LIVELLO <br> INTERMEDIO </p>
 					</div>
 					
 					<div class="livelli">
-						<img class="imgB" src="../img/badge_webp/C3.webp" alt="C esperto">
+						<img class="imgB" src="./media/img/badge_webp/C3.webp" alt="C esperto">
 						<p> LIVELLO <br> ESPERTO </p>
 					</div>
 				</div>
 				
 				<div class="cont-badge">
-					<div class="badge"> <img class="imgB" src="../img/badge_webp/Cisco1.webp" alt="Cisco esperto"> </div>
-					<div class="badge"> <img class="imgB" src="../img/badge_webp/Crittografia1.webp" alt="Crittografia esperto"> </div>
-					<div class="badge"> <img class="imgB" src="../img/badge_webp/Css1.webp" alt="Css esperto"> </div>
-					<div class="badge"> <img class="imgB" src="../img/badge_webp/Hardware1.webp" alt="Hardware esperto"> </div>
-					<div class="badge"> <img class="imgB" src="../img/badge_webp/Html1.webp" alt="Html esperto"> </div>
-					<div class="badge"> <img class="imgB" src="../img/badge_webp/Java1.webp" alt="Java esperto"> </div>
-					<div class="badge"> <img class="imgB" src="../img/badge_webp/Javascript1.webp" alt="Javascript esperto"> </div>
-					<div class="badge"> <img class="imgB" src="../img/badge_webp/Office1.webp" alt="Office esperto"> </div>
-					<div class="badge"> <img class="imgB" src="../img/badge_webp/Php1.webp" alt="Php esperto"> </div>
-					<div class="badge"> <img class="imgB" src="../img/badge_webp/Python1.webp" alt="Python esperto"> </div>
-					<div class="badge"> <img class="imgB" src="../img/badge_webp/Reti1.webp" alt="Reti esperto"> </div>
-					<div class="badge"> <img class="imgB" src="../img/badge_webp/Software1.webp" alt="Software esperto"> </div>
-					<div class="badge"> <img class="imgB" src="../img/badge_webp/Sql1.webp" alt="Sql esperto"> </div>
+					<div class="badge"> <img class="imgB" src="./media/img/badge_webp/Cisco1.webp" alt="Cisco esperto"> </div>
+					<div class="badge"> <img class="imgB" src="./media/img/badge_webp/Crittografia1.webp" alt="Crittografia esperto"> </div>
+					<div class="badge"> <img class="imgB" src="./media/img/badge_webp/Css1.webp" alt="Css esperto"> </div>
+					<div class="badge"> <img class="imgB" src="./media/img/badge_webp/Hardware1.webp" alt="Hardware esperto"> </div>
+					<div class="badge"> <img class="imgB" src="./media/img/badge_webp/Html1.webp" alt="Html esperto"> </div>
+					<div class="badge"> <img class="imgB" src="./media/img/badge_webp/Java1.webp" alt="Java esperto"> </div>
+					<div class="badge"> <img class="imgB" src="./media/img/badge_webp/Javascript1.webp" alt="Javascript esperto"> </div>
+					<div class="badge"> <img class="imgB" src="./media/img/badge_webp/Office1.webp" alt="Office esperto"> </div>
+					<div class="badge"> <img class="imgB" src="./media/img/badge_webp/Php1.webp" alt="Php esperto"> </div>
+					<div class="badge"> <img class="imgB" src="./media/img/badge_webp/Python1.webp" alt="Python esperto"> </div>
+					<div class="badge"> <img class="imgB" src="./media/img/badge_webp/Reti1.webp" alt="Reti esperto"> </div>
+					<div class="badge"> <img class="imgB" src="./media/img/badge_webp/Software1.webp" alt="Software esperto"> </div>
+					<div class="badge"> <img class="imgB" src="./media/img/badge_webp/Sql1.webp" alt="Sql esperto"> </div>
 				</div>
 
 			</div>

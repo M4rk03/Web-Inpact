@@ -1,5 +1,5 @@
 <footer>
-    <figure> <img src="../img/scritta.webp" alt="scritta Web Imapact" class="logo_scritta"> </figure>
+    <figure> <img src="./media/img/scritta.webp" alt="scritta Web Imapact" class="logo_scritta"> </figure>
 
     <div id="cont-social">
         <p class="titolo">ISISS "M.O. Luciano Dal Cero"</p>
@@ -12,5 +12,5 @@
         <small>Copyright &copy 2023</small>
     </div>
 
-    <figure> <img src="../img/dalcero.webp" alt="logo DalCero" class="logo"> </figure>
+    <figure> <img src="./media/img/dalcero.webp" alt="logo DalCero" class="logo"> </figure>
 </footer>

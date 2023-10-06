@@ -7,9 +7,9 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<link rel="icon" type="image/x-icon" href="../img/logo.webp">
-		<link rel="stylesheet" href="../css/style.css">
-		<link rel="stylesheet" href="../fontawesome-icon/css/all.css">
+		<link rel="icon" type="image/x-icon" href="./media/img/logo.webp">
+		<link rel="stylesheet" href="./css/style.css">
+		<link rel="stylesheet" href="./media/fontawesome-icon/css/all.css">
 
 		<title> WebInpact - Registro di Classe </title>
 
@@ -91,7 +91,7 @@
 										$badge = $row1["nome"]."".$row1["livello"];
 
 										echo "<figure class='cont-badge-el' onclick=\"modifyBadge(this, ".$row["ID"].", '".$row1["dataB"]."', '".$row1["descrizione"]."')\"> \n";
-										echo "<img src='../img/badge/" .$badge. ".png' alt=" .$badge. "> \n </figure> \n";
+										echo "<img src='./media/img/badge/" .$badge. ".png' alt=" .$badge. "> \n </figure> \n";
 									}
 
 								}catch (Exception $e){
@@ -99,7 +99,7 @@
 								}
 
 								echo "<figure class='cont-badge-el' onclick='addBadge(".$row["ID"].")' style='margin-left: 10px;'> \n";
-								echo "<img src='../img/addB.png' alt='add badge'> \n </figure> \n";
+								echo "<img src='./media/img/addB.png' alt='add badge'> \n </figure> \n";
 								echo "</div> </div> \n </div> \n";
 
 								$result1 -> free();
@@ -462,6 +462,6 @@
 		<!-- FOOTER -->
 		<?php require_once('./components/_footer.php') ?>
 
-		<script src="../js/myScript.js"></script>
+		<script src="./js/myScript.js"></script>
 	</body>
 </html>

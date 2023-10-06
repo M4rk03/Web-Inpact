@@ -1,0 +1,35 @@
+.btn-icon{
+	position: absolute;
+	top: 14px;
+	right: 14px;
+
+	color: #000;
+	font-size: 40px;
+}
+
+.error{
+	font-size: 14px;
+	text-align: center;
+	
+    margin: 10px 0px;
+    margin-bottom: -20px;
+}
+
+@import "account/login";
+@import "account/signup";
+
+@import "botton";
+@import "popup";
+
+
+@media screen and (max-width: 1023px) {
+    .btn-icon{
+		font-size: 38px;
+	}
+}
+
+@media screen and (max-width: 767px) {
+    .btn-icon{
+		font-size: 28px;
+	}
+}

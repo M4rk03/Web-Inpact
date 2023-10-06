@@ -1,5 +1,5 @@
 <header>
-    <figure> <a href="./index.php"> <img class="logo" src="../img/logo.webp" alt="logo Web Inpact"> </a> </figure>
+    <figure> <a href="./index.php"> <img class="logo" src="./media/img/logo.webp" alt="logo Web Inpact"> </a> </figure>
     <h1 class="titolo"> WEB INPACT </h1>
 
     <?php 

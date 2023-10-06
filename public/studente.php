@@ -7,9 +7,9 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<link rel="icon" type="image/x-icon" href="../img/logo.webp">
-		<link rel="stylesheet" href="../css/style.css">
-		<link rel="stylesheet" href="../fontawesome-icon/css/all.css">
+		<link rel="icon" type="image/x-icon" href="./media/img/logo.webp">
+		<link rel="stylesheet" href="./css/style.css">
+		<link rel="stylesheet" href="./media/fontawesome-icon/css/all.css">
 
 		<title> WebInpact - Pagina studente </title>
 
@@ -87,7 +87,7 @@
 									while($row2 = $result2->fetch_assoc()){
 										$badge = $row2["nome"]."".$row2["livello"];
 										echo "<figure class='cont-badge-stud' name='" .$badge. "' onclick=\"zoom_badge('".$badge."', '".$row2["dataB"]."', '".$nome_prof."', '".$row1["materia"]."', '".$row2["descrizione"]."')\"> \n";
-										echo "<img src='../img/badge/" .$badge. ".png' alt=" .$badge. "> \n </figure> \n";
+										echo "<img src='./media/img/badge/" .$badge. ".png' alt=" .$badge. "> \n </figure> \n";
 									}
 
 									echo "</div> \n";
