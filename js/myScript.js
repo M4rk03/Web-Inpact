@@ -125,7 +125,7 @@ function passVariable(variable, name) {
 // Visualizzazione badge
 function visual_img(url){
     let img = document.createElement('img');
-    let url_img = 'img/badge/' + url + '.png';
+    let url_img = '../img/badge/' + url + '.png';
     img.setAttribute('src', url_img);
     img.classList.add('badge-popup')
 
