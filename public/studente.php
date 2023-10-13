@@ -1,3 +1,5 @@
+<?php require_once('../init.php'); ?>
+
 <!DOCTYPE html>
 <html lang="it">
     <head>
@@ -24,7 +26,6 @@
             <h2> Eleco dei badge assegnati a <strong class="sottotitolo">
 				<?php
 					include "../connessione.php";
-					session_start();
 					$sql = "SELECT p.cognome, p.nome, s.ID_classe FROM persona p JOIN account a ON p.ID_persona = a.ID_persona JOIN studente s ON a.ID_persona = s.ID_studente WHERE a.nomeUtente = '" .$_SESSION["nomeUtente"]. "';";
 					$result = $conn -> query($sql);
 					$row = $result -> fetch_assoc();

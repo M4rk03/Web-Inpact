@@ -1,3 +1,5 @@
+<?php require_once('../init.php'); ?>
+
 <!DOCTYPE html>
 <html lang="it">
     <head>
@@ -300,12 +302,12 @@
 								echo $e;
 							}
 
-						} else{
+						} else {
 							echo "Non hai inserito il tipo della persona";
 						}
 							
 
-					}else{
+					} else {
 						echo "Le password inserite non corrispondono";
 					}
 

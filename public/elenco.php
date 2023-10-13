@@ -1,3 +1,5 @@
+<?php require_once('../init.php'); ?>
+
 <!DOCTYPE html>
 <html lang="it">
     <head>
@@ -26,7 +28,6 @@
 				
 				<h2> Registro classe <strong class="sottotitolo">
 					<?php
-						session_start();
 						if (isset($_POST["anno"])) {
 							$_SESSION['anno'] = $_POST["anno"];
 						}

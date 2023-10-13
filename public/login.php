@@ -1,7 +1,43 @@
 <?php 
 	require_once('../init.php');
 
-	if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+	if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accedi'])){
+		include "../connessione.php";
+
+		$email = $_POST["email"];
+		$password = $_POST["password"];
+
+		try{
+			if ($error = checkLog($email, $password)) {
+
+				$sql = "SELECT a.nomeUtente, a.password, p.tipo FROM account a JOIN persona p ON a.ID_persona = p.ID_persona WHERE a.nomeUtente = '" .$email. "' AND a.password = '" .$password. "';";
+				$result = $conn -> query($sql);
+				$row = $result -> fetch_assoc();
+				
+				if((isset($row["nomeUtente"]) AND isset($row["password"])) AND ($row["nomeUtente"] === $email AND $row["password"] === $password)){
+					$_SESSION["nomeUtente"] = $email;
+					$_SESSION["tipo"] = $row["tipo"];
+
+					if($_SESSION["tipo"] == 1){
+						redirect('studente.php');
+					} else if($_SESSION["tipo"] == 2){
+						redirect('docente.php');
+					} else{
+						throw new Exception("Tipo dell'account errato");
+					}
+				} else{
+					throw new Exception("Errore nell'inserimento dei dati <br> Controlla che l'email o la password siano corrette");
+				}
+
+				$result -> free();
+			}
+		}catch (Exception $e){
+			$error = $e -> getMessage();
+		}
+
+		$conn -> close();
+
+	} else {
 		// se sei loggato esce dall'account
         if (isset($_SESSION['nomeUtente'])) {
             session_destroy();
@@ -42,46 +78,17 @@
 
 				<div class="cont-inserisci">
 					<i class="fa-solid fa-circle-user"></i>
-					<input type="email" placeholder="Username" class="inserisci in_data" name="email" required>
+					<input type="email" placeholder="Username" class="inserisci in_data" name="email">
 				</div>
 
 				<div class="cont-inserisci">
 					<i class="fa-solid fa-lock" id="icon_lock" onclick="icon_change(this)"></i>
-					<input type="password" placeholder="Password" class="inserisci in_data" id="pwd" name="password" maxlength="100" required>
+					<input type="password" placeholder="Password" class="inserisci in_data" id="pwd" name="password" maxlength="100">
 				</div>
 
 				<?php
-					if(isset($_POST['accedi'])){
-						include "../connessione.php";
-
-						$email = $_POST["email"];
-						$password = $_POST["password"];
-
-						try{
-							$sql = "SELECT a.nomeUtente, a.password, p.tipo FROM account a JOIN persona p ON a.ID_persona = p.ID_persona WHERE a.nomeUtente = '" .$email. "' AND a.password = '" .$password. "';";
-							$result = $conn -> query($sql);
-							$row = $result -> fetch_assoc();
-							
-							if((isset($row["nomeUtente"]) AND isset($row["password"])) AND ($row["nomeUtente"] === $email AND $row["password"] === $password)){
-								$_SESSION["nomeUtente"] = $email;
-								$tipo = $row["tipo"];
-
-								if($tipo == 1){
-									redirect('studente.php');
-								} else if($tipo == 2){
-									redirect('docente.php');
-								} else{
-									throw new Exception("<p class='error'> Tipo dell'account errato </p>");
-								}
-							} else{
-								throw new Exception("<p class='error'> Errore nell'inserimento dei dati <br> Controlla che l'email o la password siano corrette </p>");
-							}
-						}catch (Exception $e){
-							echo '<div>'.$e -> getMessage().'</div>';
-						}
-
-						$result -> free();
-						$conn -> close();
+					if (isset($error) && $error !== true) {
+						echo '<div class="error">'.$error.'</div>';
 					}
 				?>
 				

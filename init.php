@@ -11,26 +11,39 @@
         header('Location: ' . $path);
     }
 
-    // controlla errori login (Da fare)
-    function checkLog($email, $password, $conf_pwd = 0) {
-        $errors = [];
+    // controlla nome pagina e restituisce il titolo corretto
+    function controlNamePage($name_page): string {
+        if ($name_page === 'index.php') {
+            $name = 'WEB INPACT';
+        } elseif ($name_page === 'docente.php') {
+            $name =  'REGISTRO DOCENTE';
+        } elseif ($name_page === 'elenco.php') {
+            $name =  'REGISTRO ALUNNI';
+        } elseif ($name_page === 'studente.php') {
+            $name = 'PAGINA STUDENTE';
+        }
 
+        return $name;
+    }
+
+    // controlla errori login/registrazione
+    function checkLog($email, $password, $conf_pwd = 0) {
         if (empty($email)) {
-            $errors[] = 'Campo email obbligatorio';
+            throw new Exception('Campo email obbligatorio');
         }
 
         if (empty($password)) {
-            $errors[] = 'Campo password obbligatorio';
-        } else if (strlen($password) < 5) {
-            $errors[] = 'Password troppo corta';
-        } else if (($conf_pwd != 0) && ($password !== $conf_pwd)) {
-            $errors[] = 'Le password non coincidono';
+            throw new Exception('Campo password obbligatorio');
+        }
+        
+        if (strlen($password) < 5) {
+            throw new Exception('Password troppo corta');
+        }
+        
+        if (($conf_pwd != 0) && ($password !== $conf_pwd)) {
+            throw new Exception('Le password non coincidono');
         }
 
-        if (count($errors) <= 0) {
-            return true;
-        }
-
-        return $errors;
+        return true;
     }
 ?>

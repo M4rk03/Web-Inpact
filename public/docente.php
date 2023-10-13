@@ -1,3 +1,5 @@
+<?php require_once('../init.php'); ?>
+
 <!DOCTYPE html>
 <html lang="it">
     <head>
@@ -24,7 +26,6 @@
             <h2> Classi e materie del docente <strong class="sottotitolo">
 				<?php
 					include "../connessione.php";
-					session_start();
 					$sql = "SELECT p.cognome, p.nome FROM persona p JOIN account a ON p.ID_persona = a.ID_persona WHERE a.nomeUtente = '" .$_SESSION["nomeUtente"]. "';";
 					$result = $conn -> query($sql);
 					$row = $result -> fetch_assoc();
